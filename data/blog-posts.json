@@ -1,0 +1,40 @@
+{
+  "items": [
+    {
+      "title": "5 Ways to Prepare Your Child for the First Day of Preschool",
+      "slug": "prepare-child-first-day-preschool",
+      "excerpt": "Starting preschool is a big milestone. Here are 5 proven strategies to make the transition smooth and joyful for both you and your little one.",
+      "featured_img": "/assets/images/joyful-learning.webp",
+      "published_at": "2026-09-18 13:54:13",
+      "read_minutes": 4,
+      "is_featured": 1,
+      "category_name": "Parenting Tips",
+      "category_color": "#184a96",
+      "tags": []
+    },
+    {
+      "title": "Why Coding Phonics is the Best Way to Teach Reading",
+      "slug": "why-coding-phonics-best-way-teach-reading",
+      "excerpt": "Discover the science behind our signature 44-sound Coding Phonics method and why it outperforms traditional rote learning.",
+      "featured_img": "/assets/images/joyful-learning.webp",
+      "published_at": "2026-08-06 08:59:39",
+      "read_minutes": 5,
+      "is_featured": 1,
+      "category_name": "Early Education",
+      "category_color": "#ff6600",
+      "tags": []
+    },
+    {
+      "title": "10 Easy Diwali Crafts You Can Make With Your Preschooler",
+      "slug": "10-easy-diwali-crafts-preschooler",
+      "excerpt": "Festive season is here! Try these 10 simple, mess-free Diwali crafts that your little one will love creating — and you'll love displaying.",
+      "featured_img": "/assets/images/joyful-learning.webp",
+      "published_at": "2026-07-30 08:59:39",
+      "read_minutes": 6,
+      "is_featured": 0,
+      "category_name": "Activities & Crafts",
+      "category_color": "#25d366",
+      "tags": []
+    }
+  ]
+}

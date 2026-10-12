@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Post | Cocohouse Preschool & Daycare</title>
+  <link rel="icon" href="/assets/images/logo.webp">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/blog.css">
+</head>
+<body>
+<!-- Critical inline CSS — prevents FOUC (Flash of Unstyled Content) -->
+<style>
+/* Reset + base */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#222;background:#fff;line-height:1.6;overflow-x:hidden;}
+img{max-width:100%;height:auto;display:block;}
+a{color:inherit;text-decoration:none;}
+ul,ol{list-style:none;}
+button{cursor:pointer;border:none;background:none;font-family:inherit;}
+input,textarea,select{font-family:inherit;font-size:inherit;}
+.container{max-width:1200px;margin:0 auto;padding:0 16px;}
+
+/* Navbar — always styled even if CSS file is delayed */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);padding:12px 0;box-shadow:0 2px 8px rgba(0,0,0,0.08);}
+.navbar .container{display:flex;align-items:center;justify-content:space-between;}
+.navbar-logo{height:48px;width:auto;}
+@media(min-width:768px){.navbar-logo{height:56px;}}
+.nav-menu{display:none;align-items:center;gap:28px;}
+@media(min-width:1024px){.nav-menu{display:flex;}}
+.nav-menu a{color:#184a96;font-weight:500;font-size:0.9375rem;transition:color 0.2s;}
+.nav-menu a:hover{color:#ff6b6b;}
+.nav-cta{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#ff6600,#ff9a3c);color:#fff;font-weight:600;font-size:0.875rem;padding:10px 20px;border-radius:999px;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+.nav-toggle{display:block;padding:8px;color:#184a96;background:none;border:none;}
+@media(min-width:1024px){.nav-toggle{display:none;}}
+
+/* Mobile drawer */
+.mobile-drawer{position:fixed;top:0;right:0;height:100%;width:80%;max-width:360px;background:#fff;box-shadow:-8px 0 30px rgba(0,0,0,0.15);z-index:1000;transform:translateX(100%);transition:transform 0.3s;overflow-y:auto;}
+.mobile-drawer.open{transform:translateX(0);}
+.mobile-drawer-header{display:flex;align-items:center;justify-content:space-between;padding:16px;border-bottom:1px solid #e5e7eb;}
+.mobile-drawer nav a{display:block;padding:12px 20px;color:#184a96;font-weight:500;}
+.mobile-drawer nav a:hover{background:#fff8e1;color:#ff6b6b;}
+.drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:998;display:none;}
+.drawer-overlay.show{display:block;}
+
+/* Page content — ensure visible even before full CSS loads */
+.section{padding:64px 0;}
+@media(min-width:768px){.section{padding:96px 0;}}
+.section-title{font-size:1.75rem;color:#184a96;margin-bottom:12px;font-weight:700;}
+.section-subtitle{color:#ff6600;font-size:0.875rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;}
+
+/* Footer */
+.footer{background:#0e2a52;color:#fff;padding:56px 0 24px;}
+.footer-grid{display:grid;gap:40px;}
+@media(min-width:768px){.footer-grid{grid-template-columns:1fr 1fr;}}
+@media(min-width:1024px){.footer-grid{grid-template-columns:1fr 1fr 1fr 1fr;}}
+.footer h3,.footer h4{color:#f4d000;margin-bottom:16px;}
+.footer p,.footer ul li a{font-size:0.875rem;color:rgba(255,255,255,0.8);}
+.footer ul li{margin-bottom:10px;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.15);margin-top:40px;padding-top:20px;text-align:center;font-size:0.75rem;color:rgba(255,255,255,0.6);}
+
+/* WhatsApp float */
+.whatsapp-float{position:fixed;bottom:20px;right:20px;z-index:997;width:56px;height:56px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(37,211,102,0.4);}
+
+/* Grid utility */
+.grid{display:grid;gap:16px;}
+.grid-2{grid-template-columns:1fr;}
+.grid-3{grid-template-columns:1fr;}
+.grid-4{grid-template-columns:1fr 1fr;}
+@media(min-width:640px){.grid-3{grid-template-columns:1fr 1fr;}}
+@media(min-width:1024px){.grid-2{grid-template-columns:1fr 1fr;}.grid-3{grid-template-columns:1fr 1fr 1fr;}.grid-4{grid-template-columns:1fr 1fr 1fr 1fr;}}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;border-radius:999px;font-weight:600;font-size:0.875rem;transition:all 0.2s;cursor:pointer;white-space:nowrap;}
+.btn-primary{background:#184a96;color:#fff;}
+.btn-orange{background:linear-gradient(135deg,#ff6600,#ff9a3c);color:#fff;}
+.btn-yellow{background:#f4d000;color:#184a96;}
+.btn-green{background:#25d366;color:#fff;}
+
+/* Cards */
+.card{background:#fff;border-radius:24px;box-shadow:0 4px 6px rgba(0,0,0,0.05);padding:24px;border:1px solid #f3f4f6;}
+
+/* Hidden utilities */
+.hidden-mobile{display:none;}
+@media(min-width:768px){.hidden-mobile{display:block;}.hidden-desktop{display:none;}}
+
+/* Section header */
+.section-header{text-align:center;margin-bottom:48px;}
+</style>
+
+<header class="navbar" id="navbar">
+  <div class="container">
+    <a href="/"><img src="/assets/images/logo.webp" alt="Cocohouse Preschool & Daycare" class="navbar-logo"></a>
+    <ul class="nav-menu">
+      <li><a href="/" style="">Home</a></li>
+      <li><a href="/about" style="">About Us</a></li>
+      <li><a href="/programs" style="">Our Programs</a></li>
+      <li><a href="/daycare" style="">Daycare</a></li>
+      <li><a href="/gallery" style="">Gallery</a></li>
+      <li><a href="/blog" style="color:#ff6b6b;">Blog</a></li>
+      <li><a href="/contact" style="">Contact Us</a></li>
+      <li><a href="/#admission-form" class="nav-cta">📞 Admissions Open</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</header>
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<div class="mobile-drawer" id="mobileDrawer">
+  <div class="mobile-drawer-header">
+    <img src="/assets/images/logo.webp" alt="Cocohouse" style="height:44px;">
+    <button class="nav-toggle mobile-drawer-close" aria-label="Close menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/about">About Us</a>
+    <a href="/programs">Our Programs</a>
+    <a href="/daycare">Daycare</a>
+    <a href="/gallery">Gallery</a>
+    <a href="/blog">Blog</a>
+    <a href="/contact">Contact Us</a>
+    <a href="/#admission-form" class="btn btn-orange" style="margin:16px;">Admissions Open</a>
+  </nav>
+</div>
+
+<script>document.title = "Why Coding Phonics is the Best Way to Teach Reading | Cocohouse Blog";</script>
+<!-- Hero Section -->
+<section class="blog-post-hero">
+  <div class="container blog-post-hero-inner">
+    <a href="/blog" class="blog-back-link">← Back to Blog</a>
+          <span class="blog-category-badge" style="background:#ff660020;color:#ff6600;">
+        Early Education      </span>
+        <h1 class="blog-post-title">Why Coding Phonics is the Best Way to Teach Reading</h1>
+    <div class="blog-meta">
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Aug 6, 2026</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 5 min read</span>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Image (FULL WIDTH) -->
+<section class="blog-featured-image-wrap">
+  <div class="container">
+    <div class="blog-featured-image">
+      <img src="/assets/images/joyful-learning.webp" alt="Why Coding Phonics is the Best Way to Teach Reading">
+    </div>
+  </div>
+</section>
+
+<!-- Blog Content -->
+<article class="blog-article">
+  <div class="container blog-content-wrap">
+    <p class="blog-excerpt">Discover the science behind our signature 44-sound Coding Phonics method and why it outperforms traditional rote learning.</p>
+    <div class="blog-content">
+      <p>Reading is the foundation of all learning. Yet for decades, Indian preschools relied on rote memorisation — children would chant 'A for Apple, B for Ball' without truly understanding that letters represent sounds. At Cocohouse, we've replaced this outdated approach with our signature <strong>Coding Phonics method</strong>.</p><h2>What is Coding Phonics?</h2><p>Coding Phonics is a systematic approach to teaching the 44 sounds of the English language. Instead of teaching letter names (A, B, C), we teach letter sounds (/a/, /b/, /k/). Children learn to blend these sounds together to read words — 'c-a-t' becomes 'cat'.</p><h2>The 44 Sounds</h2><p>English has 26 letters but 44 distinct sounds (phonemes). For example, the letter 'c' can make a /k/ sound (cat) or an /s/ sound (city). The digraph 'sh' makes one sound /sh/ even though it's two letters. Coding Phonics teaches all 44 sounds explicitly.</p><h2>Why It Works</h2><p>Research from the UK's Department for Education shows that systematic synthetic phonics instruction helps children read faster and with better comprehension than any other method. By the end of Junior KG, our students are reading simple CVC (consonant-vowel-consonant) words confidently.</p><h2>The Cocohouse Difference</h2><p>Our teachers use multi-sensory techniques — sandpaper letters, air writing, sound actions, and story associations — to make each sound memorable. Children don't just hear the sound; they see it, feel it, and act it out.</p><p>If you'd like to see Coding Phonics in action, book a campus visit and watch our Nursery class in session!</p>    </div>
+
+    <!-- Tags -->
+    
+    <!-- CTA -->
+    <div class="blog-cta-card">
+      <h3>Visit Cocohouse Preschool</h3>
+      <p>See our thematic learning in action. Book a campus tour today!</p>
+      <a href="/contact" class="btn btn-yellow">Book a Visit →</a>
+    </div>
+  </div>
+</article>
+
+<!-- Related Posts -->
+
+<!-- Footer — NO Activities, NO Principal -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <img src="/assets/images/logo.webp" alt="Cocohouse" class="footer-logo">
+        <h3>Cocohouse Preschool & Daycare</h3>
+        <p>Nurturing Little Minds through Thematic Learning, Coding Phonics, CPA Maths & Holistic Development.</p>
+        <span style="display:inline-block;background:#f4d000;color:#184a96;font-size:0.75rem;font-weight:700;padding:4px 12px;border-radius:999px;">1st Thematic Preschool in Mulund & Thane</span>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About School</a></li>
+          <li><a href="/programs">Programs</a></li>
+          <li><a href="/daycare">Daycare</a></li>
+          <li><a href="/gallery">Gallery</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Our Programs</h4>
+        <ul>
+          <li><a href="/programs">Playgroup</a></li>
+          <li><a href="/programs">Nursery</a></li>
+          <li><a href="/programs">Junior KG</a></li>
+          <li><a href="/programs">Senior KG</a></li>
+          <li><a href="/daycare">Daycare</a></li>
+          <li><a href="/gallery">Gallery</a></li>
+          <li><a href="/programs">Inclusive Special Education</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact Us</h4>
+        <div class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Row House No 3, Millenium Park, Hari Om Nagar, Mulund East, Mumbai-400081</span></div>
+        <div class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+917039152173">+91-7039152173</a></div>
+        <div class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:info@cocohouse.in">info@cocohouse.in</a></div>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/cocohousepreschool" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="https://www.instagram.com/cocohouse_preschool" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="https://www.youtube.com/@CocohousePreschoolHariOmNagar" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="#0e2a52"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Cocohouse Preschool & Daycare | All Rights Reserved</p>
+      <p>Designed By Yunick Media</p>
+    </div>
+  </div>
+</footer>
+<a href="https://wa.me/917039152173" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.003 3.2c-7.06 0-12.8 5.74-12.8 12.8 0 2.26.6 4.46 1.73 6.4l-1.83 6.67 6.83-1.79a12.74 12.74 0 0 0 6.07 1.55c7.06 0 12.8-5.74 12.8-12.8s-5.74-12.83-12.8-12.83zm0 23.04c-1.93 0-3.82-.52-5.47-1.5l-.39-.23-4.05 1.06 1.08-3.95-.25-.4a10.55 10.55 0 0 1-1.62-5.62c0-5.86 4.77-10.63 10.63-10.63s10.63 4.77 10.63 10.63-4.77 10.64-10.63 10.64z"/></svg>
+</a>
+<script src="/assets/js/main.js"></script>

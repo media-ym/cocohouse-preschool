@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daycare | Cocohouse Preschool & Daycare</title>
+  <link rel="icon" href="/assets/images/logo.webp">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+<!-- Critical inline CSS — prevents FOUC (Flash of Unstyled Content) -->
+<style>
+/* Reset + base */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#222;background:#fff;line-height:1.6;overflow-x:hidden;}
+img{max-width:100%;height:auto;display:block;}
+a{color:inherit;text-decoration:none;}
+ul,ol{list-style:none;}
+button{cursor:pointer;border:none;background:none;font-family:inherit;}
+input,textarea,select{font-family:inherit;font-size:inherit;}
+.container{max-width:1200px;margin:0 auto;padding:0 16px;}
+
+/* Navbar — always styled even if CSS file is delayed */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);padding:12px 0;box-shadow:0 2px 8px rgba(0,0,0,0.08);}
+.navbar .container{display:flex;align-items:center;justify-content:space-between;}
+.navbar-logo{height:48px;width:auto;}
+@media(min-width:768px){.navbar-logo{height:56px;}}
+.nav-menu{display:none;align-items:center;gap:28px;}
+@media(min-width:1024px){.nav-menu{display:flex;}}
+.nav-menu a{color:#184a96;font-weight:500;font-size:0.9375rem;transition:color 0.2s;}
+.nav-menu a:hover{color:#ff6b6b;}
+.nav-cta{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#ff6600,#ff9a3c);color:#fff;font-weight:600;font-size:0.875rem;padding:10px 20px;border-radius:999px;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+.nav-toggle{display:block;padding:8px;color:#184a96;background:none;border:none;}
+@media(min-width:1024px){.nav-toggle{display:none;}}
+
+/* Mobile drawer */
+.mobile-drawer{position:fixed;top:0;right:0;height:100%;width:80%;max-width:360px;background:#fff;box-shadow:-8px 0 30px rgba(0,0,0,0.15);z-index:1000;transform:translateX(100%);transition:transform 0.3s;overflow-y:auto;}
+.mobile-drawer.open{transform:translateX(0);}
+.mobile-drawer-header{display:flex;align-items:center;justify-content:space-between;padding:16px;border-bottom:1px solid #e5e7eb;}
+.mobile-drawer nav a{display:block;padding:12px 20px;color:#184a96;font-weight:500;}
+.mobile-drawer nav a:hover{background:#fff8e1;color:#ff6b6b;}
+.drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:998;display:none;}
+.drawer-overlay.show{display:block;}
+
+/* Page content — ensure visible even before full CSS loads */
+.section{padding:64px 0;}
+@media(min-width:768px){.section{padding:96px 0;}}
+.section-title{font-size:1.75rem;color:#184a96;margin-bottom:12px;font-weight:700;}
+.section-subtitle{color:#ff6600;font-size:0.875rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;}
+
+/* Footer */
+.footer{background:#0e2a52;color:#fff;padding:56px 0 24px;}
+.footer-grid{display:grid;gap:40px;}
+@media(min-width:768px){.footer-grid{grid-template-columns:1fr 1fr;}}
+@media(min-width:1024px){.footer-grid{grid-template-columns:1fr 1fr 1fr 1fr;}}
+.footer h3,.footer h4{color:#f4d000;margin-bottom:16px;}
+.footer p,.footer ul li a{font-size:0.875rem;color:rgba(255,255,255,0.8);}
+.footer ul li{margin-bottom:10px;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.15);margin-top:40px;padding-top:20px;text-align:center;font-size:0.75rem;color:rgba(255,255,255,0.6);}
+
+/* WhatsApp float */
+.whatsapp-float{position:fixed;bottom:20px;right:20px;z-index:997;width:56px;height:56px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(37,211,102,0.4);}
+
+/* Grid utility */
+.grid{display:grid;gap:16px;}
+.grid-2{grid-template-columns:1fr;}
+.grid-3{grid-template-columns:1fr;}
+.grid-4{grid-template-columns:1fr 1fr;}
+@media(min-width:640px){.grid-3{grid-template-columns:1fr 1fr;}}
+@media(min-width:1024px){.grid-2{grid-template-columns:1fr 1fr;}.grid-3{grid-template-columns:1fr 1fr 1fr;}.grid-4{grid-template-columns:1fr 1fr 1fr 1fr;}}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;border-radius:999px;font-weight:600;font-size:0.875rem;transition:all 0.2s;cursor:pointer;white-space:nowrap;}
+.btn-primary{background:#184a96;color:#fff;}
+.btn-orange{background:linear-gradient(135deg,#ff6600,#ff9a3c);color:#fff;}
+.btn-yellow{background:#f4d000;color:#184a96;}
+.btn-green{background:#25d366;color:#fff;}
+
+/* Cards */
+.card{background:#fff;border-radius:24px;box-shadow:0 4px 6px rgba(0,0,0,0.05);padding:24px;border:1px solid #f3f4f6;}
+
+/* Hidden utilities */
+.hidden-mobile{display:none;}
+@media(min-width:768px){.hidden-mobile{display:block;}.hidden-desktop{display:none;}}
+
+/* Section header */
+.section-header{text-align:center;margin-bottom:48px;}
+</style>
+
+<header class="navbar" id="navbar">
+  <div class="container">
+    <a href="/"><img src="/assets/images/logo.webp" alt="Cocohouse Preschool & Daycare" class="navbar-logo"></a>
+    <ul class="nav-menu">
+      <li><a href="/" style="">Home</a></li>
+      <li><a href="/about" style="">About Us</a></li>
+      <li><a href="/programs" style="">Our Programs</a></li>
+      <li><a href="/daycare" style="color:#ff6b6b;">Daycare</a></li>
+      <li><a href="/gallery" style="">Gallery</a></li>
+      <li><a href="/blog" style="">Blog</a></li>
+      <li><a href="/contact" style="">Contact Us</a></li>
+      <li><a href="/#admission-form" class="nav-cta">📞 Admissions Open</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</header>
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<div class="mobile-drawer" id="mobileDrawer">
+  <div class="mobile-drawer-header">
+    <img src="/assets/images/logo.webp" alt="Cocohouse" style="height:44px;">
+    <button class="nav-toggle mobile-drawer-close" aria-label="Close menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/about">About Us</a>
+    <a href="/programs">Our Programs</a>
+    <a href="/daycare">Daycare</a>
+    <a href="/gallery">Gallery</a>
+    <a href="/blog">Blog</a>
+    <a href="/contact">Contact Us</a>
+    <a href="/#admission-form" class="btn btn-orange" style="margin:16px;">Admissions Open</a>
+  </nav>
+</div>
+
+<!-- Daycare Hero -->
+<section style="background:linear-gradient(135deg,#184a96,#2a63b8,#133a78);color:#fff;padding:112px 0 64px;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:40px;left:40px;width:160px;height:160px;background:rgba(244,208,0,0.2);border-radius:50%;filter:blur(60px);"></div>
+  <div style="position:absolute;bottom:40px;right:40px;width:256px;height:256px;background:rgba(255,102,0,0.2);border-radius:50%;filter:blur(60px);"></div>
+  <div class="container" style="position:relative;z-index:10;">
+    <a href="/" style="color:#f4d000;font-size:0.875rem;font-weight:600;margin-bottom:24px;display:inline-block;">← Back to Home</a>
+    <div style="display:grid;gap:40px;align-items:center;" class="about-grid">
+      <div>
+        <img src="/assets/images/logo.webp" alt="Cocohouse" style="height:40px;background:rgba(255,255,255,0.95);border-radius:8px;padding:4px;margin-bottom:12px;">
+        <p style="font-size:1.125rem;color:rgba(255,255,255,0.8);margin-bottom:4px;">not just a</p>
+        <h1 style="font-size:3rem;font-weight:800;color:#f4d000;line-height:1;margin-bottom:12px;">DAYCARE</h1>
+        <p style="font-size:1.25rem;font-weight:600;font-style:italic;margin-bottom:8px;">"A Home Away From Home"</p>
+        <p style="font-size:1rem;color:rgba(244,208,0,0.9);font-weight:500;margin-bottom:24px;">filled with Love, Learning & Sanskar</p>
+        <p style="color:rgba(255,255,255,0.85);font-size:0.875rem;max-width:36rem;margin-bottom:28px;">Cocohouse Daycare — where your little one is nurtured with the warmth of a home and the structure of a Gurukulam. Flexible packages from <strong style="color:#f4d000;">1 hour</strong> to <strong style="color:#f4d000;">1 year</strong>. Pay only for what you need.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="#enquiry" class="btn btn-yellow">💬 Contact for Pricing</a>
+          <a href="https://wa.me/917039152173" target="_blank" class="btn btn-green">💬 WhatsApp Enquiry</a>
+        </div>
+      </div>
+      <div style="position:relative;">
+        <div style="position:absolute;top:-20px;right:-20px;width:160px;height:160px;background:#f4d000;border-radius:24px;z-index:-1;"></div>
+        <img src="/assets/images/campus.jpg" alt="Cocohouse Daycare campus" style="border-radius:24px;box-shadow:0 25px 50px rgba(0,0,0,0.25);width:100%;height:400px;object-fit:cover;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Daycare Packages (NO prices shown — just package names + what's included) -->
+<section class="section" style="background:linear-gradient(to bottom,#f4f9ff,#fff);">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-subtitle">Daycare Packages</span>
+      <h2 class="section-title">Flexible Packages for Every Family</h2>
+      <p>Seven flexible packages — from <strong>1 hour</strong> to <strong>1 year</strong>. No minimum commitment, no hidden charges. <strong>Contact us for pricing.</strong></p>
+    </div>
+        <div class="grid grid-3">
+              <div class="card" style="position:relative;">
+                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+            <div style="width:48px;height:48px;border-radius:12px;background:#fff8e1;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">📦</div>
+            <div>
+              <h3 style="font-size:1.125rem;color:#184a96;margin:0;">Hourly</h3>
+              <p style="font-size:0.6875rem;color:#9ca3af;margin:0;">1 Hour</p>
+            </div>
+          </div>
+          <p style="font-size:0.8125rem;color:#555;line-height:1.6;margin-bottom:16px;">Perfect for quick errands or short appointments. Start from just 1 hour — no minimum commitment.</p>
+          <ul style="list-style:none;padding:0;margin-bottom:20px;">
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>1 hour of care</span>
+              </li>
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>All activities access</span>
+              </li>
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>CCTV monitoring</span>
+              </li>
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>No minimum commitment</span>
+              </li>
+                      </ul>
+          <div style="text-align:center;padding:12px;background:#fff8e1;border-radius:8px;margin-bottom:16px;">
+            <p style="font-size:0.6875rem;font-weight:700;color:#f4d000;text-transform:uppercase;margin:0;">Contact for Pricing</p>
+          </div>
+          <a href="#enquiry" class="btn btn-primary" style="width:100%;font-size:0.8125rem;">Enquire Now</a>
+        </div>
+              <div class="card" style="position:relative;">
+                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+            <div style="width:48px;height:48px;border-radius:12px;background:#e8f1ff;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">📦</div>
+            <div>
+              <h3 style="font-size:1.125rem;color:#184a96;margin:0;">Daily</h3>
+              <p style="font-size:0.6875rem;color:#9ca3af;margin:0;">1 Day</p>
+            </div>
+          </div>
+          <p style="font-size:0.8125rem;color:#555;line-height:1.6;margin-bottom:16px;">Full-day access for working parents needing flexible single-day care solutions.</p>
+          <ul style="list-style:none;padding:0;margin-bottom:20px;">
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>Up to 12 hrs care</span>
+              </li>
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>2 meals + 2 snacks</span>
+              </li>
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>All activities</span>
+              </li>
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>Nap time access</span>
+              </li>
+                      </ul>
+          <div style="text-align:center;padding:12px;background:#e8f1ff;border-radius:8px;margin-bottom:16px;">
+            <p style="font-size:0.6875rem;font-weight:700;color:#184a96;text-transform:uppercase;margin:0;">Contact for Pricing</p>
+          </div>
+          <a href="#enquiry" class="btn btn-primary" style="width:100%;font-size:0.8125rem;">Enquire Now</a>
+        </div>
+              <div class="card" style="position:relative;">
+                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+            <div style="width:48px;height:48px;border-radius:12px;background:#fff0e6;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">📦</div>
+            <div>
+              <h3 style="font-size:1.125rem;color:#184a96;margin:0;">Weekly</h3>
+              <p style="font-size:0.6875rem;color:#9ca3af;margin:0;">7 Days</p>
+            </div>
+          </div>
+          <p style="font-size:0.8125rem;color:#555;line-height:1.6;margin-bottom:16px;">Great for testing the waters — a full week of complete daycare at the best per-day value.</p>
+          <ul style="list-style:none;padding:0;margin-bottom:20px;">
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>7 days care</span>
+              </li>
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>All meals included</span>
+              </li>
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>Daily photo updates</span>
+              </li>
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>Hobby club access</span>
+              </li>
+                      </ul>
+          <div style="text-align:center;padding:12px;background:#fff0e6;border-radius:8px;margin-bottom:16px;">
+            <p style="font-size:0.6875rem;font-weight:700;color:#ff6600;text-transform:uppercase;margin:0;">Contact for Pricing</p>
+          </div>
+          <a href="#enquiry" class="btn btn-primary" style="width:100%;font-size:0.8125rem;">Enquire Now</a>
+        </div>
+              <div class="card" style="position:relative;border:2px solid #184a96;">
+          <span style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#ff6600;color:#fff;font-size:0.6875rem;font-weight:700;padding:4px 12px;border-radius:999px;white-space:nowrap;">⭐ Most Popular</span>          <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+            <div style="width:48px;height:48px;border-radius:12px;background:#e8f1ff;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">⭐</div>
+            <div>
+              <h3 style="font-size:1.125rem;color:#184a96;margin:0;">Monthly</h3>
+              <p style="font-size:0.6875rem;color:#9ca3af;margin:0;">30 Days</p>
+            </div>
+          </div>
+          <p style="font-size:0.8125rem;color:#555;line-height:1.6;margin-bottom:16px;">Our most popular plan for regular working parents. Complete care, all-inclusive.</p>
+          <ul style="list-style:none;padding:0;margin-bottom:20px;">
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>30 days care</span>
+              </li>
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>All meals + snacks</span>
+              </li>
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>Thematic learning</span>
+              </li>
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>Homework assistance</span>
+              </li>
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>Daily WhatsApp updates</span>
+              </li>
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>1 free trial day for sibling</span>
+              </li>
+                      </ul>
+          <div style="text-align:center;padding:12px;background:#e8f1ff;border-radius:8px;margin-bottom:16px;">
+            <p style="font-size:0.6875rem;font-weight:700;color:#184a96;text-transform:uppercase;margin:0;">Contact for Pricing</p>
+          </div>
+          <a href="#enquiry" class="btn btn-primary" style="width:100%;font-size:0.8125rem;">Enquire Now</a>
+        </div>
+              <div class="card" style="position:relative;">
+                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+            <div style="width:48px;height:48px;border-radius:12px;background:#fff8e1;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">📦</div>
+            <div>
+              <h3 style="font-size:1.125rem;color:#184a96;margin:0;">Quarterly</h3>
+              <p style="font-size:0.6875rem;color:#9ca3af;margin:0;">3 Months</p>
+            </div>
+          </div>
+          <p style="font-size:0.8125rem;color:#555;line-height:1.6;margin-bottom:16px;">Save 12% vs monthly. Ideal for parents with stable quarterly work schedules.</p>
+          <ul style="list-style:none;padding:0;margin-bottom:20px;">
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>3 months care</span>
+              </li>
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>Everything in Monthly</span>
+              </li>
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>12% savings</span>
+              </li>
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>Priority slot booking</span>
+              </li>
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>Free field trip</span>
+              </li>
+                      </ul>
+          <div style="text-align:center;padding:12px;background:#fff8e1;border-radius:8px;margin-bottom:16px;">
+            <p style="font-size:0.6875rem;font-weight:700;color:#f4d000;text-transform:uppercase;margin:0;">Contact for Pricing</p>
+          </div>
+          <a href="#enquiry" class="btn btn-primary" style="width:100%;font-size:0.8125rem;">Enquire Now</a>
+        </div>
+              <div class="card" style="position:relative;">
+                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+            <div style="width:48px;height:48px;border-radius:12px;background:#fff0e6;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">📦</div>
+            <div>
+              <h3 style="font-size:1.125rem;color:#184a96;margin:0;">Semi-Annually</h3>
+              <p style="font-size:0.6875rem;color:#9ca3af;margin:0;">6 Months</p>
+            </div>
+          </div>
+          <p style="font-size:0.8125rem;color:#555;line-height:1.6;margin-bottom:16px;">Save 17% vs monthly. Half-yearly plan with all premium benefits unlocked.</p>
+          <ul style="list-style:none;padding:0;margin-bottom:20px;">
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>6 months care</span>
+              </li>
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>Everything in Quarterly</span>
+              </li>
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>17% savings</span>
+              </li>
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>Free daycare kit</span>
+              </li>
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>Quarterly parent-teacher meet</span>
+              </li>
+                      </ul>
+          <div style="text-align:center;padding:12px;background:#fff0e6;border-radius:8px;margin-bottom:16px;">
+            <p style="font-size:0.6875rem;font-weight:700;color:#ff6600;text-transform:uppercase;margin:0;">Contact for Pricing</p>
+          </div>
+          <a href="#enquiry" class="btn btn-primary" style="width:100%;font-size:0.8125rem;">Enquire Now</a>
+        </div>
+              <div class="card" style="position:relative;">
+                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+            <div style="width:48px;height:48px;border-radius:12px;background:#e8f1ff;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">📦</div>
+            <div>
+              <h3 style="font-size:1.125rem;color:#184a96;margin:0;">Annually</h3>
+              <p style="font-size:0.6875rem;color:#9ca3af;margin:0;">12 Months</p>
+            </div>
+          </div>
+          <p style="font-size:0.8125rem;color:#555;line-height:1.6;margin-bottom:16px;">Best value — save 22% vs monthly. Annual enrolment with maximum savings &amp; priority benefits.</p>
+          <ul style="list-style:none;padding:0;margin-bottom:20px;">
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>12 months care</span>
+              </li>
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>Everything in Semi-Annually</span>
+              </li>
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>22% maximum savings</span>
+              </li>
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>Free annual health check-up</span>
+              </li>
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>Reserved festival slot</span>
+              </li>
+                          <li style="display:flex;align-items:flex-start;gap:8px;font-size:0.8125rem;color:#444;margin-bottom:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>Sibling discount 10%</span>
+              </li>
+                      </ul>
+          <div style="text-align:center;padding:12px;background:#e8f1ff;border-radius:8px;margin-bottom:16px;">
+            <p style="font-size:0.6875rem;font-weight:700;color:#184a96;text-transform:uppercase;margin:0;">Contact for Pricing</p>
+          </div>
+          <a href="#enquiry" class="btn btn-primary" style="width:100%;font-size:0.8125rem;">Enquire Now</a>
+        </div>
+          </div>
+    <div style="background:linear-gradient(to right,#184a96,#2a63b8);color:#fff;border-radius:16px;padding:24px;margin-top:32px;text-align:center;">
+      <p style="font-size:0.875rem;margin:0;">💡 <strong>Save more with long-term plans!</strong> Sibling discounts available on Quarterly, Semi-Annual & Annual packages. <a href="#enquiry" style="color:#f4d000;font-weight:600;">Contact us</a> for a customised quote.</p>
+    </div>
+      </div>
+</section>
+
+<!-- Why Choose Us -->
+<section class="section" style="background:#fff;">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-subtitle">Why Cocohouse Daycare</span>
+      <h2 class="section-title">Amazing Savings & 100% Care</h2>
+    </div>
+    <div class="grid grid-2">
+      <div class="card" style="border-top:4px solid #184a96;">
+        <h3 style="color:#184a96;margin-bottom:16px;">💰 Amazing Savings</h3>
+        <ul style="list-style:none;padding:0;">
+          <li style="display:flex;gap:12px;margin-bottom:12px;"><span style="font-size:1.25rem;">⏰</span><div><strong>08 AM – 08 PM (12 HRS)</strong><br><span style="font-size:0.8125rem;color:#6b7280;">Choose Your Own Time Slot</span></div></li>
+          <li style="display:flex;gap:12px;margin-bottom:12px;"><span style="font-size:1.25rem;">📅</span><div><strong>Monday to Sunday</strong><br><span style="font-size:0.8125rem;color:#6b7280;">All 7 Days Open</span></div></li>
+          <li style="display:flex;gap:12px;margin-bottom:12px;"><span style="font-size:1.25rem;">🕐</span><div><strong>Start From Just 1 HOUR</strong><br><span style="font-size:0.8125rem;color:#6b7280;">No Minimum Package Required</span></div></li>
+          <li style="display:flex;gap:12px;"><span style="font-size:1.25rem;">💸</span><div><strong>Pay Only For What You Need</strong><br><span style="font-size:0.8125rem;color:#6b7280;">Hourly to Annually</span></div></li>
+        </ul>
+      </div>
+      <div class="card" style="border-top:4px solid #ff6600;">
+        <h3 style="color:#ff6600;margin-bottom:16px;">❤️ 100% Care</h3>
+        <ul style="list-style:none;padding:0;">
+          <li style="display:flex;gap:12px;margin-bottom:12px;"><span style="font-size:1.25rem;">🏠</span><div><strong>Spacious Sunroom</strong><br><span style="font-size:0.8125rem;color:#6b7280;">Play Area for Kids</span></div></li>
+          <li style="display:flex;gap:12px;margin-bottom:12px;"><span style="font-size:1.25rem;">🍲</span><div><strong>Veg Nutritious Meals</strong><br><span style="font-size:0.8125rem;color:#6b7280;">Child Nutritionist Designed Menu</span></div></li>
+          <li style="display:flex;gap:12px;margin-bottom:12px;"><span style="font-size:1.25rem;">👥</span><div><strong>3:1 Special Attention</strong><br><span style="font-size:0.8125rem;color:#6b7280;">With 1:6 Child-Staff Ratio</span></div></li>
+          <li style="display:flex;gap:12px;"><span style="font-size:1.25rem;">🎓</span><div><strong>21st Century Gurukulam</strong><br><span style="font-size:0.8125rem;color:#6b7280;">Modern Teaching Methodology</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Safety -->
+<section class="section" style="background:linear-gradient(to bottom,#fff8e1,#fff);">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-subtitle">Safety First</span>
+      <h2 class="section-title">Our Safety Promise</h2>
+    </div>
+    <div class="grid grid-3">
+      <div class="card" style="text-align:center;"><div style="font-size:2rem;margin-bottom:8px;">🔐</div><strong>Secure Entry & Exit</strong><br><span style="font-size:0.8125rem;color:#6b7280;">Controlled access with verified pickup</span></div>
+      <div class="card" style="text-align:center;"><div style="font-size:2rem;margin-bottom:8px;">📹</div><strong>CCTV Surveillance</strong><br><span style="font-size:0.8125rem;color:#6b7280;">24/7 monitoring across all areas</span></div>
+      <div class="card" style="text-align:center;"><div style="font-size:2rem;margin-bottom:8px;">🧑‍🏫</div><strong>Trained & Caring Staff</strong><br><span style="font-size:0.8125rem;color:#6b7280;">Background-verified, CPR trained</span></div>
+      <div class="card" style="text-align:center;"><div style="font-size:2rem;margin-bottom:8px;">🧼</div><strong>Hygienic Environment</strong><br><span style="font-size:0.8125rem;color:#6b7280;">Regular sanitisation</span></div>
+      <div class="card" style="text-align:center;"><div style="font-size:2rem;margin-bottom:8px;">🚨</div><strong>Emergency Preparedness</strong><br><span style="font-size:0.8125rem;color:#6b7280;">Fire safety & medical kit</span></div>
+      <div class="card" style="text-align:center;"><div style="font-size:2rem;margin-bottom:8px;">💬</div><strong>Daily Updates</strong><br><span style="font-size:0.8125rem;color:#6b7280;">WhatsApp photos of your child</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Enquiry Form -->
+<section id="enquiry" style="background:linear-gradient(135deg,#184a96,#2a63b8,#133a78);color:#fff;padding:64px 0;">
+  <div class="container">
+    <div style="display:grid;gap:40px;align-items:center;" class="about-grid">
+      <div>
+        <span style="display:inline-block;background:#f4d000;color:#184a96;font-size:0.6875rem;font-weight:700;padding:6px 12px;border-radius:999px;margin-bottom:16px;">Daycare Enquiry</span>
+        <h2 style="font-size:1.875rem;font-weight:800;margin-bottom:16px;">Book a Daycare Visit Today</h2>
+        <p style="color:rgba(255,255,255,0.85);margin-bottom:24px;">See the campus, meet our caregivers, and get personalised pricing for your family.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="tel:+917039152173" class="btn btn-yellow">📞 +91-7039152173</a>
+          <a href="https://wa.me/917039152173" target="_blank" class="btn btn-green">💬 WhatsApp Us</a>
+        </div>
+      </div>
+      <div class="form-card">
+        <h3 style="font-size:1.125rem;color:#184a96;margin-bottom:4px;">Daycare Enquiry Form</h3>
+        <p class="form-note">We'll call you back within 24 hours with pricing details.</p>
+        <form id="daycareForm">
+          <div class="form-row"><input type="text" name="parentName" class="form-input" placeholder="Parent Name *" required><input type="text" name="childName" class="form-input" placeholder="Child Name *" required></div>
+          <div class="form-row"><input type="text" name="childAge" class="form-input" placeholder="Child Age"><input type="tel" name="phone" class="form-input" placeholder="Mobile Number *" data-validate="phone" required></div>
+          <div class="form-group"><select name="program" class="form-select" required>
+            <option value="">Preferred Package *</option>
+            <option>Hourly</option><option>Daily</option><option>Weekly</option><option>Monthly</option><option>Quarterly</option><option>Semi-Annually</option><option>Annually</option>          </select></div>
+          <div class="form-group"><textarea name="message" class="form-textarea" rows="2" placeholder="Any specific questions?"></textarea></div>
+          <button type="submit" class="btn-submit">Submit Daycare Enquiry</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer — NO Activities, NO Principal -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <img src="/assets/images/logo.webp" alt="Cocohouse" class="footer-logo">
+        <h3>Cocohouse Preschool & Daycare</h3>
+        <p>Nurturing Little Minds through Thematic Learning, Coding Phonics, CPA Maths & Holistic Development.</p>
+        <span style="display:inline-block;background:#f4d000;color:#184a96;font-size:0.75rem;font-weight:700;padding:4px 12px;border-radius:999px;">1st Thematic Preschool in Mulund & Thane</span>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About School</a></li>
+          <li><a href="/programs">Programs</a></li>
+          <li><a href="/daycare">Daycare</a></li>
+          <li><a href="/gallery">Gallery</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Our Programs</h4>
+        <ul>
+          <li><a href="/programs">Playgroup</a></li>
+          <li><a href="/programs">Nursery</a></li>
+          <li><a href="/programs">Junior KG</a></li>
+          <li><a href="/programs">Senior KG</a></li>
+          <li><a href="/daycare">Daycare</a></li>
+          <li><a href="/gallery">Gallery</a></li>
+          <li><a href="/programs">Inclusive Special Education</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact Us</h4>
+        <div class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Row House No 3, Millenium Park, Hari Om Nagar, Mulund East, Mumbai-400081</span></div>
+        <div class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+917039152173">+91-7039152173</a></div>
+        <div class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:info@cocohouse.in">info@cocohouse.in</a></div>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/cocohousepreschool" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="https://www.instagram.com/cocohouse_preschool" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="https://www.youtube.com/@CocohousePreschoolHariOmNagar" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="#0e2a52"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Cocohouse Preschool & Daycare | All Rights Reserved</p>
+      <p>Designed By Yunick Media</p>
+    </div>
+  </div>
+</footer>
+<a href="https://wa.me/917039152173" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.003 3.2c-7.06 0-12.8 5.74-12.8 12.8 0 2.26.6 4.46 1.73 6.4l-1.83 6.67 6.83-1.79a12.74 12.74 0 0 0 6.07 1.55c7.06 0 12.8-5.74 12.8-12.8s-5.74-12.83-12.8-12.83zm0 23.04c-1.93 0-3.82-.52-5.47-1.5l-.39-.23-4.05 1.06 1.08-3.95-.25-.4a10.55 10.55 0 0 1-1.62-5.62c0-5.86 4.77-10.63 10.63-10.63s10.63 4.77 10.63 10.63-4.77 10.64-10.63 10.64z"/></svg>
+</a>
+<script src="/assets/js/main.js"></script>
+<script>
+setupForm('daycareForm', '/api/submit-enquiry.php', { type: 'daycare', successTitle: 'Daycare Enquiry Submitted!', successDesc: 'Our daycare team will call you within 24 hours with pricing details.' });
+</script>
+</body>
+</html>

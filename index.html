@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1st Thematic Preschool in Mulund & Thane | Cocohouse Preschool & Daycare</title>
+  <link rel="icon" href="/assets/images/logo.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/blog.css">
+</head>
+<body>
+<!-- Critical inline CSS — prevents FOUC (Flash of Unstyled Content) -->
+<style>
+/* Reset + base */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#222;background:#fff;line-height:1.6;overflow-x:hidden;}
+img{max-width:100%;height:auto;display:block;}
+a{color:inherit;text-decoration:none;}
+ul,ol{list-style:none;}
+button{cursor:pointer;border:none;background:none;font-family:inherit;}
+input,textarea,select{font-family:inherit;font-size:inherit;}
+.container{max-width:1200px;margin:0 auto;padding:0 16px;}
+
+/* Navbar — always styled even if CSS file is delayed */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);padding:12px 0;box-shadow:0 2px 8px rgba(0,0,0,0.08);}
+.navbar .container{display:flex;align-items:center;justify-content:space-between;}
+.navbar-logo{height:48px;width:auto;}
+@media(min-width:768px){.navbar-logo{height:56px;}}
+.nav-menu{display:none;align-items:center;gap:28px;}
+@media(min-width:1024px){.nav-menu{display:flex;}}
+.nav-menu a{color:#184a96;font-weight:500;font-size:0.9375rem;transition:color 0.2s;}
+.nav-menu a:hover{color:#ff6b6b;}
+.nav-cta{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#ff6600,#ff9a3c);color:#fff;font-weight:600;font-size:0.875rem;padding:10px 20px;border-radius:999px;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+.nav-toggle{display:block;padding:8px;color:#184a96;background:none;border:none;}
+@media(min-width:1024px){.nav-toggle{display:none;}}
+
+/* Mobile drawer */
+.mobile-drawer{position:fixed;top:0;right:0;height:100%;width:80%;max-width:360px;background:#fff;box-shadow:-8px 0 30px rgba(0,0,0,0.15);z-index:1000;transform:translateX(100%);transition:transform 0.3s;overflow-y:auto;}
+.mobile-drawer.open{transform:translateX(0);}
+.mobile-drawer-header{display:flex;align-items:center;justify-content:space-between;padding:16px;border-bottom:1px solid #e5e7eb;}
+.mobile-drawer nav a{display:block;padding:12px 20px;color:#184a96;font-weight:500;}
+.mobile-drawer nav a:hover{background:#fff8e1;color:#ff6b6b;}
+.drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:998;display:none;}
+.drawer-overlay.show{display:block;}
+
+/* Page content — ensure visible even before full CSS loads */
+.section{padding:64px 0;}
+@media(min-width:768px){.section{padding:96px 0;}}
+.section-title{font-size:1.75rem;color:#184a96;margin-bottom:12px;font-weight:700;}
+.section-subtitle{color:#ff6600;font-size:0.875rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;}
+
+/* Footer */
+.footer{background:#0e2a52;color:#fff;padding:56px 0 24px;}
+.footer-grid{display:grid;gap:40px;}
+@media(min-width:768px){.footer-grid{grid-template-columns:1fr 1fr;}}
+@media(min-width:1024px){.footer-grid{grid-template-columns:1fr 1fr 1fr 1fr;}}
+.footer h3,.footer h4{color:#f4d000;margin-bottom:16px;}
+.footer p,.footer ul li a{font-size:0.875rem;color:rgba(255,255,255,0.8);}
+.footer ul li{margin-bottom:10px;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.15);margin-top:40px;padding-top:20px;text-align:center;font-size:0.75rem;color:rgba(255,255,255,0.6);}
+
+/* WhatsApp float */
+.whatsapp-float{position:fixed;bottom:20px;right:20px;z-index:997;width:56px;height:56px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(37,211,102,0.4);}
+
+/* Grid utility */
+.grid{display:grid;gap:16px;}
+.grid-2{grid-template-columns:1fr;}
+.grid-3{grid-template-columns:1fr;}
+.grid-4{grid-template-columns:1fr 1fr;}
+@media(min-width:640px){.grid-3{grid-template-columns:1fr 1fr;}}
+@media(min-width:1024px){.grid-2{grid-template-columns:1fr 1fr;}.grid-3{grid-template-columns:1fr 1fr 1fr;}.grid-4{grid-template-columns:1fr 1fr 1fr 1fr;}}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;border-radius:999px;font-weight:600;font-size:0.875rem;transition:all 0.2s;cursor:pointer;white-space:nowrap;}
+.btn-primary{background:#184a96;color:#fff;}
+.btn-orange{background:linear-gradient(135deg,#ff6600,#ff9a3c);color:#fff;}
+.btn-yellow{background:#f4d000;color:#184a96;}
+.btn-green{background:#25d366;color:#fff;}
+
+/* Cards */
+.card{background:#fff;border-radius:24px;box-shadow:0 4px 6px rgba(0,0,0,0.05);padding:24px;border:1px solid #f3f4f6;}
+
+/* Hidden utilities */
+.hidden-mobile{display:none;}
+@media(min-width:768px){.hidden-mobile{display:block;}.hidden-desktop{display:none;}}
+
+/* Section header */
+.section-header{text-align:center;margin-bottom:48px;}
+</style>
+
+<header class="navbar" id="navbar">
+  <div class="container">
+    <a href="/"><img src="/assets/images/logo.webp" alt="Cocohouse Preschool & Daycare" class="navbar-logo"></a>
+    <ul class="nav-menu">
+      <li><a href="/" style="color:#ff6b6b;">Home</a></li>
+      <li><a href="/about" style="">About Us</a></li>
+      <li><a href="/programs" style="">Our Programs</a></li>
+      <li><a href="/daycare" style="">Daycare</a></li>
+      <li><a href="/gallery" style="">Gallery</a></li>
+      <li><a href="/blog" style="">Blog</a></li>
+      <li><a href="/contact" style="">Contact Us</a></li>
+      <li><a href="/#admission-form" class="nav-cta">📞 Admissions Open</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</header>
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<div class="mobile-drawer" id="mobileDrawer">
+  <div class="mobile-drawer-header">
+    <img src="/assets/images/logo.webp" alt="Cocohouse" style="height:44px;">
+    <button class="nav-toggle mobile-drawer-close" aria-label="Close menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/about">About Us</a>
+    <a href="/programs">Our Programs</a>
+    <a href="/daycare">Daycare</a>
+    <a href="/gallery">Gallery</a>
+    <a href="/blog">Blog</a>
+    <a href="/contact">Contact Us</a>
+    <a href="/#admission-form" class="btn btn-orange" style="margin:16px;">Admissions Open</a>
+  </nav>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="admission-form">
+  <div class="container">
+    <div>
+      <span class="hero-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="#f4d000" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        NEP & NCF 2022 Aligned Curriculum
+      </span>
+      <h1>1st Thematic Preschool<br>in Mulund & Thane</h1>
+      <p>Nurturing young minds through meaningful experiences — Panchakosha Holistic Development, Story Based Learning, Coding Phonics & CPA Maths methodology.</p>
+      <div class="hero-features">
+        <div class="hero-feature">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#184a96" stroke-width="2"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/></svg>
+          <p>Panchakosha Holistic Development</p>
+        </div>
+        <div class="hero-feature">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ff6600" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          <p>Story Based Learning</p>
+        </div>
+        <div class="hero-feature">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#184a96" stroke-width="2"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3z"/></svg>
+          <p>Coding Phonics Method</p>
+        </div>
+        <div class="hero-feature">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ff6600" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="12" y2="18"/></svg>
+          <p>CPA Maths Methodology</p>
+        </div>
+      </div>
+    </div>
+    <div class="form-card">
+      <h2>Admission Enquiry</h2>
+      <p class="form-note">Limited Seats Available for 2026 Admissions</p>
+      <form id="admissionForm">
+        <div class="form-group"><input type="text" name="childName" class="form-input" placeholder="Child's Name *" required></div>
+        <div class="form-group"><input type="text" name="childAge" class="form-input" placeholder="Child's Age"></div>
+        <div class="form-group">
+          <select name="program" class="form-select" required>
+            <option value="">Select Program *</option>
+            <option>Playgroup</option><option>Nursery</option><option>Junior KG</option>
+            <option>Senior KG</option><option>Daycare</option><option>Special Education</option>
+          </select>
+        </div>
+        <div class="form-group"><input type="text" name="parentName" class="form-input" placeholder="Parent's Name *" required></div>
+        <div class="form-group"><input type="tel" name="phone" class="form-input" placeholder="Mobile Number *" data-validate="phone" required></div>
+        <button type="submit" class="btn-submit">Submit Enquiry</button>
+        <p style="font-size:11px;color:#9ca3af;text-align:center;margin-top:12px;">By submitting you agree to be contacted by Cocohouse Preschool.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section class="section" style="background:#fff;">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text" style="order:2;">
+        <span class="section-subtitle">India's New Age Preschool</span>
+        <h2>Where Learning Becomes a Joyful Journey</h2>
+        <p>Cocohouse Preschool is Mulund & Thane's 1st Thematic Preschool designed to nurture young minds through meaningful experiences. We blend creativity, structure, and warmth to give your child the strongest possible start to their educational journey.</p>
+        <p>Our curriculum is aligned with NEP & NCF 2022 and focuses on holistic development through Panchakosha philosophy, Story Based Learning, Coding Phonics and CPA Maths methodology — preparing children not just for school, but for life.</p>
+        <a href="/about" class="btn btn-primary">Explore Our Story →</a>
+      </div>
+      <div class="about-image" style="order:1;">
+        <div class="accent-box"></div>
+        <img src="/assets/images/joyful-learning.webp" alt="Joyful learning at Cocohouse Preschool">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Programs -->
+<section class="section" style="background:#fff;">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-subtitle">Our Programs</span>
+      <h2 class="section-title">Programs for Every Stage of Growth</h2>
+      <p>From first steps to school readiness — our carefully designed programs nurture children at every age and stage.</p>
+    </div>
+    <div class="grid grid-3" id="programsGrid">
+          <div class="program-card">
+        <div class="program-emoji" style="background:#fff8e1;">
+            🌼        </div>
+        <h3>Playgroup</h3>
+        <p class="program-age" style="color:#f4d000;">
+            2 – 3 Years        </p>
+        <ul class="program-points">
+                            <li>
+                    <span class="dot" style="background:#f4d000;"></span>
+                    <span>Sensorial &amp; fine motor skill development through Montessori-inspired materials</span>
+                </li>
+                            <li>
+                    <span class="dot" style="background:#f4d000;"></span>
+                    <span>Story-based learning that builds listening, attention and vocabulary</span>
+                </li>
+                            <li>
+                    <span class="dot" style="background:#f4d000;"></span>
+                    <span>Social interaction &amp; confidence building through group play and circle time</span>
+                </li>
+                    </ul>
+        <a href="/programs" class="btn btn-sm" style="background:#f4d000;color:#fff;">
+            Enquire Now →        </a>
+    </div>
+        <div class="program-card">
+        <div class="program-emoji" style="background:#e8f1ff;">
+            🌸        </div>
+        <h3>Nursery</h3>
+        <p class="program-age" style="color:#184a96;">
+            3 – 4 Years        </p>
+        <ul class="program-points">
+                            <li>
+                    <span class="dot" style="background:#184a96;"></span>
+                    <span>Coding Phonics introduction — 26 letter sounds with actions and stories</span>
+                </li>
+                            <li>
+                    <span class="dot" style="background:#184a96;"></span>
+                    <span>Pre-writing &amp; language skills through tracing, sandpaper letters and air writing</span>
+                </li>
+                            <li>
+                    <span class="dot" style="background:#184a96;"></span>
+                    <span>Theme-based exploration of seasons, animals, community helpers and festivals</span>
+                </li>
+                    </ul>
+        <a href="/programs" class="btn btn-sm" style="background:#184a96;color:#fff;">
+            Enquire Now →        </a>
+    </div>
+        <div class="program-card">
+        <div class="program-emoji" style="background:#fff8e1;">
+            🌺        </div>
+        <h3>Junior KG</h3>
+        <p class="program-age" style="color:#f4d000;">
+            4 – 5 Years        </p>
+        <ul class="program-points">
+                            <li>
+                    <span class="dot" style="background:#f4d000;"></span>
+                    <span>Advanced Coding Phonics — all 44 sounds with blending &amp; segmenting</span>
+                </li>
+                            <li>
+                    <span class="dot" style="background:#f4d000;"></span>
+                    <span>CPA Maths methodology — Concrete to Pictorial to Abstract progression</span>
+                </li>
+                            <li>
+                    <span class="dot" style="background:#f4d000;"></span>
+                    <span>Reading simple CVC words and basic sight vocabulary</span>
+                </li>
+                    </ul>
+        <a href="/programs" class="btn btn-sm" style="background:#f4d000;color:#fff;">
+            Enquire Now →        </a>
+    </div>
+        <div class="program-card">
+        <div class="program-emoji" style="background:#e8f1ff;">
+            🌻        </div>
+        <h3>Senior KG</h3>
+        <p class="program-age" style="color:#184a96;">
+            5 – 6 Years        </p>
+        <ul class="program-points">
+                            <li>
+                    <span class="dot" style="background:#184a96;"></span>
+                    <span>Reading fluency with simple sentences and short story books</span>
+                </li>
+                            <li>
+                    <span class="dot" style="background:#184a96;"></span>
+                    <span>Writing skills — capital &amp; lowercase letters, numbers 1-1000, simple words</span>
+                </li>
+                            <li>
+                    <span class="dot" style="background:#184a96;"></span>
+                    <span>Problem solving &amp; logical thinking through puzzles and games</span>
+                </li>
+                    </ul>
+        <a href="/programs" class="btn btn-sm" style="background:#184a96;color:#fff;">
+            Enquire Now →        </a>
+    </div>
+        <div class="program-card">
+        <div class="program-emoji" style="background:#fff0e6;">
+            🧸        </div>
+        <h3>Daycare</h3>
+        <p class="program-age" style="color:#ff6600;">
+            1.5 – 10 Years        </p>
+        <ul class="program-points">
+                            <li>
+                    <span class="dot" style="background:#ff6600;"></span>
+                    <span>Safe &amp; secure environment with 24/7 CCTV surveillance</span>
+                </li>
+                            <li>
+                    <span class="dot" style="background:#ff6600;"></span>
+                    <span>Homework assistance for school-going children</span>
+                </li>
+                            <li>
+                    <span class="dot" style="background:#ff6600;"></span>
+                    <span>Nutritious vegetarian meals designed by a child nutritionist</span>
+                </li>
+                    </ul>
+        <a href="/daycare" class="btn btn-sm" style="background:#ff6600;color:#fff;">
+            Know More →        </a>
+    </div>
+        <div class="program-card">
+        <div class="program-emoji" style="background:#f4f9ff;">
+            🌈        </div>
+        <h3>Inclusive Special Education</h3>
+        <p class="program-age" style="color:#9333ea;">
+            1 – 8 Years        </p>
+        <ul class="program-points">
+                            <li>
+                    <span class="dot" style="background:#9333ea;"></span>
+                    <span>Personalised learning plans tailored to each child&#039;s unique needs</span>
+                </li>
+                            <li>
+                    <span class="dot" style="background:#9333ea;"></span>
+                    <span>Trained &amp; certified special educators with 5+ years of experience</span>
+                </li>
+                            <li>
+                    <span class="dot" style="background:#9333ea;"></span>
+                    <span>Speech therapy, occupational therapy &amp; behavioural support (on request)</span>
+                </li>
+                    </ul>
+        <a href="/programs" class="btn btn-sm" style="background:#9333ea;color:#fff;">
+            Enquire Now →        </a>
+    </div>
+        </div>
+  </div>
+</section>
+
+<!-- Why Choose -->
+<section class="section" style="background:linear-gradient(to bottom, #fff8e1, #fff);">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-subtitle">Why Choose Cocohouse</span>
+      <h2 class="section-title">What Makes Us Different</h2>
+    </div>
+    <div class="grid grid-3">
+      <div class="card" style="background:#184a96;color:#fff;"><div style="font-size:2rem;margin-bottom:12px;">🎓</div><h3 style="color:#fff;">NEP & NCF 2022 Aligned</h3></div>
+      <div class="card" style="background:#f4d000;color:#184a96;"><div style="font-size:2rem;margin-bottom:12px;">🌿</div><h3 style="color:#184a96;">Panchakosha Holistic Development</h3></div>
+      <div class="card" style="background:#184a96;color:#fff;"><div style="font-size:2rem;margin-bottom:12px;">🔤</div><h3 style="color:#fff;">Coding Phonics (44 Sounds)</h3></div>
+      <div class="card" style="background:#f4d000;color:#184a96;"><div style="font-size:2rem;margin-bottom:12px;">🧮</div><h3 style="color:#184a96;">CPA Maths Approach</h3></div>
+      <div class="card" style="background:#184a96;color:#fff;"><div style="font-size:2rem;margin-bottom:12px;">📖</div><h3 style="color:#fff;">Story Based Thematic Learning</h3></div>
+      <div class="card" style="background:#f4d000;color:#184a96;"><div style="font-size:2rem;margin-bottom:12px;">🛡️</div><h3 style="color:#184a96;">Safe & Secure Campus (CCTV)</h3></div>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery Preview -->
+<section class="section" style="background:#fff;">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-subtitle">Gallery</span>
+      <h2 class="section-title">A Glimpse of Cocohouse</h2>
+      <p>Photos and videos from our campus, events, and happy children.</p>
+    </div>
+    <div class="grid grid-4">
+      <div style="border-radius:12px;overflow:hidden;box-shadow:var(--shadow-md);background:#000;aspect-ratio:1;position:relative;">
+              <img src="/assets/images/campus.jpg" alt="" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+          </div>
+      <div style="border-radius:12px;overflow:hidden;box-shadow:var(--shadow-md);background:#000;aspect-ratio:1;position:relative;">
+              <img src="/assets/images/joyful-learning.webp" alt="" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+          </div>
+      <div style="border-radius:12px;overflow:hidden;box-shadow:var(--shadow-md);background:#000;aspect-ratio:1;position:relative;">
+              <img src="/assets/images/principal.webp" alt="" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+          </div>
+      <div style="border-radius:12px;overflow:hidden;box-shadow:var(--shadow-md);background:#000;aspect-ratio:1;position:relative;">
+              <img src="https://img.youtube.com/vi/tMTFDT_VD_o/hqdefault.jpg" alt="" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+        <a href="https://www.youtube.com/embed/tMTFDT_VD_o" target="_blank" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border-radius:50%;background:rgba(255,0,0,0.85);display:flex;align-items:center;justify-content:center;text-decoration:none;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </a>
+          </div>
+  </div>
+    <div style="text-align:center;margin-top:32px;">
+      <a href="/gallery" class="btn btn-primary">View Full Gallery →</a>
+    </div>
+  </div>
+</section>
+
+<!-- Reels/Testimonials -->
+<section class="section" style="background:linear-gradient(to bottom,#fff8e1,#fff);">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-subtitle">Reel Testimonials</span>
+      <h2 class="section-title">Trusted By Parents ❤️</h2>
+      <p>Real stories from Cocohouse families.</p>
+    </div>
+    <div class="grid grid-4">
+              <div style="position:relative;border-radius:16px;overflow:hidden;box-shadow:var(--shadow-md);aspect-ratio:9/16;background:#000;">
+          <img src="https://img.youtube.com/vi/tMTFDT_VD_o/hqdefault.jpg" alt="Nitisha &amp; Vijay Testimonial" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.8),transparent 50%);display:flex;align-items:flex-end;padding:12px;">
+            <div style="color:#fff;">
+              <p style="font-size:0.75rem;font-weight:700;margin-bottom:2px;">Nitisha &amp; Vijay Testimonial</p>
+              <p style="font-size:0.625rem;color:rgba(255,255,255,0.8);">Nitisha &amp; Vijay</p>
+            </div>
+          </div>
+          <a href="https://www.youtube.com/embed/tMTFDT_VD_o" target="_blank" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;border-radius:50%;background:rgba(255,0,0,0.85);display:flex;align-items:center;justify-content:center;text-decoration:none;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </a>
+        </div>
+              <div style="position:relative;border-radius:16px;overflow:hidden;box-shadow:var(--shadow-md);aspect-ratio:9/16;background:#000;">
+          <img src="https://img.youtube.com/vi/WQ4MrEJBD8E/hqdefault.jpg" alt="Anirudh &amp; Shilpa Testimonial" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.8),transparent 50%);display:flex;align-items:flex-end;padding:12px;">
+            <div style="color:#fff;">
+              <p style="font-size:0.75rem;font-weight:700;margin-bottom:2px;">Anirudh &amp; Shilpa Testimonial</p>
+              <p style="font-size:0.625rem;color:rgba(255,255,255,0.8);">Anirudh &amp; Shilpa</p>
+            </div>
+          </div>
+          <a href="https://www.youtube.com/embed/WQ4MrEJBD8E" target="_blank" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;border-radius:50%;background:rgba(255,0,0,0.85);display:flex;align-items:center;justify-content:center;text-decoration:none;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </a>
+        </div>
+              <div style="position:relative;border-radius:16px;overflow:hidden;box-shadow:var(--shadow-md);aspect-ratio:9/16;background:#000;">
+          <img src="https://img.youtube.com/vi/ptSo4Vg7zGY/hqdefault.jpg" alt="Darshana &amp; Rahul Testimonial" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.8),transparent 50%);display:flex;align-items:flex-end;padding:12px;">
+            <div style="color:#fff;">
+              <p style="font-size:0.75rem;font-weight:700;margin-bottom:2px;">Darshana &amp; Rahul Testimonial</p>
+              <p style="font-size:0.625rem;color:rgba(255,255,255,0.8);">Darshana &amp; Rahul</p>
+            </div>
+          </div>
+          <a href="https://www.youtube.com/embed/ptSo4Vg7zGY" target="_blank" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;border-radius:50%;background:rgba(255,0,0,0.85);display:flex;align-items:center;justify-content:center;text-decoration:none;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </a>
+        </div>
+              <div style="position:relative;border-radius:16px;overflow:hidden;box-shadow:var(--shadow-md);aspect-ratio:9/16;background:#000;">
+          <img src="https://img.youtube.com/vi/w5twGdXxz3s/hqdefault.jpg" alt="Nikita &amp; Amit Testimonial" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.8),transparent 50%);display:flex;align-items:flex-end;padding:12px;">
+            <div style="color:#fff;">
+              <p style="font-size:0.75rem;font-weight:700;margin-bottom:2px;">Nikita &amp; Amit Testimonial</p>
+              <p style="font-size:0.625rem;color:rgba(255,255,255,0.8);">Nikita &amp; Amit</p>
+            </div>
+          </div>
+          <a href="https://www.youtube.com/embed/w5twGdXxz3s" target="_blank" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;border-radius:50%;background:rgba(255,0,0,0.85);display:flex;align-items:center;justify-content:center;text-decoration:none;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </a>
+        </div>
+          </div>
+  </div>
+</section>
+
+<!-- Reviews -->
+<section class="section" style="background:#fff;">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-subtitle">Google Reviews</span>
+      <h2 class="section-title">What Our Customers Say</h2>
+      <div style="display:inline-flex;align-items:center;gap:12px;background:#fff8e1;border:1px solid rgba(244,208,0,0.4);padding:12px 20px;border-radius:999px;margin-top:16px;">
+        <div style="display:flex;gap:2px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#f4d000" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg width="20" height="20" viewBox="0 0 24 24" fill="#f4d000" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg width="20" height="20" viewBox="0 0 24 24" fill="#f4d000" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg width="20" height="20" viewBox="0 0 24 24" fill="#f4d000" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg width="20" height="20" viewBox="0 0 24 24" fill="#f4d000" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>        </div>
+        <strong style="font-size:1.25rem;color:#184a96;">5.0</strong>
+        <span style="font-size:0.875rem;color:#555;">· 49+ reviews</span>
+      </div>
+    </div>
+  </div>
+  <div class="reviews-marquee">
+    <div class="reviews-track">    <div class="review-card">
+        <div class="review-header">
+            <div class="review-avatar" style="background:#ff6b6b;">
+                M            </div>
+            <div>
+                <div class="review-name">Megha Patankar</div>
+                <div class="review-stars">
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                    </div>
+            </div>
+        </div>
+        <p class="review-text">Cocohouse is the best decision we made for our daughter. The teachers are loving and the thematic approach really helps kids grasp concepts faster. My daughter looks forward to school every day!</p>
+    </div>
+        <div class="review-card">
+        <div class="review-header">
+            <div class="review-avatar" style="background:#184a96;">
+                P            </div>
+            <div>
+                <div class="review-name">Pragati Patil</div>
+                <div class="review-stars">
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                    </div>
+            </div>
+        </div>
+        <p class="review-text">The Coding Phonics method is brilliant — my son started reading 3-letter words within months. The principal ma&#039;am is highly involved and the staff genuinely cares about each child.</p>
+    </div>
+        <div class="review-card">
+        <div class="review-header">
+            <div class="review-avatar" style="background:#ff6600;">
+                A            </div>
+            <div>
+                <div class="review-name">Anagha Chaudhary</div>
+                <div class="review-stars">
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                    </div>
+            </div>
+        </div>
+        <p class="review-text">Daycare facility is excellent. Hygienic, safe, and my daughter gets nutritious meals and proper rest. The CCTV access gives me complete peace of mind while I&#039;m at work.</p>
+    </div>
+        <div class="review-card">
+        <div class="review-header">
+            <div class="review-avatar" style="background:#25d366;">
+                P            </div>
+            <div>
+                <div class="review-name">Pooja Shedge</div>
+                <div class="review-stars">
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                    </div>
+            </div>
+        </div>
+        <p class="review-text">Story-based learning has transformed my child&#039;s imagination. He narrates full stories at home now! The Panchakosha activities are a beautiful touch — overall development is amazing.</p>
+    </div>
+        <div class="review-card">
+        <div class="review-header">
+            <div class="review-avatar" style="background:#9333ea;">
+                S            </div>
+            <div>
+                <div class="review-name">Sneha Joshi</div>
+                <div class="review-stars">
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                    </div>
+            </div>
+        </div>
+        <p class="review-text">Small batch size means individual attention. My twins both get personalized care. The CPA Maths approach has built strong number sense. Highly recommend Cocohouse!</p>
+    </div>
+        <div class="review-card">
+        <div class="review-header">
+            <div class="review-avatar" style="background:#0891b2;">
+                R            </div>
+            <div>
+                <div class="review-name">Ritika Shah</div>
+                <div class="review-stars">
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                    </div>
+            </div>
+        </div>
+        <p class="review-text">Best preschool in Mulund East by far. The campus is colorful, safe and stimulating. My son&#039;s social skills have improved tremendously. The award for Best Creative Preschool is well deserved!</p>
+    </div>
+        <div class="review-card">
+        <div class="review-header">
+            <div class="review-avatar" style="background:#ff6b6b;">
+                M            </div>
+            <div>
+                <div class="review-name">Megha Patankar</div>
+                <div class="review-stars">
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                    </div>
+            </div>
+        </div>
+        <p class="review-text">Cocohouse is the best decision we made for our daughter. The teachers are loving and the thematic approach really helps kids grasp concepts faster. My daughter looks forward to school every day!</p>
+    </div>
+        <div class="review-card">
+        <div class="review-header">
+            <div class="review-avatar" style="background:#184a96;">
+                P            </div>
+            <div>
+                <div class="review-name">Pragati Patil</div>
+                <div class="review-stars">
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                    </div>
+            </div>
+        </div>
+        <p class="review-text">The Coding Phonics method is brilliant — my son started reading 3-letter words within months. The principal ma&#039;am is highly involved and the staff genuinely cares about each child.</p>
+    </div>
+        <div class="review-card">
+        <div class="review-header">
+            <div class="review-avatar" style="background:#ff6600;">
+                A            </div>
+            <div>
+                <div class="review-name">Anagha Chaudhary</div>
+                <div class="review-stars">
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                    </div>
+            </div>
+        </div>
+        <p class="review-text">Daycare facility is excellent. Hygienic, safe, and my daughter gets nutritious meals and proper rest. The CCTV access gives me complete peace of mind while I&#039;m at work.</p>
+    </div>
+        <div class="review-card">
+        <div class="review-header">
+            <div class="review-avatar" style="background:#25d366;">
+                P            </div>
+            <div>
+                <div class="review-name">Pooja Shedge</div>
+                <div class="review-stars">
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                    </div>
+            </div>
+        </div>
+        <p class="review-text">Story-based learning has transformed my child&#039;s imagination. He narrates full stories at home now! The Panchakosha activities are a beautiful touch — overall development is amazing.</p>
+    </div>
+        <div class="review-card">
+        <div class="review-header">
+            <div class="review-avatar" style="background:#9333ea;">
+                S            </div>
+            <div>
+                <div class="review-name">Sneha Joshi</div>
+                <div class="review-stars">
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                    </div>
+            </div>
+        </div>
+        <p class="review-text">Small batch size means individual attention. My twins both get personalized care. The CPA Maths approach has built strong number sense. Highly recommend Cocohouse!</p>
+    </div>
+        <div class="review-card">
+        <div class="review-header">
+            <div class="review-avatar" style="background:#0891b2;">
+                R            </div>
+            <div>
+                <div class="review-name">Ritika Shah</div>
+                <div class="review-stars">
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                    </div>
+            </div>
+        </div>
+        <p class="review-text">Best preschool in Mulund East by far. The campus is colorful, safe and stimulating. My son&#039;s social skills have improved tremendously. The award for Best Creative Preschool is well deserved!</p>
+    </div>
+    </div>
+    <div class="marquee-fade-left"></div>
+    <div class="marquee-fade-right"></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<!-- CTA Section -->
+<section class="section" style="background:linear-gradient(to right, #184a96, #2a63b8, #184a96);color:#fff;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:0;left:0;width:256px;height:256px;background:rgba(244,208,0,0.2);border-radius:50%;filter:blur(60px);"></div>
+  <div style="position:absolute;bottom:0;right:0;width:288px;height:288px;background:rgba(255,102,0,0.2);border-radius:50%;filter:blur(60px);"></div>
+  <div class="container" style="text-align:center;position:relative;z-index:10;">
+    <div style="display:inline-block;background:#f4d000;color:#184a96;font-size:0.875rem;font-weight:700;padding:8px 20px;border-radius:999px;margin-bottom:20px;">🎉 Admissions Open 2026-27</div>
+    <h2 style="font-size:1.5rem;font-weight:800;margin-bottom:16px;">Nurturing Little Minds with Love, Care & Holistic Learning</h2>
+    <p style="color:rgba(255,255,255,0.85);font-size:1rem;max-width:42rem;margin:0 auto 32px;">Limited seats available. Book a school visit today and see why parents across Mulund & Thane choose Cocohouse.</p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+      <a href="tel:+917039152173" class="btn btn-yellow btn-lg">📞 Call Now</a>
+      <a href="https://wa.me/917039152173" class="btn btn-green btn-lg" target="_blank">💬 WhatsApp Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" style="background:#fff;">
+  <div class="container" style="max-width:900px;">
+    <div class="section-header">
+      <span class="section-subtitle">FAQs</span>
+      <h2 class="section-title">Frequently Asked Questions</h2>
+    </div>
+    <div id="faqContainer">    <div class="faq-item open">
+        <button class="faq-question" type="button">
+            <span>What age groups do you accept?</span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+            <p>We welcome children from 1.5 to 5.5 years across our Toddler, Playgroup, Nursery, Junior KG, Senior KG programs, and from 1.5 to 10 years for our Daycare facility. Each program is age-appropriately designed to ensure optimal development at every stage.</p>
+        </div>
+    </div>
+        <div class="faq-item">
+        <button class="faq-question" type="button">
+            <span>Is Cocohouse safe for my child?</span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+            <p>Absolutely. We have CCTV surveillance across the campus, trained and background-verified staff, secure entry-exit protocols with verified pickup procedures, child-friendly infrastructure, and complete emergency preparedness with first-aid kits and regular safety drills.</p>
+        </div>
+    </div>
+        <div class="faq-item">
+        <button class="faq-question" type="button">
+            <span>What is Special Education at Cocohouse?</span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+            <p>Our Inclusive Special Education program provides personalized support for children who need additional assistance with communication, behavior, social skills, or learning abilities. Each child receives an individualized learning plan crafted by our trained special educators.</p>
+        </div>
+    </div>
+        <div class="faq-item">
+        <button class="faq-question" type="button">
+            <span>Who can enroll in Special Education?</span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+            <p>We support children with ASD (Autism Spectrum Disorder), speech and communication delays, learning difficulties, behavioral challenges, and developmental delays. Our team conducts a comprehensive assessment to design the right intervention plan for each child.</p>
+        </div>
+    </div>
+        <div class="faq-item">
+        <button class="faq-question" type="button">
+            <span>What is the age limit for Special Education?</span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+            <p>We accept children aged 1 to 8 years for our Special Education program. However, every child is individually assessed by our special educators to determine the most appropriate intervention and support plan.</p>
+        </div>
+    </div>
+        <div class="faq-item">
+        <button class="faq-question" type="button">
+            <span>What curriculum do you follow?</span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+            <p>We follow a unique Thematic Learning curriculum aligned with NEP 2022. It includes Coding Phonics (44 Sounds), CPA Maths (Concrete-Pictorial-Abstract), Panchakosha Holistic Development, and Story-Based Learning — ensuring well-rounded cognitive, social, and emotional growth.</p>
+        </div>
+    </div>
+        <div class="faq-item">
+        <button class="faq-question" type="button">
+            <span>Do you provide daycare facility?</span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+            <p>Yes, we offer both full-day and half-day daycare options for children aged 1.5 to 10 years. Our daycare includes a structured daily routine with age-appropriate activities, supervised nap time, guided homework assistance, and nutritious meals.</p>
+        </div>
+    </div>
+        <div class="faq-item">
+        <button class="faq-question" type="button">
+            <span>How can I schedule a school visit?</span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+            <p>Simply call us at +91-7039152173 or message us on WhatsApp to book a campus tour. We&#039;d love to show you around, introduce you to our staff, and answer any questions you may have about our programs and facilities.</p>
+        </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="section" style="background:linear-gradient(to bottom, #fff, #f4f9ff);" id="contact">
+  <div class="container">
+    <div style="display:grid;gap:40px;" class="about-grid">
+      <div>
+        <span class="section-subtitle">Get In Touch</span>
+        <h2 class="section-title">Visit Cocohouse Preschool</h2>
+        <p style="color:#555;margin-bottom:28px;">Thematic Learning, Story Based Curriculum & Holistic Development.</p>
+        <a href="/contact" class="btn btn-primary">Contact Us →</a>
+      </div>
+      <div class="form-card">
+        <h3 style="font-size:1.25rem;color:#184a96;margin-bottom:4px;">Book a School Visit</h3>
+        <p class="form-note">Fill the form and our team will reach out within 24 hours.</p>
+        <form id="visitForm">
+          <div class="form-row"><input type="text" name="parentName" class="form-input" placeholder="Parent Name *" required><input type="text" name="childName" class="form-input" placeholder="Child Name *" required></div>
+          <div class="form-row"><input type="tel" name="phone" class="form-input" placeholder="Phone *" data-validate="phone" required><input type="email" name="email" class="form-input" placeholder="Email"></div>
+          <div class="form-group"><textarea name="message" class="form-textarea" rows="3" placeholder="Tell us about your child..."></textarea></div>
+          <button type="submit" class="btn-submit">Book School Visit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer — NO Activities, NO Principal -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <img src="/assets/images/logo.webp" alt="Cocohouse" class="footer-logo">
+        <h3>Cocohouse Preschool & Daycare</h3>
+        <p>Nurturing Little Minds through Thematic Learning, Coding Phonics, CPA Maths & Holistic Development.</p>
+        <span style="display:inline-block;background:#f4d000;color:#184a96;font-size:0.75rem;font-weight:700;padding:4px 12px;border-radius:999px;">1st Thematic Preschool in Mulund & Thane</span>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About School</a></li>
+          <li><a href="/programs">Programs</a></li>
+          <li><a href="/daycare">Daycare</a></li>
+          <li><a href="/gallery">Gallery</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Our Programs</h4>
+        <ul>
+          <li><a href="/programs">Playgroup</a></li>
+          <li><a href="/programs">Nursery</a></li>
+          <li><a href="/programs">Junior KG</a></li>
+          <li><a href="/programs">Senior KG</a></li>
+          <li><a href="/daycare">Daycare</a></li>
+          <li><a href="/gallery">Gallery</a></li>
+          <li><a href="/programs">Inclusive Special Education</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact Us</h4>
+        <div class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Row House No 3, Millenium Park, Hari Om Nagar, Mulund East, Mumbai-400081</span></div>
+        <div class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+917039152173">+91-7039152173</a></div>
+        <div class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:info@cocohouse.in">info@cocohouse.in</a></div>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/cocohousepreschool" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="https://www.instagram.com/cocohouse_preschool" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="https://www.youtube.com/@CocohousePreschoolHariOmNagar" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="#0e2a52"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Cocohouse Preschool & Daycare | All Rights Reserved</p>
+      <p>Designed By Yunick Media</p>
+    </div>
+  </div>
+</footer>
+<a href="https://wa.me/917039152173" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.003 3.2c-7.06 0-12.8 5.74-12.8 12.8 0 2.26.6 4.46 1.73 6.4l-1.83 6.67 6.83-1.79a12.74 12.74 0 0 0 6.07 1.55c7.06 0 12.8-5.74 12.8-12.8s-5.74-12.83-12.8-12.83zm0 23.04c-1.93 0-3.82-.52-5.47-1.5l-.39-.23-4.05 1.06 1.08-3.95-.25-.4a10.55 10.55 0 0 1-1.62-5.62c0-5.86 4.77-10.63 10.63-10.63s10.63 4.77 10.63 10.63-4.77 10.64-10.63 10.64z"/></svg>
+</a>
+<script src="/assets/js/main.js"></script>
+<script>
+setupForm('admissionForm', '/api/submit-enquiry.php', { type: 'admission', successTitle: 'Enquiry Submitted!', successDesc: 'Our team will call you back within 24 hours.' });
+setupForm('visitForm', '/api/submit-enquiry.php', { type: 'school_visit', successTitle: 'Visit Booked!', successDesc: 'Our team will contact you shortly.' });
+</script>
+</body>
+</html>
