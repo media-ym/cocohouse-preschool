@@ -3,3 +3,7 @@ Thumbs.db
 *.log
 .idea/
 .vscode/
+storage/enquiries.json
+storage/login-guard.json
+storage/*.tmp
+data/*.tmp

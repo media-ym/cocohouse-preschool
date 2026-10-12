@@ -97,7 +97,7 @@ input,textarea,select{font-family:inherit;font-size:inherit;}
       <li><a href="/programs" style="">Our Programs</a></li>
       <li><a href="/daycare" style="color:#ff6b6b;">Daycare</a></li>
       <li><a href="/gallery" style="">Gallery</a></li>
-      <li><a href="/blog" style="">Blog</a></li>
+      <li><a href="/blog" style="">Blogs</a></li>
       <li><a href="/contact" style="">Contact Us</a></li>
       <li><a href="/#admission-form" class="nav-cta">📞 Admissions Open</a></li>
     </ul>
@@ -120,7 +120,7 @@ input,textarea,select{font-family:inherit;font-size:inherit;}
     <a href="/programs">Our Programs</a>
     <a href="/daycare">Daycare</a>
     <a href="/gallery">Gallery</a>
-    <a href="/blog">Blog</a>
+    <a href="/blog">Blogs</a>
     <a href="/contact">Contact Us</a>
     <a href="/#admission-form" class="btn btn-orange" style="margin:16px;">Admissions Open</a>
   </nav>
@@ -136,10 +136,10 @@ input,textarea,select{font-family:inherit;font-size:inherit;}
       <div>
         <img src="/assets/images/logo.webp" alt="Cocohouse" style="height:40px;background:rgba(255,255,255,0.95);border-radius:8px;padding:4px;margin-bottom:12px;">
         <p style="font-size:1.125rem;color:rgba(255,255,255,0.8);margin-bottom:4px;">not just a</p>
-        <h1 style="font-size:3rem;font-weight:800;color:#f4d000;line-height:1;margin-bottom:12px;">DAYCARE</h1>
-        <p style="font-size:1.25rem;font-weight:600;font-style:italic;margin-bottom:8px;">"A Home Away From Home"</p>
+        <h1 style="font-size:3rem;font-weight:800;color:#f4d000;line-height:1;margin-bottom:12px;">{{hero_title}}</h1>
+        <p style="font-size:1.25rem;font-weight:600;font-style:italic;margin-bottom:8px;">{{tagline}}</p>
         <p style="font-size:1rem;color:rgba(244,208,0,0.9);font-weight:500;margin-bottom:24px;">filled with Love, Learning & Sanskar</p>
-        <p style="color:rgba(255,255,255,0.85);font-size:0.875rem;max-width:36rem;margin-bottom:28px;">Cocohouse Daycare — where your little one is nurtured with the warmth of a home and the structure of a Gurukulam. Flexible packages from <strong style="color:#f4d000;">1 hour</strong> to <strong style="color:#f4d000;">1 year</strong>. Pay only for what you need.</p>
+        <p style="color:rgba(255,255,255,0.85);font-size:0.875rem;max-width:36rem;margin-bottom:28px;">{{hero_text}}</p>
         <div style="display:flex;gap:12px;flex-wrap:wrap;">
           <a href="#enquiry" class="btn btn-yellow">💬 Contact for Pricing</a>
           <a href="https://wa.me/917039152173" target="_blank" class="btn btn-green">💬 WhatsApp Enquiry</a>
@@ -158,8 +158,8 @@ input,textarea,select{font-family:inherit;font-size:inherit;}
   <div class="container">
     <div class="section-header">
       <span class="section-subtitle">Daycare Packages</span>
-      <h2 class="section-title">Flexible Packages for Every Family</h2>
-      <p>Seven flexible packages — from <strong>1 hour</strong> to <strong>1 year</strong>. No minimum commitment, no hidden charges. <strong>Contact us for pricing.</strong></p>
+      <h2 class="section-title">{{packages_title}}</h2>
+      <p>{{packages_text}}</p>
     </div>
         <div class="grid grid-3">
               <div class="card" style="position:relative;">
@@ -482,6 +482,7 @@ input,textarea,select{font-family:inherit;font-size:inherit;}
         <h3 style="font-size:1.125rem;color:#184a96;margin-bottom:4px;">Daycare Enquiry Form</h3>
         <p class="form-note">We'll call you back within 24 hours with pricing details.</p>
         <form id="daycareForm">
+          <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;opacity:0;">
           <div class="form-row"><input type="text" name="parentName" class="form-input" placeholder="Parent Name *" required><input type="text" name="childName" class="form-input" placeholder="Child Name *" required></div>
           <div class="form-row"><input type="text" name="childAge" class="form-input" placeholder="Child Age"><input type="tel" name="phone" class="form-input" placeholder="Mobile Number *" data-validate="phone" required></div>
           <div class="form-group"><select name="program" class="form-select" required>
@@ -513,7 +514,7 @@ input,textarea,select{font-family:inherit;font-size:inherit;}
           <li><a href="/programs">Programs</a></li>
           <li><a href="/daycare">Daycare</a></li>
           <li><a href="/gallery">Gallery</a></li>
-          <li><a href="/blog">Blog</a></li>
+          <li><a href="/blog">Blogs</a></li>
           <li><a href="/contact">Contact</a></li>
         </ul>
       </div>

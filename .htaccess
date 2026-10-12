@@ -1,8 +1,24 @@
-DirectoryIndex index.html
+DirectoryIndex index.php index.html
 ErrorDocument 404 /404.html
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
+
+  RewriteRule ^storage/ - [F,L]
+  RewriteRule ^includes/ - [F,L]
+  RewriteRule ^sitemap\.xml$ sitemap.php [L]
+  RewriteRule ^robots\.txt$ robots.php [L]
+
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^blog-post/([^/]+)/?$ blog-post/index.php?slug=$1 [L,QSA]
+
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^author/([^/]+)/?$ author/index.php?slug=$1 [L,QSA]
+
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^([a-z0-9-]+)/?$ slug.php?path=$1 [L,QSA]
+
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule ^([^.]+)$ $1.html [L]

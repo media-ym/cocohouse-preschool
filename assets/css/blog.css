@@ -64,6 +64,28 @@
   width: 14px;
   height: 14px;
 }
+.blog-meta a {
+  color: #f4d000;
+  font-weight: 700;
+  text-decoration: none;
+}
+.blog-meta a:hover { color: #fff; }
+
+.author-intro {
+  max-width: 720px;
+  margin: -24px auto 8px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 28px;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 8px 24px rgba(14, 42, 82, 0.08);
+}
+.author-intro p {
+  margin: 0;
+  color: #4b5563;
+  line-height: 1.7;
+}
 
 /* Featured Image — FULL WIDTH on top */
 .blog-featured-image-wrap {
@@ -306,6 +328,13 @@
   font-weight: 700;
   color: #184a96;
   margin-bottom: 24px;
+}
+.blog-related-grid {
+  display: grid;
+  gap: 16px;
+}
+@media (min-width: 768px) {
+  .blog-related-grid { grid-template-columns: 1fr 1fr 1fr; }
 }
 
 /* Blog Card (used in both listing & related) */

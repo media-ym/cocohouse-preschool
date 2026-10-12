@@ -1,0 +1,72 @@
+<?php
+
+require_once __DIR__ . '/auth.php';
+require_once __DIR__ . '/site.php';
+
+function admin_header(string $title, string $active): void
+{
+    $flash = take_flash();
+    $config = admin_config();
+    $nav = [
+        'dashboard' => ['Dashboard', '/admin/dashboard.php'],
+        'pages' => ['Pages', '/admin/pages.php'],
+        'seo' => ['SEO', '/admin/seo.php'],
+        'media' => ['Images', '/admin/media.php'],
+        'enquiries' => ['Enquiries', '/admin/enquiries.php'],
+        'blog' => ['Blog', '/admin/blog.php'],
+        'password' => ['Password', '/admin/password.php'],
+    ];
+    ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title><?= e($title) ?> | Cocohouse Admin</title>
+  <link rel="icon" href="/assets/images/logo.webp">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="side">
+      <a class="side-brand" href="/admin/dashboard.php">
+        <img src="<?= e(media_src('logo')) ?>" alt="Cocohouse">
+        <span>Admin</span>
+      </a>
+      <nav>
+        <?php foreach ($nav as $key => $item): ?>
+          <a href="<?= e($item[1]) ?>" class="<?= $active === $key ? 'active' : '' ?>"><?= e($item[0]) ?></a>
+        <?php endforeach; ?>
+      </nav>
+      <div class="side-foot">
+        <a href="/" target="_blank" rel="noopener">View website</a>
+        <a href="/admin/logout.php">Log out</a>
+      </div>
+    </aside>
+    <div class="content">
+      <div class="content-bar">
+        <strong><?= e($title) ?></strong>
+        <a class="btn btn-ghost" href="/" target="_blank" rel="noopener">Open site</a>
+      </div>
+      <main class="wrap">
+        <?php if (empty($config['password_changed'])): ?>
+          <div class="banner">This is still the starting password. Change it from the Password page.</div>
+        <?php endif; ?>
+        <?php if ($flash): ?>
+          <div class="flash <?= ($flash['type'] ?? '') === 'error' ? 'error' : 'ok' ?>"><?= e($flash['message'] ?? '') ?></div>
+        <?php endif; ?>
+    <?php
+}
+
+function admin_footer(): void
+{
+    ?>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
+    <?php
+}

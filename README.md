@@ -13,7 +13,17 @@ Multipage website for [cocohouse.in](https://cocohouse.in/) — Home, About, Pro
 - `/blog-post/<slug>` Blog posts
 - `/contact` Contact
 
-Enquiry forms open WhatsApp (`+91 7039152173`) with the filled details.
+Enquiry forms are saved for the school team and emailed to cocohousepreschool@gmail.com and info@cocohouse.in. Admin login is at `/admin/`.
+
+## Admin
+
+Open `/admin/` after the site is running on PHP (Hostinger does this). From there you can:
+
+- read and update admission, visit, daycare, and contact enquiries
+- add, edit, hide, and delete blog posts
+- change the admin password
+
+Parent phone numbers are stored in `storage/enquiries.json` on the server and are not part of the public site.
 
 ## Preview locally
 

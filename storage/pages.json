@@ -1,0 +1,369 @@
+{
+    "site": {
+        "phone": "+91-7039152173",
+        "email": "info@cocohouse.in",
+        "address": "Row House No 3, Millenium Park, Hari Om Nagar, Mulund East, Mumbai-400081",
+        "seo": {
+            "site_name": "Cocohouse Preschool & Daycare",
+            "public_url": "https://cocohouse.in",
+            "description": "Cocohouse is Mulund and Thane's first thematic preschool and daycare, with playgroup, nursery, kindergarten and inclusive special education in Mulund East.",
+            "image": "/assets/images/campus.jpg",
+            "google_verification": "",
+            "bing_verification": "",
+            "analytics_id": "",
+            "twitter": "",
+            "facebook": "",
+            "instagram": "",
+            "youtube": "",
+            "linktree": ""
+        },
+        "banner": {
+            "enabled": "1",
+            "text": "Mid Term Admissions Open · Flat 60% Off · Contact Now",
+            "link": "/contact-us"
+        }
+    },
+    "pages": {
+        "home": {
+            "hero_badge": "NEP & NCF 2022 Aligned Curriculum",
+            "hero_title": "1st Thematic Preschool\nin Mulund & Thane",
+            "hero_text": "Nurturing young minds through meaningful experiences — Panchakosha Holistic Development, Story Based Learning, Coding Phonics & CPA Maths methodology.",
+            "story_kicker": "India's New Age Preschool",
+            "story_title": "Where Learning Becomes a Joyful Journey",
+            "story_p1": "Cocohouse Preschool is Mulund & Thane's 1st Thematic Preschool designed to nurture young minds through meaningful experiences. We blend creativity, structure, and warmth to give your child the strongest possible start to their educational journey.",
+            "story_p2": "Our curriculum is aligned with NEP & NCF 2022 and focuses on holistic development through Panchakosha philosophy, Story Based Learning, Coding Phonics and CPA Maths methodology — preparing children not just for school, but for life.",
+            "programs_kicker": "Our Programs",
+            "programs_title": "Programs for Every Stage of Growth",
+            "programs_text": "From first steps to school readiness — our carefully designed programs nurture children at every age and stage."
+        },
+        "about": {
+            "hero_title": "About Cocohouse",
+            "hero_text": "Where learning becomes a joyful journey — discover the philosophy, people and passion behind Mulund & Thane's 1st Thematic Preschool.",
+            "story_kicker": "The Cocohouse Story",
+            "story_title": "A Journey of Love, Learning & Sanskar",
+            "story_p1": "Cocohouse Preschool & Daycare was born out of a simple yet powerful vision — to redefine early childhood education in Mulund & Thane by blending India's timeless wisdom with modern, research-backed pedagogy. Founded by Mrs. Pratheeksha Darak, an educator with deep roots in child psychology and holistic learning, Cocohouse started as a small neighbourhood playschool and has grown into one of the most respected names in early education in the region.",
+            "story_p2": "What sets us apart is our position as Mulund & Thane's 1st Thematic Preschool — a designation that reflects our commitment to integrated, theme-based learning rather than disconnected silos of subjects. Every fortnight, our children explore a central theme through stories, art, music, math, science and outdoor play — creating meaningful, memorable connections across all areas of development.",
+            "story_p3": "Our curriculum is meticulously aligned with the National Education Policy (NEP) 2022 and the National Curriculum Framework (NCF), ensuring that your child's foundational years are spent in an environment that meets the highest national standards. The Panchakosha philosophy — a 5000-year-old Vedic framework for holistic development — forms the soul of our approach.",
+            "mission": "To nurture young minds into confident, curious and compassionate lifelong learners through a thematic, story-based curriculum that honours every child's uniqueness. We are committed to providing a safe, joyful and stimulating environment where children fall in love with learning — not just for school, but for life.",
+            "vision": "To be the most loved and trusted preschool in India, recognised globally for blending the timeless wisdom of the Panchakosha philosophy with the rigor of 21st-century pedagogy. We envision a future where every child who walks through our doors grows into a balanced, creative and socially responsible human being.",
+            "slug": "about-us"
+        },
+        "programs": {
+            "hero_title": "Our Programs",
+            "hero_text": "From first steps to school readiness — discover the carefully designed programs that nurture children aged 1.5 to 8 years at every stage of their early learning journey.",
+            "kicker": "Six Programs · One Philosophy",
+            "heading": "Detailed Program Breakdown",
+            "items": [
+                {
+                    "emoji": "🌼",
+                    "name": "Playgroup",
+                    "age": "2 – 3 Years",
+                    "duration": "2.5 hours/day",
+                    "color": "#f4d000",
+                    "description": "The very first step into the world of structured learning — designed to make the transition from home to school gentle, joyful and full of wonder. Our Playgroup program focuses on sensory exploration, motor skill development and social-emotional growth through play-based activities that feel more like fun than learning.",
+                    "outcomes": [
+                        "Sensorial & fine motor skill development through Montessori-inspired materials",
+                        "Story-based learning that builds listening, attention and vocabulary",
+                        "Social interaction & confidence building through group play and circle time",
+                        "Independence in basic self-help skills (eating, washing, tidying up)",
+                        "Exposure to rhymes, music, dance and creative art every single day"
+                    ],
+                    "schedule": [
+                        {
+                            "time": "9:00 AM",
+                            "label": "Welcome & Free Play"
+                        },
+                        {
+                            "time": "9:30 AM",
+                            "label": "Circle Time & Rhymes"
+                        },
+                        {
+                            "time": "10:00 AM",
+                            "label": "Thematic Learning"
+                        },
+                        {
+                            "time": "10:30 AM",
+                            "label": "Snack Time"
+                        },
+                        {
+                            "time": "10:45 AM",
+                            "label": "Outdoor / Sensory Play"
+                        },
+                        {
+                            "time": "11:15 AM",
+                            "label": "Story Time & Goodbye"
+                        }
+                    ],
+                    "button": "Enquire Now →",
+                    "link": "/contact#admission-form"
+                },
+                {
+                    "emoji": "🌸",
+                    "name": "Nursery",
+                    "age": "3 – 4 Years",
+                    "duration": "3 hours/day",
+                    "color": "#184a96",
+                    "description": "Where curiosity meets structure. The Nursery program builds on the foundations of Playgroup and introduces early literacy and numeracy through our signature Coding Phonics method and theme-based exploration. Children learn to recognise letters, numbers, colours and shapes — all while having an absolute blast.",
+                    "outcomes": [
+                        "Coding Phonics introduction — 26 letter sounds with actions and stories",
+                        "Pre-writing & language skills through tracing, sandpaper letters and air writing",
+                        "Theme-based exploration of seasons, animals, community helpers and festivals",
+                        "Number recognition (1-20), counting, patterns and basic shapes",
+                        "Gross motor development through structured outdoor play and dance"
+                    ],
+                    "schedule": [
+                        {
+                            "time": "9:00 AM",
+                            "label": "Welcome & Prayer"
+                        },
+                        {
+                            "time": "9:15 AM",
+                            "label": "Phonics & Language"
+                        },
+                        {
+                            "time": "9:45 AM",
+                            "label": "Thematic Learning"
+                        },
+                        {
+                            "time": "10:15 AM",
+                            "label": "Snack & Free Play"
+                        },
+                        {
+                            "time": "10:45 AM",
+                            "label": "Maths & Numbers"
+                        },
+                        {
+                            "time": "11:15 AM",
+                            "label": "Art / Music / Outdoor"
+                        },
+                        {
+                            "time": "11:45 AM",
+                            "label": "Story Time & Goodbye"
+                        }
+                    ],
+                    "button": "Enquire Now →",
+                    "link": "/contact#admission-form"
+                },
+                {
+                    "emoji": "🌺",
+                    "name": "Junior KG",
+                    "age": "4 – 5 Years",
+                    "duration": "3.5 hours/day",
+                    "color": "#f4d000",
+                    "description": "The leap into formal learning begins here. Junior KG introduces children to the complete 44-sound Coding Phonics system and the Concrete-Pictorial-Abstract (CPA) Maths methodology — a Singapore-inspired approach that builds genuine mathematical understanding rather than rote memorisation.",
+                    "outcomes": [
+                        "Advanced Coding Phonics — all 44 sounds with blending & segmenting",
+                        "CPA Maths methodology — Concrete to Pictorial to Abstract progression",
+                        "Reading simple CVC words and basic sight vocabulary",
+                        "Numbers 1-100, addition to 10, subtraction to 5, patterns and time",
+                        "Creative thinking through project-based thematic units"
+                    ],
+                    "schedule": [
+                        {
+                            "time": "9:00 AM",
+                            "label": "Assembly & Prayer"
+                        },
+                        {
+                            "time": "9:20 AM",
+                            "label": "Advanced Phonics"
+                        },
+                        {
+                            "time": "9:50 AM",
+                            "label": "Reading & Writing"
+                        },
+                        {
+                            "time": "10:25 AM",
+                            "label": "Snack & Free Play"
+                        },
+                        {
+                            "time": "10:45 AM",
+                            "label": "CPA Maths"
+                        },
+                        {
+                            "time": "11:20 AM",
+                            "label": "EVS / Theme Project"
+                        },
+                        {
+                            "time": "11:50 AM",
+                            "label": "Art / Music / Outdoor"
+                        },
+                        {
+                            "time": "12:20 PM",
+                            "label": "Story & Goodbye"
+                        }
+                    ],
+                    "button": "Enquire Now →",
+                    "link": "/contact#admission-form"
+                },
+                {
+                    "emoji": "🌻",
+                    "name": "Senior KG",
+                    "age": "5 – 6 Years",
+                    "duration": "4 hours/day",
+                    "color": "#184a96",
+                    "description": "The final stretch before formal schooling. Senior KG consolidates all prior learning and prepares children for the rigours of Grade 1 — building reading fluency, writing confidence, problem-solving skills and the social-emotional maturity needed for big school.",
+                    "outcomes": [
+                        "Reading fluency with simple sentences and short story books",
+                        "Writing skills — capital & lowercase letters, numbers 1-1000, simple words",
+                        "Problem solving & logical thinking through puzzles and games",
+                        "Addition & subtraction to 20, multiplication tables (2, 5, 10), money & time",
+                        "Comprehensive School Readiness Program — interview prep, classroom etiquette"
+                    ],
+                    "schedule": [
+                        {
+                            "time": "9:00 AM",
+                            "label": "Assembly & Prayer"
+                        },
+                        {
+                            "time": "9:20 AM",
+                            "label": "Reading Fluency"
+                        },
+                        {
+                            "time": "9:50 AM",
+                            "label": "Creative Writing"
+                        },
+                        {
+                            "time": "10:25 AM",
+                            "label": "Snack & Free Play"
+                        },
+                        {
+                            "time": "10:45 AM",
+                            "label": "Advanced CPA Maths"
+                        },
+                        {
+                            "time": "11:25 AM",
+                            "label": "EVS / General Knowledge"
+                        },
+                        {
+                            "time": "12:00 PM",
+                            "label": "Hobby Club / Outdoor"
+                        },
+                        {
+                            "time": "12:30 PM",
+                            "label": "Recap & Goodbye"
+                        }
+                    ],
+                    "button": "Enquire Now →",
+                    "link": "/contact#admission-form"
+                },
+                {
+                    "emoji": "🧸",
+                    "name": "Daycare",
+                    "age": "1.5 – 10 Years",
+                    "duration": "Flexible (1 hr – 1 year)",
+                    "color": "#ff6600",
+                    "description": "A loving second home for your little one — combining structured learning, nourishing meals, comfortable rest and endless fun. With packages from just 1 hour up to a full year, Cocohouse Daycare offers unmatched flexibility for modern working parents.",
+                    "outcomes": [
+                        "Safe & secure environment with 24/7 CCTV surveillance",
+                        "Homework assistance for school-going children",
+                        "Nutritious vegetarian meals designed by a child nutritionist",
+                        "Structured nap time with sanitized bedding",
+                        "Daily WhatsApp photo updates so you never miss a moment"
+                    ],
+                    "schedule": [
+                        {
+                            "time": "8:00 AM",
+                            "label": "Welcome & Free Play"
+                        },
+                        {
+                            "time": "9:00 AM",
+                            "label": "Breakfast"
+                        },
+                        {
+                            "time": "9:30 AM",
+                            "label": "Thematic Learning"
+                        },
+                        {
+                            "time": "12:00 PM",
+                            "label": "Lunch"
+                        },
+                        {
+                            "time": "1:30 PM",
+                            "label": "Nap Time"
+                        },
+                        {
+                            "time": "4:00 PM",
+                            "label": "Homework & Hobby Clubs"
+                        },
+                        {
+                            "time": "7:00 PM",
+                            "label": "Wind Down & Pickup"
+                        }
+                    ],
+                    "button": "View Daycare Page →",
+                    "link": "/daycare"
+                },
+                {
+                    "emoji": "🌈",
+                    "name": "Inclusive Special Education",
+                    "age": "1 – 8 Years",
+                    "duration": "Individual Assessment",
+                    "color": "#9333ea",
+                    "description": "Every child deserves to bloom — at their own pace, in their own way. Our Inclusive Special Education program provides personalised support for children with ASD, speech & communication delays, learning difficulties, behavioural challenges and developmental delays.",
+                    "outcomes": [
+                        "Personalised learning plans tailored to each child's unique needs",
+                        "Trained & certified special educators with 5+ years of experience",
+                        "Speech therapy, occupational therapy & behavioural support (on request)",
+                        "Holistic development approach — academic, social, emotional & life skills",
+                        "Regular parent-teacher meetings and home-program recommendations"
+                    ],
+                    "schedule": [
+                        {
+                            "time": "By Appt",
+                            "label": "Initial Assessment"
+                        },
+                        {
+                            "time": "Custom",
+                            "label": "1-on-1 Sessions (45 min)"
+                        },
+                        {
+                            "time": "Custom",
+                            "label": "Group Integration"
+                        },
+                        {
+                            "time": "Custom",
+                            "label": "Speech / OT Therapy"
+                        },
+                        {
+                            "time": "Monthly",
+                            "label": "Parent Review Meeting"
+                        }
+                    ],
+                    "button": "Enquire Now →",
+                    "link": "/contact#admission-form"
+                }
+            ],
+            "slug": "our-programs"
+        },
+        "daycare": {
+            "hero_title": "DAYCARE",
+            "tagline": "\"A Home Away From Home\"",
+            "hero_text": "Cocohouse Daycare — where your little one is nurtured with the warmth of a home and the structure of a Gurukulam. Flexible packages from 1 hour to 1 year. Pay only for what you need.",
+            "packages_title": "Flexible Packages for Every Family",
+            "packages_text": "Seven flexible packages — from 1 hour to 1 year. No minimum commitment, no hidden charges. Contact us for pricing.",
+            "slug": "cocohouse-daycare"
+        },
+        "gallery": {
+            "hero_title": "Our Gallery",
+            "hero_text": "A glimpse into life at Cocohouse — photos of our campus, events, and happy children, plus video testimonials from parents.",
+            "photos_title": "Photo Gallery",
+            "photos_text": "Memorable moments captured at Cocohouse Preschool.",
+            "slug": "cochouse-gallery"
+        },
+        "blog": {
+            "hero_title": "Insights & Stories",
+            "hero_text": "Parenting tips, early education insights, fun activities, and stories from the Cocohouse community.",
+            "slug": "blogs"
+        },
+        "contact": {
+            "hero_title": "Contact Us",
+            "hero_text": "Have a question, want to schedule a visit, or ready to enroll? Reach out — our team responds within 24 hours, every single time.",
+            "phone": "+91-7039152173",
+            "email": "info@cocohouse.in",
+            "hours": "Mon – Sat · 9 AM – 9 PM",
+            "address": "Row House No 3, Millenium Park, Hari Om Nagar, Mulund East, Mumbai - 400081",
+            "location_note": "Visit us at Hari Om Nagar Thane East.",
+            "slug": "contact-us"
+        }
+    }
+}

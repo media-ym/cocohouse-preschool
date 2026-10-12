@@ -1,0 +1,277 @@
+<?php
+
+require_once __DIR__ . '/store.php';
+
+function page_default_slugs(): array
+{
+    return [
+        'home' => '',
+        'about' => 'about',
+        'programs' => 'programs',
+        'daycare' => 'daycare',
+        'gallery' => 'gallery',
+        'blog' => 'blog',
+        'contact' => 'contact',
+    ];
+}
+
+function clean_page_slug(string $text): string
+{
+    $text = strtolower(trim($text));
+    $text = preg_replace('/[^a-z0-9]+/', '-', $text) ?? '';
+    return trim($text, '-');
+}
+
+function page_slugs(): array
+{
+    $defaults = page_default_slugs();
+    $data = read_json(COCO_STORAGE . '/pages.json', []);
+    $pages = is_array($data['pages'] ?? null) ? $data['pages'] : [];
+    $out = [];
+    $used = [];
+    foreach ($defaults as $id => $default) {
+        if ($id === 'home') {
+            $out[$id] = '';
+            continue;
+        }
+        $raw = clean_page_slug((string) ($pages[$id]['slug'] ?? $default));
+        if ($raw === '' || slug_problem($id, $raw, $used) !== '') {
+            $raw = $default;
+        }
+        $used[$raw] = $id;
+        $out[$id] = $raw;
+    }
+    return $out;
+}
+
+function slug_problem(string $pageId, string $slug, ?array $used = null): string
+{
+    if ($pageId === 'home') {
+        return '';
+    }
+    if (!preg_match('#^[a-z0-9]+(?:-[a-z0-9]+)*$#', $slug)) {
+        return 'Use letters, numbers and hyphens for the page address.';
+    }
+    $reserved = ['admin', 'api', 'assets', 'storage', 'includes', 'blog-post', 'author', 'data', 'sitemap', 'robots', 'index', 'uploads', 'post'];
+    if (in_array($slug, $reserved, true)) {
+        return 'That address is reserved.';
+    }
+    if ($used === null) {
+        $used = [];
+        foreach (page_slugs() as $id => $current) {
+            if ($id !== $pageId && $current !== '') {
+                $used[$current] = $id;
+            }
+        }
+    }
+    if (isset($used[$slug])) {
+        return 'That address is already used by another page.';
+    }
+    foreach (page_default_slugs() as $id => $default) {
+        if ($id !== $pageId && $default !== '' && $default === $slug) {
+            return 'That address belongs to another page folder. Pick a different one.';
+        }
+    }
+    return '';
+}
+
+function page_url(string $id): string
+{
+    $slug = page_slugs()[$id] ?? '';
+    if ($id === 'home' || $slug === '') {
+        return '/';
+    }
+    return '/' . $slug;
+}
+
+function enforce_page_slug(string $pageId): void
+{
+    if ($pageId === 'home') {
+        return;
+    }
+    $slug = page_slugs()[$pageId] ?? '';
+    $folder = page_default_slugs()[$pageId] ?? '';
+    $request = trim((string) (parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/'), '/');
+    if ($slug !== '' && $slug !== $folder && ($request === $folder || $request === $folder . '/index.php')) {
+        header('Location: /' . $slug, true, 301);
+        exit;
+    }
+}
+
+function dispatch_custom_slug(string $uri): bool
+{
+    $path = trim($uri, '/');
+    if ($path === '' || str_contains($path, '/')) {
+        return false;
+    }
+    foreach (page_slugs() as $id => $slug) {
+        if ($id === 'home' || $slug === '' || $slug === ($id === 'home' ? '' : page_default_slugs()[$id])) {
+            continue;
+        }
+        if ($path === $slug) {
+            require COCO_ROOT . '/' . $id . '/index.php';
+            return true;
+        }
+    }
+    return false;
+}
+
+function rewrite_page_links(string $html): string
+{
+    foreach (page_slugs() as $id => $slug) {
+        $folder = page_default_slugs()[$id] ?? '';
+        if ($id === 'home' || $folder === '' || $slug === $folder) {
+            continue;
+        }
+        $html = preg_replace('#(?<=["\'])/' . preg_quote($folder, '#') . '(?=["\'\#\?])#', '/' . $slug, $html) ?? $html;
+    }
+    return $html;
+}
+
+function banner_settings(): array
+{
+    $data = read_json(COCO_STORAGE . '/pages.json', []);
+    $site = is_array($data['site'] ?? null) ? $data['site'] : [];
+    $stored = is_array($site['banner'] ?? null) ? $site['banner'] : [];
+    $enabled = array_key_exists('enabled', $stored) ? (string) $stored['enabled'] : '1';
+    $text = trim((string) ($stored['text'] ?? 'Mid Term Admissions Open   ·   Flat 60% Off   ·   Contact Now'));
+    $link = trim((string) ($stored['link'] ?? '/contact'));
+    if ($link === '' || !preg_match('#^(https://|/)#', $link)) {
+        $link = '/contact';
+    }
+    return [
+        'enabled' => $enabled === '1' ? '1' : '0',
+        'text' => $text,
+        'link' => $link,
+    ];
+}
+
+function sanitize_banner(array $posted): array
+{
+    $link = trim((string) ($posted['link'] ?? ''));
+    if ($link === '' || !preg_match('#^(https://[^\s]+|/[^\s]*)$#', $link)) {
+        $link = '/contact';
+    }
+    $text = trim(preg_replace('/\s+/', ' ', (string) ($posted['text'] ?? '')) ?? '');
+    if (function_exists('mb_substr')) {
+        $text = mb_substr($text, 0, 180);
+    } else {
+        $text = substr($text, 0, 180);
+    }
+    return [
+        'enabled' => ((string) ($posted['enabled'] ?? '0')) === '1' ? '1' : '0',
+        'text' => $text,
+        'link' => $link,
+    ];
+}
+
+function inject_banner(string $html): string
+{
+    $banner = banner_settings();
+    if ($banner['enabled'] !== '1' || $banner['text'] === '' || !str_contains($html, '<header class="navbar"')) {
+        return $html;
+    }
+    $piece = e($banner['text']);
+    $chunks = str_repeat('<span>' . $piece . '</span>', 8);
+    $block = '<style>'
+        . '.top-marquee{position:fixed;top:0;left:0;right:0;z-index:1100;height:38px;background:#0e2a52;color:#fff;overflow:hidden;display:flex;align-items:center;}'
+        . '.top-marquee a{color:#fff;text-decoration:none;display:block;width:100%;}'
+        . '.marquee-track{display:flex;width:max-content;animation:coco-marquee 22s linear infinite;}'
+        . '.top-marquee:hover .marquee-track{animation-play-state:paused;}'
+        . '.marquee-track span{display:inline-flex;align-items:center;height:38px;padding:0 28px;font-weight:600;font-size:.92rem;letter-spacing:.02em;white-space:nowrap;}'
+        . '.marquee-track span::before{content:"";display:inline-block;width:8px;height:8px;margin-right:14px;border-radius:50%;background:#f4d000;transform:translateY(-1px);}'
+        . '@keyframes coco-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}'
+        . 'body{padding-top:38px !important;}'
+        . '.navbar{top:38px !important;}'
+        . '.mobile-drawer{top:38px;height:calc(100% - 38px);}'
+        . '</style>'
+        . '<div class="top-marquee"><a href="' . e($banner['link']) . '"><div class="marquee-track">' . $chunks . '</div></a></div>';
+    return preg_replace('#<header class="navbar"#', $block . '<header class="navbar"', $html, 1) ?? $html;
+}
+
+function media_catalog(): array
+{
+    return [
+        'logo' => ['label' => 'Logo', 'src' => '/assets/images/logo.webp', 'where' => 'Header and footer on every page'],
+        'story' => ['label' => 'Joyful learning', 'src' => '/assets/images/joyful-learning.webp', 'where' => 'Home and About'],
+        'campus' => ['label' => 'Campus', 'src' => '/assets/images/campus.jpg', 'where' => 'Home, Daycare and Gallery'],
+        'principal' => ['label' => 'Principal', 'src' => '/assets/images/principal.webp', 'where' => 'Home and Gallery'],
+        'yt-nitisha' => ['label' => 'Nitisha & Vijay', 'src' => 'https://img.youtube.com/vi/tMTFDT_VD_o/hqdefault.jpg', 'where' => 'Home and Gallery testimonial'],
+        'yt-anirudh' => ['label' => 'Anirudh & Shilpa', 'src' => 'https://img.youtube.com/vi/WQ4MrEJBD8E/hqdefault.jpg', 'where' => 'Home and Gallery testimonial'],
+        'yt-darshana' => ['label' => 'Darshana & Rahul', 'src' => 'https://img.youtube.com/vi/ptSo4Vg7zGY/hqdefault.jpg', 'where' => 'Home testimonial'],
+        'yt-nikita' => ['label' => 'Nikita & Amit', 'src' => 'https://img.youtube.com/vi/w5twGdXxz3s/hqdefault.jpg', 'where' => 'Home testimonial'],
+    ];
+}
+
+function media_map(): array
+{
+    $data = read_json(COCO_STORAGE . '/pages.json', []);
+    $site = is_array($data['site'] ?? null) ? $data['site'] : [];
+    $map = is_array($site['media'] ?? null) ? $site['media'] : [];
+    $clean = [];
+    foreach (media_catalog() as $key => $item) {
+        $value = trim((string) ($map[$key] ?? ''));
+        if ($value !== '' && str_starts_with($value, '/assets/images/')) {
+            $clean[$key] = $value;
+        }
+    }
+    return $clean;
+}
+
+function media_src(string $key): string
+{
+    $catalog = media_catalog();
+    $original = (string) ($catalog[$key]['src'] ?? '');
+    $swap = media_map()[$key] ?? '';
+    return $swap !== '' ? $swap : $original;
+}
+
+function apply_media_swaps(string $html): string
+{
+    foreach (media_catalog() as $key => $item) {
+        $swap = media_map()[$key] ?? '';
+        if ($swap !== '' && $swap !== $item['src']) {
+            $html = str_replace($item['src'], $swap, $html);
+        }
+    }
+    return $html;
+}
+
+function image_file_info(string $url): array
+{
+    $info = ['bytes' => 0, 'width' => 0, 'height' => 0, 'local' => false];
+    if (!str_starts_with($url, '/assets/')) {
+        return $info;
+    }
+    $path = COCO_ROOT . $url;
+    if (!is_file($path)) {
+        return $info;
+    }
+    $dim = @getimagesize($path);
+    $info['local'] = true;
+    $info['bytes'] = (int) filesize($path);
+    $info['width'] = (int) ($dim[0] ?? 0);
+    $info['height'] = (int) ($dim[1] ?? 0);
+    return $info;
+}
+
+function format_file_size(int $bytes): string
+{
+    if ($bytes >= 1048576) {
+        return number_format($bytes / 1048576, 1) . ' MB';
+    }
+    if ($bytes >= 1024) {
+        return (string) (int) round($bytes / 1024) . ' KB';
+    }
+    if ($bytes > 0) {
+        return $bytes . ' B';
+    }
+    return 'External';
+}
+
+function public_finish(string $html): string
+{
+    $html = inject_banner($html);
+    $html = rewrite_page_links($html);
+    return apply_media_swaps($html);
+}

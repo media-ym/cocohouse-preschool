@@ -144,17 +144,54 @@ function setupForm(formId, apiEndpoint, options) {
     var lines = ['Hello Cocohouse Preschool,'];
     lines.push('Enquiry: ' + (typeLabels[options.type] || 'Website Enquiry'));
     Object.keys(data).forEach(function (key) {
-      if (!data[key] || key === 'type') return;
+      if (!data[key] || key === 'type' || key === 'company') return;
       lines.push((labels[key] || key) + ': ' + String(data[key]).trim());
     });
 
-    var wa = 'https://wa.me/917039152173?text=' + encodeURIComponent(lines.join('\n'));
-    window.open(wa, '_blank', 'noopener');
-    showToast(
-      options.successTitle || 'Submitted!',
-      'WhatsApp is opening so you can send this enquiry to our team.'
-    );
-    form.reset();
+    var submitBtn = form.querySelector('button[type="submit"]');
+    var originalText = submitBtn ? submitBtn.innerHTML : '';
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = 'Submitting...';
+    }
+
+    fetch(apiEndpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+      .then(function (res) {
+        return res.json().then(function (body) {
+          return { ok: res.ok, body: body };
+        });
+      })
+      .then(function (result) {
+        if (!result.ok || !result.body || !result.body.success) {
+          var message = (result.body && result.body.error) || 'Please try again.';
+          showToast('Could not submit', message, 'error');
+          return;
+        }
+        showToast(
+          options.successTitle || 'Submitted!',
+          options.successDesc || 'Our team will contact you within 24 hours.'
+        );
+        form.reset();
+      })
+      .catch(function () {
+        var wa = 'https://wa.me/917039152173?text=' + encodeURIComponent(lines.join('\n'));
+        window.open(wa, '_blank', 'noopener');
+        showToast(
+          options.successTitle || 'Submitted!',
+          'WhatsApp is opening so you can send this enquiry to our team.'
+        );
+        form.reset();
+      })
+      .finally(function () {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalText;
+        }
+      });
   });
 }
 
@@ -200,6 +237,7 @@ function renderFeaturedPost(post) {
     '<h2>' + escapeHtml(post.title) + '</h2>' +
     '<p>' + escapeHtml(post.excerpt) + '</p>' +
     '<div class="blog-meta">' +
+    (post.author ? '<span>' + escapeHtml(post.author) + '</span>' : '') +
     (post.published_at ? '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> ' + formatDate(post.published_at) + '</span>' : '') +
     '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> ' + post.read_minutes + ' min read</span>' +
     '</div></div></a>'
@@ -221,6 +259,7 @@ function renderBlogCard(post) {
     '<h3>' + escapeHtml(post.title) + '</h3>' +
     '<p>' + escapeHtml(post.excerpt) + '</p>' +
     '<div class="blog-meta">' +
+    (post.author ? '<span>' + escapeHtml(post.author) + '</span>' : '') +
     (post.published_at ? '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> ' + formatDate(post.published_at) + '</span>' : '') +
     '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> ' + post.read_minutes + ' min</span>' +
     '</div></div></a>'
@@ -254,7 +293,7 @@ function loadBlogPost() {
       var post = data.item;
       if (!post) throw new Error('Not found');
 
-      document.title = post.title + ' | Cocohouse Blog';
+      document.title = post.title + ' | Cocohouse Blogs';
       document.getElementById('blog-title').textContent = post.title;
       document.getElementById('blog-excerpt').textContent = post.excerpt;
       if (post.published_at) document.getElementById('blog-date').textContent = formatDate(post.published_at);
@@ -293,6 +332,6 @@ function loadBlogPost() {
     })
     .catch(function () {
       document.getElementById('blog-content').innerHTML =
-        '<div style="text-align:center;padding:60px;color:#9ca3af;"><h2>Post not found</h2><p style="margin-top:12px;"><a href="/blog" style="color:#184a96;text-decoration:underline;">← Back to Blog</a></p></div>';
+        '<div style="text-align:center;padding:60px;color:#9ca3af;"><h2>Post not found</h2><p style="margin-top:12px;"><a href="/blog" style="color:#184a96;text-decoration:underline;">← Back to Blogs</a></p></div>';
     });
 }
