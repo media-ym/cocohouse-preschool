@@ -74,7 +74,7 @@ ob_start();
       <li><a href="/gallery">Gallery</a></li>
       <li><a href="/blog" style="color:#ff6b6b;">Blogs</a></li>
       <li><a href="/contact">Contact Us</a></li>
-      <li><a href="/#admission-form" class="nav-cta">Admissions Open</a></li>
+      <li><a href="/adminssion-open-2026" class="nav-cta">Admissions Open</a></li>
     </ul>
     <button class="nav-toggle" id="navToggle" aria-label="Open menu">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -97,7 +97,7 @@ ob_start();
     <a href="/gallery">Gallery</a>
     <a href="/blog">Blogs</a>
     <a href="/contact">Contact Us</a>
-    <a href="/#admission-form" class="btn btn-orange" style="margin:16px;">Admissions Open</a>
+    <a href="/adminssion-open-2026" class="btn btn-yellow" style="margin:16px;">Admissions Open</a>
   </nav>
 </div>
 
@@ -139,7 +139,7 @@ ob_start();
   <div class="container">
     <div class="footer-grid">
       <div>
-        <img src="/assets/images/logo.webp" alt="Cocohouse" class="footer-logo">
+        <img src="/assets/images/school-emblem.png" alt="Cocohouse Preschool" class="footer-logo">
         <h3>Cocohouse Preschool & Daycare</h3>
         <p>Nurturing Little Minds through Thematic Learning, Coding Phonics, CPA Maths & Holistic Development.</p>
       </div>
@@ -153,6 +153,7 @@ ob_start();
           <li><a href="/gallery">Gallery</a></li>
           <li><a href="/blog">Blogs</a></li>
           <li><a href="/contact">Contact</a></li>
+          <li><a href="/adminssion-open-2026">Admissions Open</a></li>
         </ul>
       </div>
       <div>
@@ -175,6 +176,7 @@ ob_start();
     </div>
     <div class="footer-bottom">
       <p>&copy; 2026 Cocohouse Preschool & Daycare | All Rights Reserved</p>
+      <p>Designed By <a href="https://yunickmedia.com" target="_blank" rel="noopener">Yunick Media</a></p>
     </div>
   </div>
 </footer>

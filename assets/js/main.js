@@ -125,6 +125,12 @@ function setupForm(formId, apiEndpoint, options) {
     });
     // Add type if specified
     if (options.type) data.type = options.type;
+    var adParams = new URLSearchParams(window.location.search);
+    ['gclid', 'gbraid', 'wbraid', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach(function (key) {
+      var value = adParams.get(key);
+      if (value) data[key] = value.slice(0, 180);
+    });
+    data.landing = window.location.pathname;
 
     var labels = {
       childName: "Child's Name",
@@ -143,8 +149,10 @@ function setupForm(formId, apiEndpoint, options) {
     };
     var lines = ['Hello Cocohouse Preschool,'];
     lines.push('Enquiry: ' + (typeLabels[options.type] || 'Website Enquiry'));
+    lines.push('Source: ' + (new URLSearchParams(window.location.search).get('utm_source') || 'website'));
+    var skipKeys = { type: 1, company: 1, gclid: 1, gbraid: 1, wbraid: 1, utm_source: 1, utm_medium: 1, utm_campaign: 1, utm_term: 1, utm_content: 1, landing: 1 };
     Object.keys(data).forEach(function (key) {
-      if (!data[key] || key === 'type' || key === 'company') return;
+      if (!data[key] || skipKeys[key]) return;
       lines.push((labels[key] || key) + ': ' + String(data[key]).trim());
     });
 
@@ -176,6 +184,19 @@ function setupForm(formId, apiEndpoint, options) {
           options.successDesc || 'Our team will contact you within 24 hours.'
         );
         form.reset();
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: 'generate_lead',
+          form_type: options.type || 'contact',
+          page_path: window.location.pathname
+        });
+        if (typeof gtag === 'function') {
+          gtag('event', 'generate_lead', {
+            form_type: options.type || 'contact',
+            page_path: window.location.pathname
+          });
+        }
+        if (typeof options.onSuccess === 'function') options.onSuccess();
       })
       .catch(function () {
         var wa = 'https://wa.me/917039152173?text=' + encodeURIComponent(lines.join('\n'));
@@ -334,4 +355,134 @@ function loadBlogPost() {
       document.getElementById('blog-content').innerHTML =
         '<div style="text-align:center;padding:60px;color:#9ca3af;"><h2>Post not found</h2><p style="margin-top:12px;"><a href="/blog" style="color:#184a96;text-decoration:underline;">← Back to Blogs</a></p></div>';
     });
+}
+
+var COCO_MAPS = 'https://share.google/HHjCBetZvLFN4tJBN';
+var COCO_WA_ICON = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>';
+
+function cocoIncoming() {
+  return new URLSearchParams(window.location.search);
+}
+
+function cocoUtm(content) {
+  var incoming = cocoIncoming();
+  var query = new URLSearchParams();
+  ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'gclid', 'gbraid', 'wbraid'].forEach(function (key) {
+    var value = incoming.get(key);
+    if (value) query.set(key, value);
+  });
+  if (!query.get('utm_source')) query.set('utm_source', 'website');
+  if (!query.get('utm_medium')) query.set('utm_medium', 'button');
+  if (content) query.set('utm_content', content);
+  return query;
+}
+
+function cocoButtonName(link) {
+  var name = link.getAttribute('data-utm') || link.getAttribute('aria-label') || link.textContent || 'button';
+  name = String(name).trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  return name || 'button';
+}
+
+function cocoWaMessage(content) {
+  var query = cocoUtm(content);
+  var lines = ['Hello Cocohouse, I want admission details for 2026-27.'];
+  lines.push('Source: ' + query.get('utm_source'));
+  if (query.get('utm_campaign')) lines.push('Campaign: ' + query.get('utm_campaign'));
+  if (content) lines.push('Button: ' + content);
+  return lines.join('\n');
+}
+
+function cocoWaLink(content) {
+  return 'https://wa.me/917039152173?text=' + encodeURIComponent(cocoWaMessage(content));
+}
+
+function cocoWithUtm(href, content) {
+  if (!href || href.indexOf('mailto:') === 0 || href.indexOf('tel:') === 0 || href.indexOf('javascript:') === 0) return href;
+  if (href.indexOf('wa.me') !== -1) return cocoWaLink(content);
+  if (href.indexOf('share.google') !== -1) return href;
+  var hash = '';
+  var hashAt = href.indexOf('#');
+  if (hashAt !== -1) {
+    hash = href.slice(hashAt);
+    href = href.slice(0, hashAt);
+  }
+  var base = href;
+  var existing = '';
+  var queryAt = href.indexOf('?');
+  if (queryAt !== -1) {
+    base = href.slice(0, queryAt);
+    existing = href.slice(queryAt + 1);
+  }
+  if (!base) base = window.location.pathname;
+  var merged = new URLSearchParams(existing);
+  cocoUtm(content).forEach(function (value, key) { merged.set(key, value); });
+  return base + '?' + merged.toString() + hash;
+}
+
+function cocoTrackLinks() {
+  document.querySelectorAll('.whatsapp-float').forEach(function (link) {
+    link.innerHTML = COCO_WA_ICON;
+    link.href = cocoWaLink('whatsapp-sticky');
+  });
+
+  document.querySelectorAll('a.btn, a.nav-cta, .ads-bar a, a[href*="wa.me"]').forEach(function (link) {
+    if (link.classList.contains('whatsapp-float')) return;
+    var content = cocoButtonName(link);
+    var href = link.getAttribute('href') || '';
+    if (href.indexOf('wa.me') !== -1) {
+      link.href = cocoWaLink(content);
+      return;
+    }
+    link.href = cocoWithUtm(href, content);
+  });
+
+  var addressNodes = [];
+  var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  while (walker.nextNode()) {
+    if (walker.currentNode.nodeValue.indexOf('Millenium Park') !== -1) addressNodes.push(walker.currentNode);
+  }
+  addressNodes.forEach(function (node) {
+    var parent = node.parentElement;
+    if (!parent || parent.closest('a')) return;
+    var text = node.nodeValue;
+    var start = text.indexOf('Row House No 3');
+    if (start === -1) start = text.indexOf('Millenium Park');
+    if (start === -1) return;
+    var tail = text.slice(start);
+    var endMatch = tail.match(/Mumbai\s*-\s*400081/);
+    if (!endMatch) return;
+    var end = start + endMatch.index + endMatch[0].length;
+    var link = document.createElement('a');
+    link.href = COCO_MAPS;
+    link.target = '_blank';
+    link.rel = 'noopener';
+    link.style.color = 'inherit';
+    link.style.textDecoration = 'underline';
+    link.textContent = text.slice(start, end);
+    var fragment = document.createDocumentFragment();
+    if (start > 0) fragment.appendChild(document.createTextNode(text.slice(0, start)));
+    fragment.appendChild(link);
+    if (end < text.length) fragment.appendChild(document.createTextNode(text.slice(end)));
+    node.parentNode.replaceChild(fragment, node);
+  });
+
+  document.querySelectorAll('iframe[src*="google.com/maps"], iframe[src*="maps.google"]').forEach(function (frame) {
+    var box = frame.parentElement;
+    if (!box || box.querySelector('.coco-map-link')) return;
+    box.style.position = 'relative';
+    var link = document.createElement('a');
+    link.className = 'coco-map-link';
+    link.href = COCO_MAPS;
+    link.target = '_blank';
+    link.rel = 'noopener';
+    link.setAttribute('aria-label', 'Open Cocohouse on Google Maps');
+    link.style.cssText = 'position:absolute;inset:0;z-index:2;';
+    box.appendChild(link);
+  });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', cocoTrackLinks);
+} else {
+  cocoTrackLinks();
 }

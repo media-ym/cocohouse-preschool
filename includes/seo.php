@@ -47,7 +47,7 @@ function seo_page_defaults(string $pageId): array
 {
     $pages = [
         'home' => [
-            'title' => '1st Thematic Preschool in Mulund & Thane | Cocohouse Preschool & Daycare',
+            'title' => '1st Thematic Preschool in Thane | Cocohouse Preschool & Daycare',
             'description' => 'Cocohouse is Mulund and Thane\'s first thematic preschool. Playgroup, Nursery, Junior KG, Senior KG, daycare and inclusive special education in Mulund East.',
             'keywords' => 'preschool in Mulund, daycare Mulund East, thematic preschool Thane, playgroup admission, Cocohouse',
         ],
@@ -68,13 +68,18 @@ function seo_page_defaults(string $pageId): array
         ],
         'gallery' => [
             'title' => 'Gallery | Cocohouse Preschool & Daycare',
-            'description' => 'Photos from the Cocohouse Preschool and daycare campus in Mulund East — classrooms, events and everyday learning.',
-            'keywords' => 'Cocohouse gallery, preschool photos Mulund, daycare campus',
+            'description' => 'Photos from Cocohouse Preschool & Daycare in Mulund East — classrooms, events and everyday learning.',
+            'keywords' => 'Cocohouse gallery, preschool photos Mulund, daycare photos',
         ],
         'blog' => [
             'title' => 'Blogs | Cocohouse Preschool & Daycare',
             'description' => 'Early learning and parenting articles from Cocohouse Preschool & Daycare in Mulund East.',
             'keywords' => 'preschool blog, parenting tips, early learning Mulund',
+        ],
+        'admissions' => [
+            'title' => 'Admissions Open 2026 | Cocohouse Preschool & Daycare',
+            'description' => 'Mid-term admissions open for 2026-27 at Cocohouse Preschool and Daycare, Hari Om Nagar. Playgroup, nursery, KG and full day daycare. Flat 60% off. Call 7039152173.',
+            'keywords' => 'preschool admission 2026, daycare admission Thane East, playgroup admission, Cocohouse admissions, mid term admission',
         ],
         'contact' => [
             'title' => 'Contact Us | Cocohouse Preschool & Daycare',

@@ -73,7 +73,7 @@ $authorUrl = '/author/' . rawurlencode($authorSlug);
       <li><a href="/gallery">Gallery</a></li>
       <li><a href="/blog" style="color:#ff6b6b;">Blogs</a></li>
       <li><a href="/contact">Contact Us</a></li>
-      <li><a href="/#admission-form" class="nav-cta">Admissions Open</a></li>
+      <li><a href="/adminssion-open-2026" class="nav-cta">Admissions Open</a></li>
     </ul>
     <button class="nav-toggle" id="navToggle" aria-label="Open menu">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -96,7 +96,7 @@ $authorUrl = '/author/' . rawurlencode($authorSlug);
     <a href="/gallery">Gallery</a>
     <a href="/blog">Blogs</a>
     <a href="/contact">Contact Us</a>
-    <a href="/#admission-form" class="btn btn-orange" style="margin:16px;">Admissions Open</a>
+    <a href="/adminssion-open-2026" class="btn btn-yellow" style="margin:16px;">Admissions Open</a>
   </nav>
 </div>
 
@@ -137,7 +137,7 @@ $authorUrl = '/author/' . rawurlencode($authorSlug);
         <a href="/contact" class="btn btn-ghost" style="margin-left:8px;background:#fff;color:#184a96;">Contact now</a>
       <?php else: ?>
         <h3>Visit Cocohouse Preschool</h3>
-        <p>See our thematic learning in action. Book a campus tour today!</p>
+        <p>See our thematic learning in action. Book a preschool & daycare tour today!</p>
         <a href="/contact" class="btn btn-yellow">Book a Visit →</a>
       <?php endif; ?>
     </div>
@@ -183,7 +183,7 @@ $related = array_slice($related, 0, 3);
   <div class="container">
     <div class="footer-grid">
       <div>
-        <img src="/assets/images/logo.webp" alt="Cocohouse" class="footer-logo">
+        <img src="/assets/images/school-emblem.png" alt="Cocohouse Preschool" class="footer-logo">
         <h3>Cocohouse Preschool & Daycare</h3>
         <p>Nurturing Little Minds through Thematic Learning, Coding Phonics, CPA Maths & Holistic Development.</p>
       </div>
@@ -197,6 +197,7 @@ $related = array_slice($related, 0, 3);
           <li><a href="/gallery">Gallery</a></li>
           <li><a href="/blog">Blogs</a></li>
           <li><a href="/contact">Contact</a></li>
+          <li><a href="/adminssion-open-2026">Admissions Open</a></li>
         </ul>
       </div>
       <div>
@@ -219,6 +220,7 @@ $related = array_slice($related, 0, 3);
     </div>
     <div class="footer-bottom">
       <p>&copy; 2026 Cocohouse Preschool & Daycare | All Rights Reserved</p>
+      <p>Designed By <a href="https://yunickmedia.com" target="_blank" rel="noopener">Yunick Media</a></p>
     </div>
   </div>
 </footer>

@@ -58,6 +58,9 @@ function enquiry_message(array $item): array
         'Mobile: ' . (($item['phone'] ?? '') !== '' ? $item['phone'] : '—'),
         'Email: ' . (($item['email'] ?? '') !== '' ? $item['email'] : '—'),
         'Message: ' . (($item['message'] ?? '') !== '' ? $item['message'] : '—'),
+        'Page: ' . (($item['ads']['landing'] ?? '') !== '' ? $item['ads']['landing'] : '—'),
+        'Campaign: ' . (($item['ads']['utm_campaign'] ?? '') !== '' ? $item['ads']['utm_campaign'] : '—'),
+        'Google click: ' . (($item['ads']['gclid'] ?? '') !== '' ? $item['ads']['gclid'] : '—'),
         'Received: ' . format_when((string) ($item['created_at'] ?? '')),
     ];
     return [$subject, implode("\n", $rows)];

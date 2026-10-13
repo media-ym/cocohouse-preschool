@@ -12,6 +12,7 @@ function page_default_slugs(): array
         'gallery' => 'gallery',
         'blog' => 'blog',
         'contact' => 'contact',
+        'admissions' => 'admissions',
     ];
 }
 
@@ -194,7 +195,7 @@ function media_catalog(): array
     return [
         'logo' => ['label' => 'Logo', 'src' => '/assets/images/logo.webp', 'where' => 'Header and footer on every page'],
         'story' => ['label' => 'Joyful learning', 'src' => '/assets/images/joyful-learning.webp', 'where' => 'Home and About'],
-        'campus' => ['label' => 'Campus', 'src' => '/assets/images/campus.jpg', 'where' => 'Home, Daycare and Gallery'],
+        'campus' => ['label' => 'Preschool & Daycare', 'src' => '/assets/images/campus.jpg', 'where' => 'Home, Daycare and Gallery'],
         'principal' => ['label' => 'Principal', 'src' => '/assets/images/principal.webp', 'where' => 'Home and Gallery'],
         'yt-nitisha' => ['label' => 'Nitisha & Vijay', 'src' => 'https://img.youtube.com/vi/tMTFDT_VD_o/hqdefault.jpg', 'where' => 'Home and Gallery testimonial'],
         'yt-anirudh' => ['label' => 'Anirudh & Shilpa', 'src' => 'https://img.youtube.com/vi/WQ4MrEJBD8E/hqdefault.jpg', 'where' => 'Home and Gallery testimonial'],
@@ -273,5 +274,85 @@ function public_finish(string $html): string
 {
     $html = inject_banner($html);
     $html = rewrite_page_links($html);
+    $html = inject_entry_popup($html);
     return apply_media_swaps($html);
+}
+
+function inject_entry_popup(string $html): string
+{
+    if (!str_contains($html, '</body>') || str_contains($html, 'id="cocoPopup"')) {
+        return $html;
+    }
+    $popup = <<<'HTML'
+<div class="coco-popup" id="cocoPopup" aria-hidden="true">
+  <div class="coco-popup-card" role="dialog" aria-modal="true" aria-labelledby="cocoPopupTitle">
+    <button type="button" class="coco-popup-close" id="cocoPopupClose" aria-label="Close">×</button>
+    <p class="coco-popup-kicker">Admissions Open 2026-27</p>
+    <h2 id="cocoPopupTitle">Flat 60% Off on Mid-Term Seats</h2>
+    <p class="coco-popup-note">Share your number. Cocohouse will call you within 24 hours.</p>
+    <form id="cocoPopupForm">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;opacity:0;">
+      <div class="form-group"><input class="form-input" type="text" name="parentName" placeholder="Parent's Name *" required autocapitalize="words"></div>
+      <div class="form-group"><input class="form-input" type="tel" name="phone" placeholder="Mobile Number *" data-validate="phone" required></div>
+      <div class="form-group"><input class="form-input" type="text" name="childName" placeholder="Child's Name *" required autocapitalize="words"></div>
+      <div class="form-group">
+        <select class="form-select" name="program" required>
+          <option value="">Program *</option>
+          <option>Playgroup</option>
+          <option>Nursery</option>
+          <option>Junior KG</option>
+          <option>Senior KG</option>
+          <option>Daycare</option>
+          <option>Special Education</option>
+        </select>
+      </div>
+      <button class="btn-submit" type="submit">Get a Call Back</button>
+    </form>
+  </div>
+</div>
+<style>
+.coco-popup{position:fixed;inset:0;z-index:1400;background:rgba(14,42,82,.62);display:none;align-items:center;justify-content:center;padding:16px;}
+.coco-popup.is-open{display:flex;}
+.coco-popup-card{position:relative;width:min(420px,100%);max-height:calc(100vh - 32px);overflow:auto;background:#fff;border-radius:24px;padding:28px 22px 22px;box-shadow:0 24px 60px rgba(14,42,82,.28);}
+.coco-popup-kicker{display:inline-block;background:#f4d000;color:#184a96;font-weight:800;font-size:.78rem;padding:6px 12px;border-radius:999px;margin-bottom:12px;}
+.coco-popup-card h2{color:#184a96;font-size:1.45rem;line-height:1.2;margin-bottom:8px;}
+.coco-popup-note{color:#4b5563;font-size:.9rem;margin-bottom:16px;}
+.coco-popup-close{position:absolute;top:10px;right:12px;width:36px;height:36px;border-radius:50%;font-size:1.5rem;line-height:1;color:#184a96;background:#fff8e1;}
+</style>
+<script>
+(function () {
+  var box = document.getElementById('cocoPopup');
+  var storageKey = document.body.classList.contains('ads-page') ? 'coco_ads_popup_closed' : 'coco_popup_closed';
+  if (!box || sessionStorage.getItem(storageKey) === '1') return;
+  function closePopup() {
+    box.classList.remove('is-open');
+    box.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    sessionStorage.setItem(storageKey, '1');
+  }
+  document.getElementById('cocoPopupClose').addEventListener('click', closePopup);
+  box.addEventListener('click', function (event) {
+    if (event.target === box) closePopup();
+  });
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && box.classList.contains('is-open')) closePopup();
+  });
+  window.setTimeout(function () {
+    if (sessionStorage.getItem(storageKey) === '1') return;
+    box.classList.add('is-open');
+    box.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }, 600);
+  if (typeof setupForm === 'function') {
+    setupForm('cocoPopupForm', '/api/submit-enquiry.php', {
+      type: 'admission',
+      successTitle: 'Enquiry received',
+      successDesc: 'Thank you. Cocohouse will call you within 24 hours.',
+      onSuccess: closePopup
+    });
+  }
+})();
+</script>
+HTML;
+    return preg_replace('#</body>#', $popup . '</body>', $html, 1) ?? $html;
 }

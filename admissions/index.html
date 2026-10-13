@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admissions Open 2026 | Cocohouse Preschool & Daycare</title>
+  <link rel="icon" href="/assets/images/logo.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body class="ads-page">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#222;background:#fff;line-height:1.6;overflow-x:hidden;}
+img{max-width:100%;height:auto;display:block;}
+a{color:inherit;text-decoration:none;}
+ul,ol{list-style:none;}
+button{cursor:pointer;border:none;background:none;font-family:inherit;}
+input,textarea,select{font-family:inherit;font-size:inherit;}
+.container{max-width:1200px;margin:0 auto;padding:0 16px;}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);padding:12px 0;box-shadow:0 2px 8px rgba(0,0,0,0.08);}
+.navbar .container{display:flex;align-items:center;justify-content:space-between;}
+.navbar-logo{height:48px;width:auto;}
+@media(min-width:768px){.navbar-logo{height:56px;}}
+.nav-menu{display:none;align-items:center;gap:18px;}
+@media(min-width:1180px){.nav-menu{display:flex;}}
+.nav-menu a{color:#184a96;font-weight:500;font-size:0.9375rem;white-space:nowrap;}
+.nav-cta{display:inline-flex;align-items:center;gap:6px;background:#f4d000;color:#184a96;font-weight:600;font-size:0.875rem;padding:10px 20px;border-radius:999px;white-space:nowrap;}
+.nav-toggle{display:block;padding:8px;color:#184a96;background:none;border:none;}
+@media(min-width:1180px){.nav-toggle{display:none;}}
+.mobile-drawer{position:fixed;top:0;right:0;height:100%;width:80%;max-width:360px;background:#fff;box-shadow:-8px 0 30px rgba(0,0,0,0.15);z-index:1000;transform:translateX(100%);transition:transform 0.3s;overflow-y:auto;}
+.mobile-drawer.open{transform:translateX(0);}
+.mobile-drawer-header{display:flex;align-items:center;justify-content:space-between;padding:16px;border-bottom:1px solid #e5e7eb;}
+.mobile-drawer nav a{display:block;padding:12px 20px;color:#184a96;font-weight:500;}
+.drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:998;display:none;}
+.drawer-overlay.show{display:block;}
+.section{padding:64px 0;}
+.section-title{font-size:1.75rem;color:#184a96;margin-bottom:12px;font-weight:700;}
+.section-subtitle{color:#ff6600;font-size:0.875rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;}
+.footer{background:#0e2a52;color:#fff;padding:56px 0 24px;}
+.footer h3,.footer h4{color:#f4d000;margin-bottom:16px;}
+.whatsapp-float{position:fixed;bottom:20px;right:20px;z-index:997;width:56px;height:56px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(37,211,102,0.4);color:#fff;}
+.grid{display:grid;gap:16px;}
+.grid-3{grid-template-columns:1fr;}
+@media(min-width:640px){.grid-3{grid-template-columns:1fr 1fr;}}
+@media(min-width:1024px){.grid-3{grid-template-columns:1fr 1fr 1fr;}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;border-radius:999px;font-weight:600;font-size:0.875rem;}
+.btn-primary{background:#184a96;color:#fff;}
+.btn-orange{background:linear-gradient(135deg,#ff6600,#ff9a3c);color:#fff;}
+.btn-yellow{background:#f4d000;color:#184a96;}
+.btn-green{background:#25d366;color:#fff;}
+.section-header{text-align:center;margin-bottom:36px;}
+</style>
+
+<header class="navbar" id="navbar">
+  <div class="container">
+    <a href="/"><img src="/assets/images/logo.webp" alt="Cocohouse Preschool & Daycare" class="navbar-logo"></a>
+    <ul class="nav-menu">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About Us</a></li>
+      <li><a href="/programs">Our Programs</a></li>
+      <li><a href="/daycare">Daycare</a></li>
+      <li><a href="/gallery">Gallery</a></li>
+      <li><a href="/blog">Blogs</a></li>
+      <li><a href="/contact">Contact Us</a></li>
+      <li><a href="/adminssion-open-2026" class="nav-cta">Admissions Open</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</header>
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<div class="mobile-drawer" id="mobileDrawer">
+  <div class="mobile-drawer-header">
+    <img src="/assets/images/logo.webp" alt="Cocohouse" style="height:44px;">
+    <button class="nav-toggle mobile-drawer-close" aria-label="Close menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/about">About Us</a>
+    <a href="/programs">Our Programs</a>
+    <a href="/daycare">Daycare</a>
+    <a href="/gallery">Gallery</a>
+    <a href="/blog">Blogs</a>
+    <a href="/contact">Contact Us</a>
+    <a href="/adminssion-open-2026" class="btn btn-yellow" style="margin:16px;">Admissions Open</a>
+  </nav>
+</div>
+
+<section class="hero hero-blue" id="admission-form">
+  <div class="container">
+    <div>
+      <span class="hero-badge">{{hero_badge}}</span>
+      <h1>{{hero_title}}</h1>
+      <p>{{hero_text}}</p>
+      <div class="ads-actions">
+        <a class="btn btn-yellow" href="tel:+917039152173">Call 7039152173</a>
+        <a class="btn btn-green" href="https://wa.me/917039152173?text=Hello%20Cocohouse%2C%20I%20want%20admission%20details%20for%202026-27." target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+    <div class="form-card">
+      <h2>Book an Admission Call</h2>
+      <p class="form-note">Share your number. The team calls back within 24 hours.</p>
+      <form id="admissionAdsForm">
+        <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;opacity:0;">
+        <div class="form-group"><input type="text" name="parentName" class="form-input" placeholder="Parent's Name *" required autocapitalize="words"></div>
+        <div class="form-group"><input type="tel" name="phone" class="form-input" placeholder="Mobile Number *" data-validate="phone" required></div>
+        <div class="form-group"><input type="text" name="childName" class="form-input" placeholder="Child's Name *" required autocapitalize="words"></div>
+        <div class="form-row">
+          <div class="form-group"><input type="text" name="childAge" class="form-input" placeholder="Child's Age"></div>
+          <div class="form-group">
+            <select name="program" class="form-select" required>
+              <option value="">Program *</option>
+              <option>Playgroup</option>
+              <option>Nursery</option>
+              <option>Junior KG</option>
+              <option>Senior KG</option>
+              <option>Daycare</option>
+              <option>Special Education</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group"><input type="email" name="email" class="form-input" placeholder="Email (Optional)"></div>
+        <button type="submit" class="btn-submit">Check Seat &amp; Offer</button>
+        <p style="font-size:11px;color:#9ca3af;text-align:center;margin-top:12px;">By submitting you agree to be contacted by Cocohouse Preschool.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:#fff;padding-top:28px;">
+  <div class="container">
+    <div class="ads-offer">
+      <div>
+        <p class="section-subtitle" style="color:#f4d000;">Current offer</p>
+        <h2>{{offer_title}}</h2>
+        <p>{{offer_text}}</p>
+        <div class="ads-actions">
+          <a class="btn btn-yellow" href="tel:+917039152173">Call now</a>
+          <a class="btn btn-green" href="#admission-form">Send enquiry</a>
+        </div>
+      </div>
+      <ul class="ads-points">
+        <li>Playgroup to Senior KG, plus daycare till 8 PM</li>
+        <li>NEP and NCF 2022 aligned thematic preschool</li>
+        <li>CCTV preschool & daycare and WhatsApp updates for working parents</li>
+        <li>Fee for the offer is confirmed on the call, before the visit</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:#f7f9fc;">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-subtitle">Seats for 2026-27</span>
+      <h2 class="section-title">Choose the program that matches your child's age</h2>
+    </div>
+    <div class="grid grid-3">
+      <article class="ads-program">
+        <h3>Playgroup</h3>
+        <p class="age">2 – 3 years · 2.5 hours a day</p>
+        <p>A gentle first step from home to school, with stories, sensory play and circle time.</p>
+      </article>
+      <article class="ads-program">
+        <h3>Nursery</h3>
+        <p class="age">3 – 4 years · 3 hours a day</p>
+        <p>Letter sounds, numbers and theme-based learning through Coding Phonics.</p>
+      </article>
+      <article class="ads-program">
+        <h3>Junior KG</h3>
+        <p class="age">4 – 5 years · 3.5 hours a day</p>
+        <p>Language, early maths and thematic projects that build school readiness.</p>
+      </article>
+      <article class="ads-program">
+        <h3>Senior KG</h3>
+        <p class="age">5 – 6 years · 4 hours a day</p>
+        <p>Reading, number sense and confidence before formal school.</p>
+      </article>
+      <article class="ads-program">
+        <h3>Daycare</h3>
+        <p class="age">1.5 – 10 years · 8 AM to 8 PM</p>
+        <p>Full day care for working parents, with meals, rest, homework help and late pickup. Open seven days.</p>
+      </article>
+      <article class="ads-program">
+        <h3>Inclusive Special Education</h3>
+        <p class="age">1 – 8 years · after assessment</p>
+        <p>Individual support on the same preschool & daycare, planned after a conversation with the family.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section ads-daycare" id="daycare-special">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-subtitle">Daycare for working parents</span>
+      <h2 class="section-title">8 AM to 8 PM, all 7 days</h2>
+      <p>A 12-hour daycare in Thane East. Most centres close earlier. Cocohouse stays open so a parent can finish the office day.</p>
+    </div>
+    <div class="ads-usps">
+      <article class="ads-usp yellow">
+        <div class="mark">⏰</div>
+        <h3>12 hours, your time slot</h3>
+        <p>Open 8 AM to 8 PM. Book one hour or the full day. No minimum package.</p>
+      </article>
+      <article class="ads-usp blue">
+        <div class="mark">📅</div>
+        <h3>Monday to Sunday</h3>
+        <p>All 7 days. Useful when work does not stop on Saturday or Sunday.</p>
+      </article>
+      <article class="ads-usp yellow">
+        <div class="mark">🧒</div>
+        <h3>Ages 1.5 to 10</h3>
+        <p>Toddlers through school children. Older children get homework help after class.</p>
+      </article>
+      <article class="ads-usp blue">
+        <div class="mark">🍲</div>
+        <h3>Meals, rest, sunroom</h3>
+        <p>Vegetarian meals designed with a child nutritionist, plus rest and a play sunroom.</p>
+      </article>
+      <article class="ads-usp yellow">
+        <div class="mark">📹</div>
+        <h3>CCTV and a known pickup</h3>
+        <p>Cameras across the rooms, verified pickup, and a WhatsApp photo while you are at work.</p>
+      </article>
+      <article class="ads-usp blue">
+        <div class="mark">🏠</div>
+        <h3>Preschool and daycare together</h3>
+        <p>Class in the morning, care till 8 PM, one address. Pay only for the hours you use, from hourly to yearly.</p>
+      </article>
+    </div>
+    <div class="ads-actions" style="justify-content:center;margin-top:28px;">
+      <a class="btn btn-yellow" href="#admission-form">Enquire for daycare</a>
+      <a class="btn btn-primary" href="/cocohouse-daycare">See daycare packages</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:#fff;">
+  <div class="container">
+    <div class="about-grid">
+      <div>
+        <span class="section-subtitle">Why parents enquire</span>
+        <h2 class="section-title">One preschool & daycare for learning and a full working day</h2>
+        <p>Cocohouse is a thematic preschool in Hari Om Nagar. Children learn through stories, Coding Phonics, CPA Maths and the Panchakosha approach, aligned with NEP and NCF 2022.</p>
+        <p style="margin-top:12px;">If you need care beyond school hours, daycare stays open from 8 AM to 8 PM. Most centres close earlier. Cocohouse kept this 12-hour window so a parent can finish the office day and still reach a child who has eaten, rested and, for older children, finished homework.</p>
+        <p style="margin-top:12px;">The preschool & daycare uses CCTV. Pickup is verified, and working parents can get a WhatsApp update during the day.</p>
+      </div>
+      <div class="about-image">
+        <img src="/assets/images/joyful-learning.webp" alt="Children learning at Cocohouse Preschool">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:linear-gradient(to bottom,#fff8e1,#fff);">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-subtitle">How admission works</span>
+      <h2 class="section-title">Four steps from enquiry to a seat</h2>
+    </div>
+    <div class="ads-steps">
+      <div class="ads-step"><b>1</b><h3>Enquire</h3><p>Call, WhatsApp, or send the form with your child's age and program.</p></div>
+      <div class="ads-step"><b>2</b><h3>Call back</h3><p>The team confirms the seat, the 60% mid-term offer, and a visit time.</p></div>
+      <div class="ads-step"><b>3</b><h3>Visit</h3><p>See the classroom at Hari Om Nagar and meet the teachers with your child.</p></div>
+      <div class="ads-step"><b>4</b><h3>Confirm</h3><p>Choose preschool hours, daycare hours, or both, and complete admission.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section ads-faq" style="background:#fff;">
+  <div class="container" style="max-width:860px;">
+    <div class="section-header">
+      <span class="section-subtitle">Questions parents ask</span>
+      <h2 class="section-title">Before you book the visit</h2>
+    </div>
+    <details open>
+      <summary>What does the 60% off cover?</summary>
+      <p>It is the current mid-term admission offer for 2026-27. The amount depends on the program. The team confirms the fee on the phone before you visit, so you are not guessing from the website.</p>
+    </details>
+    <details>
+      <summary>Which ages can join now?</summary>
+      <p>Playgroup starts at 2 years, Nursery at 3, Junior KG at 4 and Senior KG at 5. Daycare takes children from 1.5 years to 10 years. Inclusive support is discussed after an individual assessment for ages 1 to 8.</p>
+    </details>
+    <details>
+      <summary>Can daycare cover a full office day?</summary>
+      <p>Yes. Daycare is open 8 AM to 8 PM, seven days, for working parents. You can use it with preschool on the same preschool & daycare, or only for after-school hours.</p>
+    </details>
+    <details>
+      <summary>Where is the preschool & daycare?</summary>
+      <p>Row House No 3, Millenium Park, Hari Om Nagar, Mulund East, Mumbai-400081. Families from Thane East and Mulund visit this preschool & daycare. Call +91-7039152173 if you want directions before you leave home.</p>
+    </details>
+    <details>
+      <summary>How soon will someone call?</summary>
+      <p>Enquiry calls are returned within 24 hours. For a faster answer, call or WhatsApp 7039152173. The office answers Monday to Saturday, 9 AM to 9 PM.</p>
+    </details>
+  </div>
+</section>
+
+<section class="section" style="background:#184a96;color:#fff;">
+  <div class="container" style="text-align:center;">
+    <h2 class="section-title" style="color:#f4d000;">Ask about a 2026-27 seat today</h2>
+    <p style="max-width:640px;margin:0 auto 22px;color:rgba(255,255,255,0.9);">Tell us the child's age and program. We will confirm whether a mid-term seat and the 60% offer are available.</p>
+    <div class="ads-actions" style="justify-content:center;">
+      <a class="btn btn-yellow" href="tel:+917039152173">Call 7039152173</a>
+      <a class="btn btn-green" href="https://wa.me/917039152173?text=Hello%20Cocohouse%2C%20I%20want%20admission%20details%20for%202026-27." target="_blank" rel="noopener">WhatsApp</a>
+      <a class="btn btn-primary" style="background:#fff;color:#184a96;" href="#admission-form">Fill the form</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <img src="/assets/images/school-emblem.png" alt="Cocohouse Preschool" class="footer-logo">
+        <h3>Cocohouse Preschool & Daycare</h3>
+        <p>Nurturing Little Minds through Thematic Learning, Coding Phonics, CPA Maths & Holistic Development.</p>
+        <span style="display:inline-block;background:#f4d000;color:#184a96;font-size:0.75rem;font-weight:700;padding:4px 12px;border-radius:999px;">1st Thematic Preschool in Thane</span>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About School</a></li>
+          <li><a href="/programs">Programs</a></li>
+          <li><a href="/daycare">Daycare</a></li>
+          <li><a href="/gallery">Gallery</a></li>
+          <li><a href="/blog">Blogs</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/adminssion-open-2026">Admissions Open</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Our Programs</h4>
+        <ul>
+          <li><a href="/programs">Playgroup</a></li>
+          <li><a href="/programs">Nursery</a></li>
+          <li><a href="/programs">Junior KG</a></li>
+          <li><a href="/programs">Senior KG</a></li>
+          <li><a href="/daycare">Daycare</a></li>
+          <li><a href="/gallery">Gallery</a></li>
+          <li><a href="/programs">Inclusive Special Education</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact Us</h4>
+        <div class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Row House No 3, Millenium Park, Hari Om Nagar, Mulund East, Mumbai-400081</span></div>
+        <div class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+917039152173">+91-7039152173</a></div>
+        <div class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:info@cocohouse.in">info@cocohouse.in</a></div>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/cocohousepreschool" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="https://www.instagram.com/cocohouse_preschool" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="https://www.youtube.com/@CocohousePreschoolHariOmNagar" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="#0e2a52"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Cocohouse Preschool & Daycare | All Rights Reserved</p>
+      <p>Designed By <a href="https://yunickmedia.com" target="_blank" rel="noopener">Yunick Media</a></p>
+    </div>
+  </div>
+</footer>
+
+<nav class="ads-bar" aria-label="Admission actions">
+  <a class="call" href="tel:+917039152173">Call</a>
+  <a class="wa" href="https://wa.me/917039152173?text=Hello%20Cocohouse%2C%20I%20want%20admission%20details%20for%202026-27." target="_blank" rel="noopener">WhatsApp</a>
+  <a class="go" href="#admission-form">Enquire</a>
+</nav>
+
+<a href="https://wa.me/917039152173" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+  <svg width="30" height="30" viewBox="0 0 32 32" fill="currentColor"><path d="M16.003 3.2c-7.06 0-12.8 5.74-12.8 12.8 0 2.26.6 4.46 1.73 6.4l-1.83 6.67 6.83-1.79a12.74 12.74 0 0 0 6.07 1.55c7.06 0 12.8-5.74 12.8-12.8s-5.74-12.83-12.8-12.83zm0 23.04c-1.93 0-3.82-.52-5.47-1.5l-.39-.23-4.05 1.06 1.08-3.95-.25-.4a10.55 10.55 0 0 1-1.62-5.62c0-5.86 4.77-10.63 10.63-10.63s10.63 4.77 10.63 10.63-4.77 10.64-10.63 10.64z"/></svg>
+</a>
+<script src="/assets/js/main.js"></script>
+<script>
+setupForm('admissionAdsForm', '/api/submit-enquiry.php', {
+  type: 'admission',
+  successTitle: 'Enquiry received',
+  successDesc: 'Thank you. Cocohouse will call you within 24 hours about the 2026-27 seat.'
+});
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What does the 60% off cover?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It is the current mid-term admission offer for 2026-27. The team confirms the fee for the selected program on the phone before the visit."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which ages can join Cocohouse?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Playgroup is 2 to 3 years, Nursery 3 to 4, Junior KG 4 to 5, Senior KG 5 to 6. Daycare is 1.5 to 10 years. Inclusive support is for ages 1 to 8 after assessment."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the daycare hours?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Daycare is open 8 AM to 8 PM, seven days, for working parents."
+      }
+    }
+  ]
+}
+</script>
+</body>
+</html>

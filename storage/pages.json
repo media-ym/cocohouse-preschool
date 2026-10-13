@@ -6,7 +6,7 @@
         "seo": {
             "site_name": "Cocohouse Preschool & Daycare",
             "public_url": "https://cocohouse.in",
-            "description": "Cocohouse is Mulund and Thane's first thematic preschool and daycare, with playgroup, nursery, kindergarten and inclusive special education in Mulund East.",
+            "description": "Cocohouse is Thane's first thematic preschool and daycare, with playgroup, nursery, kindergarten and inclusive special education in Mulund East.",
             "image": "/assets/images/campus.jpg",
             "google_verification": "",
             "bing_verification": "",
@@ -20,17 +20,17 @@
         "banner": {
             "enabled": "1",
             "text": "Mid Term Admissions Open · Flat 60% Off · Contact Now",
-            "link": "/contact-us"
+            "link": "/adminssion-open-2026"
         }
     },
     "pages": {
         "home": {
             "hero_badge": "NEP & NCF 2022 Aligned Curriculum",
-            "hero_title": "1st Thematic Preschool\nin Mulund & Thane",
+            "hero_title": "1st Thematic Preschool\nin Thane",
             "hero_text": "Nurturing young minds through meaningful experiences — Panchakosha Holistic Development, Story Based Learning, Coding Phonics & CPA Maths methodology.",
             "story_kicker": "India's New Age Preschool",
             "story_title": "Where Learning Becomes a Joyful Journey",
-            "story_p1": "Cocohouse Preschool is Mulund & Thane's 1st Thematic Preschool designed to nurture young minds through meaningful experiences. We blend creativity, structure, and warmth to give your child the strongest possible start to their educational journey.",
+            "story_p1": "Cocohouse Preschool is Thane's 1st Thematic Preschool designed to nurture young minds through meaningful experiences. We blend creativity, structure, and warmth to give your child the strongest possible start to their educational journey.",
             "story_p2": "Our curriculum is aligned with NEP & NCF 2022 and focuses on holistic development through Panchakosha philosophy, Story Based Learning, Coding Phonics and CPA Maths methodology — preparing children not just for school, but for life.",
             "programs_kicker": "Our Programs",
             "programs_title": "Programs for Every Stage of Growth",
@@ -38,11 +38,11 @@
         },
         "about": {
             "hero_title": "About Cocohouse",
-            "hero_text": "Where learning becomes a joyful journey — discover the philosophy, people and passion behind Mulund & Thane's 1st Thematic Preschool.",
+            "hero_text": "Where learning becomes a joyful journey — discover the philosophy, people and passion behind Thane's 1st Thematic Preschool.",
             "story_kicker": "The Cocohouse Story",
             "story_title": "A Journey of Love, Learning & Sanskar",
             "story_p1": "Cocohouse Preschool & Daycare was born out of a simple yet powerful vision — to redefine early childhood education in Mulund & Thane by blending India's timeless wisdom with modern, research-backed pedagogy. Founded by Mrs. Pratheeksha Darak, an educator with deep roots in child psychology and holistic learning, Cocohouse started as a small neighbourhood playschool and has grown into one of the most respected names in early education in the region.",
-            "story_p2": "What sets us apart is our position as Mulund & Thane's 1st Thematic Preschool — a designation that reflects our commitment to integrated, theme-based learning rather than disconnected silos of subjects. Every fortnight, our children explore a central theme through stories, art, music, math, science and outdoor play — creating meaningful, memorable connections across all areas of development.",
+            "story_p2": "What sets us apart is our position as Thane's 1st Thematic Preschool — a designation that reflects our commitment to integrated, theme-based learning rather than disconnected silos of subjects. Every fortnight, our children explore a central theme through stories, art, music, math, science and outdoor play — creating meaningful, memorable connections across all areas of development.",
             "story_p3": "Our curriculum is meticulously aligned with the National Education Policy (NEP) 2022 and the National Curriculum Framework (NCF), ensuring that your child's foundational years are spent in an environment that meets the highest national standards. The Panchakosha philosophy — a 5000-year-old Vedic framework for holistic development — forms the soul of our approach.",
             "mission": "To nurture young minds into confident, curious and compassionate lifelong learners through a thematic, story-based curriculum that honours every child's uniqueness. We are committed to providing a safe, joyful and stimulating environment where children fall in love with learning — not just for school, but for life.",
             "vision": "To be the most loved and trusted preschool in India, recognised globally for blending the timeless wisdom of the Panchakosha philosophy with the rigor of 21st-century pedagogy. We envision a future where every child who walks through our doors grows into a balanced, creative and socially responsible human being.",
@@ -345,7 +345,7 @@
         },
         "gallery": {
             "hero_title": "Our Gallery",
-            "hero_text": "A glimpse into life at Cocohouse — photos of our campus, events, and happy children, plus video testimonials from parents.",
+            "hero_text": "A glimpse into life at Cocohouse — photos of our preschool & daycare, events, and happy children, plus video testimonials from parents.",
             "photos_title": "Photo Gallery",
             "photos_text": "Memorable moments captured at Cocohouse Preschool.",
             "slug": "cochouse-gallery"
@@ -354,6 +354,14 @@
             "hero_title": "Insights & Stories",
             "hero_text": "Parenting tips, early education insights, fun activities, and stories from the Cocohouse community.",
             "slug": "blogs"
+        },
+        "admissions": {
+            "hero_badge": "Admissions Open 2026-27",
+            "hero_title": "Preschool & Daycare\nAdmissions Open",
+            "hero_text": "Mid-term seats are open at Cocohouse for Playgroup, Nursery, Junior KG, Senior KG, Daycare and Inclusive Special Education. Families from Thane East and Mulund can enquire now.",
+            "offer_title": "Flat 60% off on mid-term admissions",
+            "offer_text": "This offer is for 2026-27 mid-term seats. Call 7039152173 and the team will confirm the fee for your child's program before you visit the preschool & daycare.",
+            "slug": "adminssion-open-2026"
         },
         "contact": {
             "hero_title": "Contact Us",

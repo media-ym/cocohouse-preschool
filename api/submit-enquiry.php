@@ -57,6 +57,17 @@ $item = [
     'status' => 'new',
     'created_at' => date('Y-m-d H:i:s'),
 ];
+$ads = [];
+foreach (['gclid', 'gbraid', 'wbraid', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'landing'] as $key) {
+    $value = trim(str_replace(["\r", "\n"], ' ', (string) ($payload[$key] ?? '')));
+    $value = preg_replace('/[^A-Za-z0-9._:\/ -]/', '', $value) ?? '';
+    if ($value !== '') {
+        $ads[$key] = mb_substr($value, 0, 180);
+    }
+}
+if ($ads) {
+    $item['ads'] = $ads;
+}
 $item['emailed'] = send_enquiry_emails($item);
 
 $data = load_enquiries();

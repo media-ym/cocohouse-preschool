@@ -30,7 +30,7 @@ input,textarea,select{font-family:inherit;font-size:inherit;}
 @media(min-width:1024px){.nav-menu{display:flex;}}
 .nav-menu a{color:#184a96;font-weight:500;font-size:0.9375rem;transition:color 0.2s;}
 .nav-menu a:hover{color:#ff6b6b;}
-.nav-cta{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#ff6600,#ff9a3c);color:#fff;font-weight:600;font-size:0.875rem;padding:10px 20px;border-radius:999px;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+.nav-cta{display:inline-flex;align-items:center;gap:6px;background:#f4d000;color:#184a96;font-weight:600;font-size:0.875rem;padding:10px 20px;border-radius:999px;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
 .nav-toggle{display:block;padding:8px;color:#184a96;background:none;border:none;}
 @media(min-width:1024px){.nav-toggle{display:none;}}
 
@@ -99,7 +99,7 @@ input,textarea,select{font-family:inherit;font-size:inherit;}
       <li><a href="/gallery" style="">Gallery</a></li>
       <li><a href="/blog" style="">Blogs</a></li>
       <li><a href="/contact" style="color:#ff6b6b;">Contact Us</a></li>
-      <li><a href="/#admission-form" class="nav-cta">📞 Admissions Open</a></li>
+      <li><a href="/adminssion-open-2026" class="nav-cta">📞 Admissions Open</a></li>
     </ul>
     <button class="nav-toggle" id="navToggle" aria-label="Open menu">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -122,7 +122,7 @@ input,textarea,select{font-family:inherit;font-size:inherit;}
     <a href="/gallery">Gallery</a>
     <a href="/blog">Blogs</a>
     <a href="/contact">Contact Us</a>
-    <a href="/#admission-form" class="btn btn-orange" style="margin:16px;">Admissions Open</a>
+    <a href="/adminssion-open-2026" class="btn btn-yellow" style="margin:16px;">Admissions Open</a>
   </nav>
 </div>
 <section class="page-hero">
@@ -133,82 +133,71 @@ input,textarea,select{font-family:inherit;font-size:inherit;}
   </div>
 </section>
 
-<section class="section" style="background:#fff;margin-top:-40px;position:relative;z-index:10;">
+<section class="contact-fresh">
   <div class="container">
-    <div class="grid grid-4">
-              <a href="tel:+917039152173" target="" class="card" style="text-decoration:none;color:inherit;">
-          <div class="card-icon" style="background:#184a9620;font-size:1.5rem;">📞</div>
-          <p style="font-size:0.6875rem;font-weight:700;color:#9ca3af;text-transform:uppercase;">Call Us</p>
-          <p style="font-size:0.875rem;font-weight:600;color:#184a96;margin-top:4px;word-break:break-all;">{{phone}}</p>
-        </a>
-              <a href="https://wa.me/917039152173" target="_blank" class="card" style="text-decoration:none;color:inherit;">
-          <div class="card-icon" style="background:#25d36620;font-size:1.5rem;">💬</div>
-          <p style="font-size:0.6875rem;font-weight:700;color:#9ca3af;text-transform:uppercase;">WhatsApp</p>
-          <p style="font-size:0.875rem;font-weight:600;color:#184a96;margin-top:4px;word-break:break-all;">Chat with us</p>
-        </a>
-              <a href="mailto:info@cocohouse.in" target="" class="card" style="text-decoration:none;color:inherit;">
-          <div class="card-icon" style="background:#ff660020;font-size:1.5rem;">✉️</div>
-          <p style="font-size:0.6875rem;font-weight:700;color:#9ca3af;text-transform:uppercase;">Email Us</p>
-          <p style="font-size:0.875rem;font-weight:600;color:#184a96;margin-top:4px;word-break:break-all;">{{email}}</p>
-        </a>
-              <a href="" target="" class="card" style="text-decoration:none;color:inherit;cursor:default;">
-          <div class="card-icon" style="background:#9333ea20;font-size:1.5rem;">🕐</div>
-          <p style="font-size:0.6875rem;font-weight:700;color:#9ca3af;text-transform:uppercase;">Working Hours</p>
-          <p style="font-size:0.875rem;font-weight:600;color:#184a96;margin-top:4px;word-break:break-all;">{{hours}}</p>
-        </a>
-          </div>
-  </div>
-</section>
+    <div class="contact-ways">
+      <a class="contact-way call" href="tel:+917039152173">
+        <span class="mark">📞</span>
+        <span class="k">Call Us</span>
+        <strong>{{phone}}</strong>
+      </a>
+      <a class="contact-way wa" href="https://wa.me/917039152173" target="_blank" rel="noopener">
+        <span class="mark">💬</span>
+        <span class="k">WhatsApp</span>
+        <strong>Chat with Us</strong>
+      </a>
+      <a class="contact-way mail" href="mailto:info@cocohouse.in">
+        <span class="mark">✉️</span>
+        <span class="k">Email Us</span>
+        <strong>{{email}}</strong>
+      </a>
+      <div class="contact-way time">
+        <span class="mark">🕐</span>
+        <span class="k">Working Hours</span>
+        <strong>{{hours}}</strong>
+      </div>
+    </div>
 
-<section class="section" style="background:linear-gradient(to bottom,#fff,#f4f9ff);">
-  <div class="container">
-    <div class="about-grid">
-      <div>
-        <h2 class="section-title">Our Location</h2>
-        <p style="color:#555;margin-bottom:28px;">{{location_note}}</p>
-        <div style="display:flex;flex-direction:column;gap:20px;margin-bottom:28px;">
-                      <div style="background:#fff;border-radius:16px;box-shadow:var(--shadow-md);overflow:hidden;border-left:4px solid #184a96;">
-              <div style="padding:20px;">
-                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-                  <h3 style="font-size:1.125rem;color:#184a96;">Thane East</h3>
-                  <span style="font-size:0.6875rem;font-weight:700;padding:4px 8px;border-radius:999px;background:#184a9620;color:#184a96;">Main Campus</span>
-                </div>
-                <p style="font-size:0.8125rem;color:#555;display:flex;gap:8px;margin-bottom:12px;">📍 {{address}}</p>
-                <div style="border-radius:12px;overflow:hidden;border:1px solid #e5e7eb;height:200px;">
-                  <iframe src="https://www.google.com/maps?q=Cocohouse+Preschool+Hari+Om+Nagar+Mulund+East+Mumbai&output=embed" style="width:100%;height:100%;border:0;" loading="lazy"></iframe>
-                </div>
-              </div>
-            </div>
-                  </div>
-        <div>
-          <h4 style="font-weight:700;color:#184a96;font-size:0.75rem;text-transform:uppercase;margin-bottom:12px;">Follow Us</h4>
-          <div style="display:flex;gap:12px;">
-            <a href="https://www.facebook.com/cocohousepreschool" target="_blank" class="card" style="width:44px;height:44px;padding:0;display:flex;align-items:center;justify-content:center;color:#3b5998;">f</a>
-            <a href="https://www.instagram.com/cocohouse_preschool" target="_blank" class="card" style="width:44px;height:44px;padding:0;display:flex;align-items:center;justify-content:center;color:#dd2a7b;">📷</a>
-            <a href="https://www.youtube.com/@CocohousePreschoolHariOmNagar" target="_blank" class="card" style="width:44px;height:44px;padding:0;display:flex;align-items:center;justify-content:center;color:#ff0000;">▶</a>
+    <div class="contact-split">
+      <div class="contact-place">
+        <div class="contact-place-map">
+          <iframe src="https://www.google.com/maps?q=Cocohouse+Preschool+Hari+Om+Nagar+Mulund+East+Mumbai&output=embed" title="Cocohouse on the map" loading="lazy"></iframe>
+        </div>
+        <div class="contact-place-body">
+          <h2>Visit the Preschool</h2>
+          <p>{{location_note}}</p>
+          <span class="contact-address">{{address}}</span>
+          <div class="contact-social">
+            <a href="https://www.facebook.com/cocohousepreschool" target="_blank" rel="noopener" aria-label="Facebook">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/cocohouse_preschool" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="https://www.youtube.com/@CocohousePreschoolHariOmNagar" target="_blank" rel="noopener" aria-label="YouTube">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/></svg>
+            </a>
           </div>
         </div>
       </div>
 
-      <div class="form-card" style="position:sticky;top:96px;">
-        <h3 style="font-size:1.25rem;color:#184a96;margin-bottom:4px;">Admission Enquiry</h3>
-        <p class="form-note">Fill the form below — we'll call you back within 24 hours.</p>
+      <div class="form-card contact-form-card">
+        <h3>Send an Enquiry</h3>
+        <p class="form-note">Share a few details. The team calls back within 24 hours.</p>
         <form id="contactForm">
           <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;opacity:0;">
           <div class="form-row">
-            <div><label class="form-label">Parent Name *</label><input type="text" name="parentName" class="form-input" required></div>
-            <div><label class="form-label">Child Name *</label><input type="text" name="childName" class="form-input" required></div>
+            <div><label class="form-label">Parent Name *</label><input type="text" name="parentName" class="form-input" required autocapitalize="words"></div>
+            <div><label class="form-label">Child Name *</label><input type="text" name="childName" class="form-input" required autocapitalize="words"></div>
           </div>
           <div class="form-row">
-            <div><label class="form-label">Child Age</label><input type="text" name="childAge" class="form-input" placeholder="e.g. 4 years"></div>
-            <div><label class="form-label">Phone *</label><input type="tel" name="phone" class="form-input" placeholder="10-digit" data-validate="phone" required></div>
+            <div><label class="form-label">Child Age</label><input type="text" name="childAge" class="form-input" placeholder="e.g. 4 Years"></div>
+            <div><label class="form-label">Phone *</label><input type="tel" name="phone" class="form-input" placeholder="10-Digit" data-validate="phone" required></div>
           </div>
-          <div class="form-row">
-            <div><label class="form-label">Email</label><input type="email" name="email" class="form-input"></div>
-          </div>
+          <div class="form-group"><label class="form-label">Email</label><input type="email" name="email" class="form-input" placeholder="Email"></div>
           <div class="form-group"><label class="form-label">Program *</label><select name="program" class="form-select" required><option value="">Select Program *</option><option>Playgroup (2-3 years)</option><option>Nursery (3-4 years)</option><option>Junior KG (4-5 years)</option><option>Senior KG (5-6 years)</option><option>Daycare (1.5-10 years)</option><option>Special Education (1-8 years)</option></select></div>
-          <div class="form-group"><label class="form-label">Message</label><textarea name="message" class="form-textarea" rows="3" placeholder="Any specific questions?"></textarea></div>
-          <button type="submit" class="btn-submit">📨 Submit Enquiry</button>
+          <div class="form-group"><label class="form-label">Message</label><textarea name="message" class="form-textarea" rows="4" placeholder="Any Specific Questions?"></textarea></div>
+          <button type="submit" class="btn-submit">Submit Enquiry</button>
         </form>
       </div>
     </div>
@@ -220,10 +209,10 @@ input,textarea,select{font-family:inherit;font-size:inherit;}
   <div class="container">
     <div class="footer-grid">
       <div>
-        <img src="/assets/images/logo.webp" alt="Cocohouse" class="footer-logo">
+        <img src="/assets/images/school-emblem.png" alt="Cocohouse Preschool" class="footer-logo">
         <h3>Cocohouse Preschool & Daycare</h3>
         <p>Nurturing Little Minds through Thematic Learning, Coding Phonics, CPA Maths & Holistic Development.</p>
-        <span style="display:inline-block;background:#f4d000;color:#184a96;font-size:0.75rem;font-weight:700;padding:4px 12px;border-radius:999px;">1st Thematic Preschool in Mulund & Thane</span>
+        <span style="display:inline-block;background:#f4d000;color:#184a96;font-size:0.75rem;font-weight:700;padding:4px 12px;border-radius:999px;">1st Thematic Preschool in Thane</span>
       </div>
       <div>
         <h4>Quick Links</h4>
@@ -235,6 +224,7 @@ input,textarea,select{font-family:inherit;font-size:inherit;}
           <li><a href="/gallery">Gallery</a></li>
           <li><a href="/blog">Blogs</a></li>
           <li><a href="/contact">Contact</a></li>
+          <li><a href="/adminssion-open-2026">Admissions Open</a></li>
         </ul>
       </div>
       <div>
@@ -263,7 +253,7 @@ input,textarea,select{font-family:inherit;font-size:inherit;}
     </div>
     <div class="footer-bottom">
       <p>&copy; 2026 Cocohouse Preschool & Daycare | All Rights Reserved</p>
-      <p>Designed By Yunick Media</p>
+      <p>Designed By <a href="https://yunickmedia.com" target="_blank" rel="noopener">Yunick Media</a></p>
     </div>
   </div>
 </footer>

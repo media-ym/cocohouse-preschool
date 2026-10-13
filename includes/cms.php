@@ -37,6 +37,7 @@ function page_catalog(): array
         'gallery' => ['label' => 'Gallery', 'file' => '/gallery/index.html', 'view' => page_url('gallery')],
         'blog' => ['label' => 'Blog', 'file' => '/blog/index.html', 'view' => page_url('blog')],
         'contact' => ['label' => 'Contact', 'file' => '/contact/index.html', 'view' => page_url('contact')],
+        'admissions' => ['label' => 'Admissions 2026', 'file' => '/admissions/index.html', 'view' => page_url('admissions')],
     ];
 }
 
@@ -90,6 +91,13 @@ function page_fields(string $id): array
         'blog' => [
             'hero_title' => $text + ['label' => 'Page title'],
             'hero_text' => $area + ['label' => 'Intro'],
+        ],
+        'admissions' => [
+            'hero_badge' => $text + ['label' => 'Badge'],
+            'hero_title' => $area + ['label' => 'Main title', 'hint' => 'Use a new line where you want a line break.'],
+            'hero_text' => $area + ['label' => 'Intro'],
+            'offer_title' => $text + ['label' => 'Offer heading'],
+            'offer_text' => $area + ['label' => 'Offer details'],
         ],
         'contact' => [
             'hero_title' => $text + ['label' => 'Page title'],

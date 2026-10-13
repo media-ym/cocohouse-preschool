@@ -108,6 +108,9 @@ admin_header('Enquiries', 'enquiries');
       <?php if (!empty($item['message'])): ?>
         <dt>Message</dt><dd><?= e($item['message']) ?></dd>
       <?php endif; ?>
+      <?php if (!empty($item['ads']) && is_array($item['ads'])): ?>
+        <dt>Ad</dt><dd><?= e(trim(($item['ads']['utm_source'] ?? '') . ' ' . ($item['ads']['utm_campaign'] ?? '')) ?: ($item['ads']['landing'] ?? 'Landing page')) ?></dd>
+      <?php endif; ?>
     </dl>
     <div class="actions">
       <?php if (($item['status'] ?? 'new') !== 'contacted'): ?>
