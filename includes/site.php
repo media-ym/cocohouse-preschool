@@ -13,6 +13,7 @@ function page_default_slugs(): array
         'blog' => 'blog',
         'contact' => 'contact',
         'admissions' => 'admissions',
+        'special-education' => 'special-education',
     ];
 }
 

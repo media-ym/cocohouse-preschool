@@ -26,14 +26,15 @@ $authorUrl = '/author/' . rawurlencode($authorSlug);
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><?= e($title) ?> | Cocohouse Blogs</title>
+  <title><?= e($title) ?> | Cocohouse, Mulund East</title>
   <?php
     $seoSettings = seo_settings();
     $canonical = rtrim($seoSettings['public_url'], '/') . '/blog-post/' . rawurlencode($slug);
     $image = trim((string) ($post['featured_img'] ?? '')) !== '' ? (string) $post['featured_img'] : $seoSettings['image'];
     echo seo_meta_html([
-        'title' => $title . ' | Cocohouse Blogs',
+        'title' => $title . ' | Cocohouse, Mulund East',
         'description' => (string) ($post['excerpt'] ?? ''),
+        'keywords' => 'best daycare in thane east, best daycare in mulund, best preschool in mulund east, daycare Hari Om Nagar',
         'canonical' => $canonical,
         'robots' => 'index,follow',
         'image' => seo_absolute($image, $seoSettings['public_url']),
@@ -68,8 +69,9 @@ $authorUrl = '/author/' . rawurlencode($authorSlug);
     <ul class="nav-menu">
       <li><a href="/">Home</a></li>
       <li><a href="/about">About Us</a></li>
-      <li><a href="/programs">Our Programs</a></li>
+      <li><a href="/programs">Program</a></li>
       <li><a href="/daycare">Daycare</a></li>
+      <li><a href="/inclusive-special-education">Inclusive</a></li>
       <li><a href="/gallery">Gallery</a></li>
       <li><a href="/blog" style="color:#ff6b6b;">Blogs</a></li>
       <li><a href="/contact">Contact Us</a></li>
@@ -83,7 +85,7 @@ $authorUrl = '/author/' . rawurlencode($authorSlug);
 <div class="drawer-overlay" id="drawerOverlay"></div>
 <div class="mobile-drawer" id="mobileDrawer">
   <div class="mobile-drawer-header">
-    <img src="/assets/images/logo.webp" alt="Cocohouse" style="height:44px;">
+    <img src="/assets/images/logo.webp" alt="Cocohouse" style="height:32px;">
     <button class="nav-toggle mobile-drawer-close" aria-label="Close menu">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
@@ -91,8 +93,9 @@ $authorUrl = '/author/' . rawurlencode($authorSlug);
   <nav>
     <a href="/">Home</a>
     <a href="/about">About Us</a>
-    <a href="/programs">Our Programs</a>
+    <a href="/programs">Program</a>
     <a href="/daycare">Daycare</a>
+    <a href="/inclusive-special-education">Inclusive</a>
     <a href="/gallery">Gallery</a>
     <a href="/blog">Blogs</a>
     <a href="/contact">Contact Us</a>
@@ -186,6 +189,7 @@ $related = array_slice($related, 0, 3);
         <img src="/assets/images/school-emblem.png" alt="Cocohouse Preschool" class="footer-logo">
         <h3>Cocohouse Preschool & Daycare</h3>
         <p>Nurturing Little Minds through Thematic Learning, Coding Phonics, CPA Maths & Holistic Development.</p>
+        <p>Preschool and daycare in Hari Om Nagar, Mulund East, for families in Mulund, Thane, Thane East and Kopri.</p>
       </div>
       <div>
         <h4>Quick Links</h4>
@@ -208,7 +212,7 @@ $related = array_slice($related, 0, 3);
           <li><a href="/programs">Junior KG</a></li>
           <li><a href="/programs">Senior KG</a></li>
           <li><a href="/daycare">Daycare</a></li>
-          <li><a href="/programs">Inclusive Special Education</a></li>
+          <li><a href="/inclusive-special-education">Inclusive Special Education</a></li>
         </ul>
       </div>
       <div>

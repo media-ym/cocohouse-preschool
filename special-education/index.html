@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inclusive Special Education | Cocohouse Preschool & Daycare</title>
+  <link rel="icon" href="/assets/images/logo.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#222;background:#fff;line-height:1.6;overflow-x:hidden;}
+img{max-width:100%;height:auto;display:block;}
+a{color:inherit;text-decoration:none;}
+ul,ol{list-style:none;}
+button{cursor:pointer;border:none;background:none;font-family:inherit;}
+input,textarea,select{font-family:inherit;font-size:inherit;}
+.container{max-width:1200px;margin:0 auto;padding:0 16px;}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);padding:12px 0;box-shadow:0 2px 8px rgba(0,0,0,0.08);}
+.navbar .container{display:flex;align-items:center;justify-content:space-between;gap:20px;max-width:1360px;}.navbar .container>a{flex:0 0 auto;}
+.navbar-logo{height:72px;width:auto;max-width:none;object-fit:contain;display:block;}@media(max-width:420px){.navbar-logo{height:58px;}}
+.nav-menu{display:none;align-items:center;gap:0;margin-left:auto;}
+@media(min-width:1360px){.nav-menu{display:flex;}}
+.nav-menu a{color:#184a96;font-weight:500;font-size:0.84rem;white-space:nowrap;}
+.nav-cta{display:inline-flex;align-items:center;gap:6px;background:#f4d000;color:#184a96;font-weight:600;font-size:0.875rem;padding:10px 20px;border-radius:999px;white-space:nowrap;}
+.nav-toggle{display:flex;align-items:center;justify-content:center;width:44px;height:44px;padding:8px;margin-left:auto;color:#184a96;background:none;border:none;flex:0 0 auto;}
+@media(min-width:1360px){#navToggle{display:none;}}
+.mobile-drawer{position:fixed;top:0;right:0;height:100%;width:250px;max-width:78%;background:#fff;box-shadow:-8px 0 30px rgba(0,0,0,0.15);z-index:1000;transform:translateX(100%);transition:transform 0.3s;overflow-y:auto;}
+.mobile-drawer.open{transform:translateX(0);}
+.mobile-drawer-header{display:flex;align-items:center;justify-content:space-between;padding:16px;border-bottom:1px solid #e5e7eb;}
+.mobile-drawer nav a{display:block;padding:12px 20px;color:#184a96;font-weight:500;}
+.drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:998;display:none;}
+.drawer-overlay.show{display:block;}
+.section{padding:24px 0;}@media(min-width:768px){.section{padding:40px 0;}}
+.section-title{font-size:1.75rem;color:#184a96;margin-bottom:12px;font-weight:700;}
+.section-subtitle{color:#ff6600;font-size:0.875rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;}
+.footer{background:#0e2a52;color:#fff;padding:32px 0 16px;}@media(min-width:768px){.footer{padding:56px 0 24px;}}
+.footer h3,.footer h4{color:#f4d000;margin-bottom:16px;}
+.whatsapp-float{position:fixed;bottom:20px;right:20px;z-index:997;width:56px;height:56px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(37,211,102,0.4);color:#fff;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;border-radius:999px;font-weight:600;font-size:0.875rem;}
+.btn-yellow{background:#f4d000;color:#184a96;}
+.btn-green{background:#25d366;color:#fff;}
+.section-header{text-align:center;margin-bottom:16px;}@media(min-width:768px){.section-header{margin-bottom:36px;}}
+.section-header p{max-width:680px;margin:0 auto;color:#4b5563;}
+</style>
+
+<header class="navbar" id="navbar">
+  <div class="container">
+    <a href="/"><img src="/assets/images/logo.webp" alt="Cocohouse Preschool & Daycare" class="navbar-logo"></a>
+    <ul class="nav-menu">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About Us</a></li>
+      <li><a href="/programs">Program</a></li>
+      <li><a href="/daycare">Daycare</a></li>
+      <li><a href="/inclusive-special-education" style="color:#ff6b6b;">Inclusive</a></li>
+      <li><a href="/gallery">Gallery</a></li>
+      <li><a href="/blog">Blogs</a></li>
+      <li><a href="/contact">Contact Us</a></li>
+      <li><a href="/adminssion-open-2026" class="nav-cta">Admissions Open</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</header>
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<div class="mobile-drawer" id="mobileDrawer">
+  <div class="mobile-drawer-header">
+    <img src="/assets/images/logo.webp" alt="Cocohouse" style="height:32px;">
+    <button class="nav-toggle mobile-drawer-close" aria-label="Close menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/about">About Us</a>
+    <a href="/programs">Program</a>
+    <a href="/daycare">Daycare</a>
+    <a href="/inclusive-special-education">Inclusive</a>
+    <a href="/gallery">Gallery</a>
+    <a href="/blog">Blogs</a>
+    <a href="/contact">Contact Us</a>
+    <a href="/adminssion-open-2026" class="btn btn-yellow" style="margin:16px;">Admissions Open</a>
+  </nav>
+</div>
+
+<section class="hero hero-blue" id="se-form">
+  <div class="container">
+    <div>
+      <span class="hero-badge">{{hero_badge}}</span>
+      <h1>{{hero_title}}</h1>
+      <p>{{hero_text}}</p>
+      <div class="hero-features" style="margin-bottom:22px;">
+        <div class="hero-feature"><p>Separate time. Not mixed with playgroup, nursery or KG.</p></div>
+        <div class="hero-feature"><p>A separate special educator for this session.</p></div>
+        <div class="hero-feature"><p>Learning planned for that child.</p></div>
+        <div class="hero-feature"><p>Admissions open up to 10 years.</p></div>
+      </div>
+      <div class="ads-actions">
+        <a class="btn btn-yellow" href="tel:+917039152173">Call 7039152173</a>
+        <a class="btn btn-green" href="https://wa.me/917039152173" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+    <div class="form-card">
+      <h2>Ask about a seat</h2>
+      <p class="form-note">Tell us the child's age and the support they need. The special educator calls within 24 hours.</p>
+      <form id="specialForm">
+        <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;opacity:0;">
+        <div class="form-group"><input class="form-input" type="text" name="parentName" placeholder="Parent's Name *" required autocapitalize="words"></div>
+        <div class="form-group"><input class="form-input" type="tel" name="phone" placeholder="Mobile Number *" data-validate="phone" required></div>
+        <div class="form-row">
+          <div class="form-group"><input class="form-input" type="text" name="childName" placeholder="Child's Name *" required autocapitalize="words"></div>
+          <div class="form-group"><input class="form-input" type="text" name="childAge" placeholder="Age, up to 10"></div>
+        </div>
+        <div class="form-group">
+          <select class="form-select" name="program">
+            <option value="Special Education">Support needed</option>
+            <option>Autism (ASD)</option>
+            <option>ADHD</option>
+            <option>Speech and communication</option>
+            <option>Learning difficulty</option>
+            <option>Behaviour</option>
+            <option>Down syndrome</option>
+            <option>Developmental delay</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+        <div class="form-group"><textarea class="form-textarea" name="message" rows="3" placeholder="What would you like the teacher to know?"></textarea></div>
+        <button class="btn-submit" type="submit">Get a Call Back</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-subtitle">A look at the session</span>
+      <h2 class="section-title">One teacher. One child. Own time.</h2>
+      <p>Special education at Cocohouse is a separate session. These photos show that one-to-one way of learning: picture cards, hands-on play, and a teacher sitting with the child. The children are not in the regular preschool batch.</p>
+    </div>
+    <div class="se-photos">
+      <figure class="se-photo wide">
+        <img src="/assets/images/se-session.jpg" alt="A teacher and one child learning together with picture cards and blocks">
+        <figcaption>One-to-one session</figcaption>
+      </figure>
+      <figure class="se-photo">
+        <img src="/assets/images/se-talk.jpg" alt="A teacher pointing at picture cards with one child">
+        <figcaption>Picture-based learning</figcaption>
+      </figure>
+      <figure class="se-photo">
+        <img src="/assets/images/se-play.jpg" alt="A teacher and one child doing hands-on play with bowls and blocks">
+        <figcaption>Hands-on play</figcaption>
+      </figure>
+    </div>
+    <div class="se-photos pair">
+      <figure class="se-photo">
+        <img src="/assets/images/se-down.jpg" alt="A teacher and a child with Down syndrome learning together with blocks">
+        <figcaption>Down syndrome</figcaption>
+      </figure>
+      <figure class="se-photo">
+        <img src="/assets/images/campus.jpg" alt="Cocohouse Preschool and Daycare in Mulund East">
+        <figcaption>Cocohouse, Mulund East</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:#f4f7fb;">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-subtitle">Who this is for</span>
+      <h2 class="section-title">Children we support</h2>
+      <p>Every child is different. The family speaks with the special educator first. The seat, the time and the plan are confirmed after that conversation. Admissions are open up to 10 years.</p>
+    </div>
+    <div class="se-types">
+      <article class="se-type y">
+        <div class="band"><span>01</span>Autism</div>
+        <p>Children on the autism spectrum who need a calmer, more predictable session. Learning is one step at a time, with their own teacher, not inside the busy preschool class.</p>
+      </article>
+      <article class="se-type b">
+        <div class="band"><span>02</span>ADHD</div>
+        <p>Children who find a long group class hard to sit through. The session is shorter and clearer, in a separate time, with one teacher guiding the activity.</p>
+      </article>
+      <article class="se-type y">
+        <div class="band"><span>03</span>Speech and communication</div>
+        <p>Children who are still building words, gestures, or picture-based communication. The teacher uses pictures, play and a pace that matches the child.</p>
+      </article>
+      <article class="se-type b">
+        <div class="band"><span>04</span>Learning difficulty</div>
+        <p>Children who need a slower pace than nursery or KG. The lesson is planned for that child. It is not the regular preschool timetable.</p>
+      </article>
+      <article class="se-type y">
+        <div class="band"><span>05</span>Behaviour</div>
+        <p>Children who find a big group overwhelming. The session stays small and separate, so the teacher can keep the day steady.</p>
+      </article>
+      <article class="se-type b">
+        <div class="band"><span>06</span>Down syndrome</div>
+        <p>Children with Down syndrome learn in their own session, with their own teacher. Play, pictures and daily skills follow that child's pace, not the regular preschool class.</p>
+      </article>
+      <article class="se-type y">
+        <div class="band"><span>07</span>Developmental delay</div>
+        <p>Children who need more time for play, daily skills and learning. Cocohouse takes these admissions up to 10 years, after speaking with the family.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-subtitle">Why Cocohouse is different</span>
+      <h2 class="section-title">Inclusive Special Education, kept separate from the preschool batch</h2>
+      <p>Cocohouse runs this program inside the same preschool and daycare, but the children are not put into the regular playgroup, nursery or KG class.</p>
+    </div>
+    <div class="se-points">
+      <article class="se-point yellow">
+        <span class="num">01</span>
+        <h3>A separate time</h3>
+        <p>Special education has its own session time. These children are not mixed with the other preschool children during that time.</p>
+      </article>
+      <article class="se-point blue">
+        <span class="num">02</span>
+        <h3>A separate teacher</h3>
+        <p>A special educator takes this program. The teacher of the regular preschool class does not run this session.</p>
+      </article>
+      <article class="se-point yellow">
+        <span class="num">03</span>
+        <h3>A separate way of learning</h3>
+        <p>The lessons are planned for that child. The pace, activities and goals are different from the regular preschool class.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="se-age">
+      <div class="years">10</div>
+      <div>
+        <h2>Admissions up to 10 years</h2>
+        <p>Cocohouse takes Inclusive Special Education admissions up to 10 years of age. The team first talks to the family, understands the child, and then confirms whether a seat and a plan are right.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:#f4f7fb;">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-subtitle">How a seat starts</span>
+      <h2 class="section-title">Four steps before the first session</h2>
+    </div>
+    <div class="se-steps">
+      <article class="se-step"><b>1</b><h3>Enquire</h3><p>Call, WhatsApp, or send the form with the child's age.</p></article>
+      <article class="se-step"><b>2</b><h3>Talk</h3><p>The special educator speaks with the family about what the child needs.</p></article>
+      <article class="se-step"><b>3</b><h3>Plan</h3><p>Time, teacher and learning are set for that child, separate from the preschool batch.</p></article>
+      <article class="se-step"><b>4</b><h3>Begin</h3><p>The child starts in their own session. Parents are told how the plan is going.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section se-faq">
+  <div class="container" style="max-width:860px;">
+    <div class="section-header">
+      <h2 class="section-title">Questions families ask</h2>
+    </div>
+    <details open>
+      <summary>Are these children in the same class as other preschool children?</summary>
+      <p>No. Inclusive Special Education at Cocohouse has a separate time. The children are not mixed into playgroup, nursery, Junior KG or Senior KG for that session.</p>
+    </details>
+    <details>
+      <summary>Who teaches them?</summary>
+      <p>A separate special educator. The regular preschool class teacher does not take this session.</p>
+    </details>
+    <details>
+      <summary>Is the learning the same as the preschool class?</summary>
+      <p>No. The learning is planned separately for the child. Activities and goals follow that plan, not the regular preschool timetable.</p>
+    </details>
+    <details>
+      <summary>Which children do you support?</summary>
+      <p>Autism, ADHD, Down syndrome, speech and communication delay, learning difficulty, behaviour needs, and developmental delay. The special educator confirms the plan after speaking with the family. These children are not mixed into the regular preschool class.</p>
+    </details>
+    <details>
+      <summary>Till what age do you take admissions?</summary>
+      <p>Up to 10 years. The team confirms the seat after speaking with the family.</p>
+    </details>
+    <details>
+      <summary>Where does this happen?</summary>
+      <p>At the same Cocohouse address: Row House No 3, Millenium Park, Hari Om Nagar, Mulund East, Mumbai-400081.</p>
+    </details>
+  </div>
+</section>
+
+<section class="section" style="background:#184a96;text-align:center;">
+  <div class="container">
+    <h2 class="section-title" style="color:#fff;">Talk to the special educator</h2>
+    <p style="color:rgba(255,255,255,.9);max-width:640px;margin:0 auto 20px;">Share the child's age and the support they need. Call, WhatsApp, or send the form at the top of this page.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a class="btn btn-yellow" href="#se-form">Send an Enquiry</a>
+      <a class="btn btn-green" href="https://wa.me/917039152173" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <img src="/assets/images/school-emblem.png" alt="Cocohouse Preschool" class="footer-logo">
+        <h3>Cocohouse Preschool & Daycare</h3>
+        <p>Nurturing Little Minds through Thematic Learning, Coding Phonics, CPA Maths & Holistic Development.</p>
+        <p>Preschool and daycare in Hari Om Nagar, Mulund East, for families in Mulund, Thane, Thane East and Kopri.</p>
+        <span style="display:inline-block;background:#f4d000;color:#184a96;font-size:0.75rem;font-weight:700;padding:4px 12px;border-radius:999px;">1st Thematic Preschool in Thane</span>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About School</a></li>
+          <li><a href="/programs">Programs</a></li>
+          <li><a href="/daycare">Daycare</a></li>
+          <li><a href="/inclusive-special-education">Inclusive</a></li>
+          <li><a href="/gallery">Gallery</a></li>
+          <li><a href="/blog">Blogs</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/adminssion-open-2026">Admissions Open</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Our Programs</h4>
+        <ul>
+          <li><a href="/programs">Playgroup</a></li>
+          <li><a href="/programs">Nursery</a></li>
+          <li><a href="/programs">Junior KG</a></li>
+          <li><a href="/programs">Senior KG</a></li>
+          <li><a href="/daycare">Daycare</a></li>
+          <li><a href="/gallery">Gallery</a></li>
+          <li><a href="/inclusive-special-education">Inclusive Special Education</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact Us</h4>
+        <div class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Row House No 3, Millenium Park, Hari Om Nagar, Mulund East, Mumbai-400081</span></div>
+        <div class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+917039152173">+91-7039152173</a></div>
+        <div class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:info@cocohouse.in">info@cocohouse.in</a></div>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/cocohousepreschool" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="https://www.instagram.com/cocohouse_preschool" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="https://www.youtube.com/@CocohousePreschoolHariOmNagar" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Cocohouse Preschool & Daycare | All Rights Reserved</p>
+      <p>Designed By <a href="https://yunickmedia.com" target="_blank" rel="noopener">Yunick Media</a></p>
+    </div>
+  </div>
+</footer>
+<a href="https://wa.me/917039152173" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.15 6.4 2.15 11.83c0 1.74.46 3.44 1.34 4.94L2 22l5.39-1.41a10 10 0 0 0 4.65 1.18h.01c5.46 0 9.89-4.4 9.89-9.83C21.94 6.4 17.5 2 12.04 2z"/></svg>
+</a>
+<script src="/assets/js/main.js"></script>
+<script>
+setupForm('specialForm', '/api/submit-enquiry.php', {
+  type: 'special_education',
+  successTitle: 'Enquiry received',
+  successDesc: 'Thank you. The special educator will call you within 24 hours.'
+});
+</script>
+</body>
+</html>

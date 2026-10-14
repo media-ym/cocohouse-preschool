@@ -12,6 +12,7 @@ function admin_header(string $title, string $active): void
         'pages' => ['Pages', '/admin/pages.php'],
         'seo' => ['SEO', '/admin/seo.php'],
         'media' => ['Images', '/admin/media.php'],
+        'gallery' => ['Gallery', '/admin/gallery.php'],
         'enquiries' => ['Enquiries', '/admin/enquiries.php'],
         'blog' => ['Blog', '/admin/blog.php'],
         'password' => ['Password', '/admin/password.php'],

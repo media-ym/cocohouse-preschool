@@ -11,7 +11,7 @@ function seo_settings(): array
     $defaults = [
         'site_name' => 'Cocohouse Preschool & Daycare',
         'public_url' => 'https://cocohouse.in',
-        'description' => 'Cocohouse is Mulund and Thane\'s first thematic preschool and daycare, with playgroup, nursery, kindergarten and inclusive special education in Mulund East.',
+        'description' => 'Best preschool and daycare in Mulund East, Thane East, Kopri and Hari Om Nagar. Playgroup, nursery, KG, daycare till 8 PM and special education.',
         'image' => '/assets/images/campus.jpg',
         'google_verification' => '',
         'bing_verification' => '',
@@ -47,44 +47,49 @@ function seo_page_defaults(string $pageId): array
 {
     $pages = [
         'home' => [
-            'title' => '1st Thematic Preschool in Thane | Cocohouse Preschool & Daycare',
-            'description' => 'Cocohouse is Mulund and Thane\'s first thematic preschool. Playgroup, Nursery, Junior KG, Senior KG, daycare and inclusive special education in Mulund East.',
-            'keywords' => 'preschool in Mulund, daycare Mulund East, thematic preschool Thane, playgroup admission, Cocohouse',
+            'title' => 'Best Preschool in Mulund & Thane | Cocohouse',
+            'description' => 'Best preschool in Mulund East, Thane East, Kopri and Hari Om Nagar. Daycare till 8 PM and a special education preschool with its own teacher. Call 7039152173.',
+            'keywords' => 'best preschool in thane, best preschool in mulund, best preschool in kopri, best preschool in mulund east, best preschool in thane east, best preschool in hari om nagar, best preschool near me, best daycare near me, best daycare in thane, best daycare in mulund, best daycare in hari om nagar, best daycare in kopri, special education preschool near me',
         ],
         'about' => [
-            'title' => 'About Us | Cocohouse Preschool & Daycare',
-            'description' => 'The story of Cocohouse Preschool in Mulund East — a NEP and NCF 2022 aligned thematic preschool built on the Panchakosha philosophy.',
-            'keywords' => 'about Cocohouse, preschool Mulund East, Panchakosha preschool, NEP 2022 preschool',
+            'title' => 'Best Preschool in Hari Om Nagar | Cocohouse',
+            'description' => 'Cocohouse is a thematic preschool in Hari Om Nagar, Mulund East. Families from Mulund, Thane, Thane East and Kopri visit for playgroup, nursery and KG.',
+            'keywords' => 'best preschool in hari om nagar, best preschool in mulund east, best preschool in mulund, preschool Hari Om Nagar, Cocohouse about',
         ],
         'programs' => [
-            'title' => 'Our Programs | Cocohouse Preschool & Daycare',
-            'description' => 'Playgroup, Nursery, Junior KG, Senior KG, daycare and inclusive special education at Cocohouse Preschool, Mulund East.',
-            'keywords' => 'playgroup Mulund, nursery school, junior KG, senior KG, special education preschool',
+            'title' => 'Best Preschool in Mulund East | Cocohouse Programs',
+            'description' => 'Playgroup, Nursery, Junior KG and Senior KG at Cocohouse, a preschool in Mulund East for families from Thane East, Kopri and Hari Om Nagar.',
+            'keywords' => 'best preschool in mulund east, best preschool in thane east, best preschool in kopri, playgroup Mulund, nursery Mulund East, junior KG, senior KG',
         ],
         'daycare' => [
-            'title' => 'Daycare in Mulund East | Cocohouse Preschool',
-            'description' => 'Flexible daycare in Mulund East for children aged 1.5 to 10 years, with meals, rest, homework help and CCTV. Ask Cocohouse for packages.',
-            'keywords' => 'daycare Mulund East, preschool daycare, after school care Mulund, Cocohouse daycare',
+            'title' => 'Best Daycare in Mulund & Thane | Cocohouse',
+            'description' => 'Best daycare in Mulund, Thane, Thane East, Kopri and Hari Om Nagar. Open till 8 PM for children up to 10, with meals, rest and homework help. Call 7039152173.',
+            'keywords' => 'best daycare in mulund, best daycare in thane, best daycare in thane east, best daycare in kopri, best daycare in hari om nagar, best daycare near me, daycare Mulund East',
         ],
         'gallery' => [
-            'title' => 'Gallery | Cocohouse Preschool & Daycare',
-            'description' => 'Photos from Cocohouse Preschool & Daycare in Mulund East — classrooms, events and everyday learning.',
-            'keywords' => 'Cocohouse gallery, preschool photos Mulund, daycare photos',
+            'title' => 'Preschool & Daycare Photos, Mulund East | Cocohouse',
+            'description' => 'Photos and parent videos from Cocohouse preschool and daycare in Hari Om Nagar, Mulund East, near Thane East and Kopri.',
+            'keywords' => 'preschool photos Mulund East, daycare photos Hari Om Nagar, Cocohouse gallery, best preschool in mulund east',
         ],
         'blog' => [
-            'title' => 'Blogs | Cocohouse Preschool & Daycare',
-            'description' => 'Early learning and parenting articles from Cocohouse Preschool & Daycare in Mulund East.',
-            'keywords' => 'preschool blog, parenting tips, early learning Mulund',
+            'title' => 'Preschool & Daycare Blog for Mulund & Thane | Cocohouse',
+            'description' => 'Parenting articles from Cocohouse for families looking at preschool and daycare in Mulund East, Thane East, Kopri and Hari Om Nagar.',
+            'keywords' => 'best preschool in mulund, best daycare in thane east, preschool blog Mulund, daycare tips Thane',
         ],
         'admissions' => [
-            'title' => 'Admissions Open 2026 | Cocohouse Preschool & Daycare',
-            'description' => 'Mid-term admissions open for 2026-27 at Cocohouse Preschool and Daycare, Hari Om Nagar. Playgroup, nursery, KG and full day daycare. Flat 60% off. Call 7039152173.',
-            'keywords' => 'preschool admission 2026, daycare admission Thane East, playgroup admission, Cocohouse admissions, mid term admission',
+            'title' => 'Preschool Admission in Mulund East 2026 | Cocohouse',
+            'description' => 'Admissions open for preschool and daycare in Mulund East, Thane East, Kopri and Hari Om Nagar. Mid-term seats, flat 60% off. Call 7039152173.',
+            'keywords' => 'best preschool in mulund east, best preschool in thane east, preschool admission 2026, daycare admission Mulund, best daycare in hari om nagar',
+        ],
+        'special-education' => [
+            'title' => 'Special Education Preschool near Mulund | Cocohouse',
+            'description' => 'Special education preschool near Mulund East, Thane, Thane East, Kopri and Hari Om Nagar. Separate time, separate teacher, admissions up to 10 years. Call 7039152173.',
+            'keywords' => 'special education preschool near me, special education preschool Mulund, special education Thane East, inclusive preschool Hari Om Nagar, best preschool near me',
         ],
         'contact' => [
-            'title' => 'Contact Us | Cocohouse Preschool & Daycare',
-            'description' => 'Visit Cocohouse Preschool & Daycare at Millenium Park, Mulund East, or call +91-7039152173 to book a school visit.',
-            'keywords' => 'Cocohouse contact, preschool Mulund East address, school visit Mulund',
+            'title' => 'Preschool near Hari Om Nagar | Contact Cocohouse',
+            'description' => 'Visit Cocohouse at Row House No 3, Millenium Park, Hari Om Nagar, Mulund East, Mumbai 400081. Near Kopri and Thane East. Call +91-7039152173.',
+            'keywords' => 'best preschool near me, best daycare near me, best preschool in hari om nagar, preschool Mulund East address, daycare Kopri, Cocohouse contact',
         ],
     ];
     $base = $pages[$pageId] ?? [
@@ -241,20 +246,29 @@ function seo_schema_graph(string $pageId, array $bundle, array $settings, string
         $settings['linktree'] ?? '',
     ]));
     $org = [
-        '@type' => ['Preschool', 'EducationalOrganization'],
+        '@type' => ['Preschool', 'ChildCare', 'EducationalOrganization'],
         '@id' => rtrim($settings['public_url'], '/') . '/#school',
         'name' => $settings['site_name'],
+        'description' => $settings['description'],
         'url' => rtrim($settings['public_url'], '/') . '/',
         'telephone' => $settings['phone'],
         'email' => $settings['email'],
         'image' => seo_absolute($settings['image'], $settings['public_url']),
         'address' => [
             '@type' => 'PostalAddress',
-            'streetAddress' => $settings['address'],
-            'addressLocality' => 'Mumbai',
+            'streetAddress' => 'Row House No 3, Millenium Park, Hari Om Nagar',
+            'addressLocality' => 'Mulund East',
             'addressRegion' => 'Maharashtra',
             'postalCode' => '400081',
             'addressCountry' => 'IN',
+        ],
+        'areaServed' => [
+            ['@type' => 'Place', 'name' => 'Mulund'],
+            ['@type' => 'Place', 'name' => 'Mulund East'],
+            ['@type' => 'Place', 'name' => 'Thane'],
+            ['@type' => 'Place', 'name' => 'Thane East'],
+            ['@type' => 'Place', 'name' => 'Kopri'],
+            ['@type' => 'Place', 'name' => 'Hari Om Nagar'],
         ],
     ];
     if ($sameAs) {

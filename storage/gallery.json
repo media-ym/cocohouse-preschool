@@ -1,0 +1,56 @@
+{
+    "categories": [
+        {
+            "id": "preschool",
+            "name": "Preschool",
+            "items": [
+                {
+                    "id": "campus",
+                    "type": "image",
+                    "src": "/assets/images/campus.jpg",
+                    "title": "Preschool & Daycare Building",
+                    "caption": "Our beautiful preschool & daycare in Mulund East"
+                },
+                {
+                    "id": "joyful",
+                    "type": "image",
+                    "src": "/assets/images/joyful-learning.webp",
+                    "title": "Joyful Learning",
+                    "caption": "Children learning through play"
+                },
+                {
+                    "id": "principal",
+                    "type": "image",
+                    "src": "/assets/images/principal.webp",
+                    "title": "Our Principal",
+                    "caption": "Mrs. Pratheeksha Darak, Founder"
+                }
+            ]
+        },
+        {
+            "id": "testimonials",
+            "name": "Testimonials",
+            "items": [
+                {
+                    "id": "nitisha",
+                    "type": "youtube",
+                    "src": "tMTFDT_VD_o",
+                    "title": "Nitisha & Vijay",
+                    "caption": ""
+                },
+                {
+                    "id": "anirudh",
+                    "type": "youtube",
+                    "src": "WQ4MrEJBD8E",
+                    "title": "Anirudh & Shilpa",
+                    "caption": ""
+                }
+            ]
+        },
+        {
+            "id": "annual-day",
+            "name": "Annual Day",
+            "items": []
+        }
+    ]
+}

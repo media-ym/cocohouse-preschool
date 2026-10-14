@@ -40,6 +40,30 @@
   });
 })();
 
+// ====== Footer lists on phone ======
+(function () {
+  document.querySelectorAll('.footer h4').forEach(function (heading) {
+    var label = heading.textContent.trim();
+    if (label !== 'Quick Links' && label !== 'Our Programs') return;
+    var box = heading.parentElement;
+    box.classList.add('footer-fold');
+    heading.setAttribute('role', 'button');
+    heading.setAttribute('tabindex', '0');
+    heading.setAttribute('aria-expanded', 'false');
+    function toggle() {
+      var open = box.classList.toggle('open');
+      heading.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    heading.addEventListener('click', toggle);
+    heading.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        toggle();
+      }
+    });
+  });
+})();
+
 // ====== FAQ Accordion ======
 (function () {
   var items = document.querySelectorAll('.faq-item');

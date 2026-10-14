@@ -157,7 +157,8 @@ function unique_slug(string $slug, string $ignoreId = ''): string
 function sanitize_html(string $html): string
 {
     $html = strip_tags($html, '<p><h2><h3><ul><ol><li><strong><em><b><i><a><br><blockquote>');
-    $html = preg_replace('/\s(on\w+|style)\s*=\s*("[^"]*"|\'[^\']*\')/i', '', $html) ?? $html;
+    $html = preg_replace('/\sdata-mce-[a-z0-9-]+\s*=\s*("[^"]*"|\'[^\']*\')/i', '', $html) ?? $html;
+    $html = preg_replace('/\s(on\w+|style|class|id)\s*=\s*("[^"]*"|\'[^\']*\')/i', '', $html) ?? $html;
     $html = preg_replace('/href\s*=\s*("|\')\s*javascript:[^"\']*\1/i', 'href="#"', $html) ?? $html;
     return trim($html);
 }
@@ -249,6 +250,7 @@ function enquiry_labels(): array
         'school_visit' => 'School visit',
         'daycare' => 'Daycare',
         'contact' => 'Contact',
+        'special_education' => 'Special Education',
     ];
 }
 

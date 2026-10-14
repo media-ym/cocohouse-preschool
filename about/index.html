@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<!-- Critical inline CSS — prevents FOUC (Flash of Unstyled Content) -->
+<!-- Critical inline CSS – prevents FOUC (Flash of Unstyled Content) -->
 <style>
 /* Reset + base */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -22,21 +22,20 @@ button{cursor:pointer;border:none;background:none;font-family:inherit;}
 input,textarea,select{font-family:inherit;font-size:inherit;}
 .container{max-width:1200px;margin:0 auto;padding:0 16px;}
 
-/* Navbar — always styled even if CSS file is delayed */
+/* Navbar – always styled even if CSS file is delayed */
 .navbar{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);padding:12px 0;box-shadow:0 2px 8px rgba(0,0,0,0.08);}
-.navbar .container{display:flex;align-items:center;justify-content:space-between;}
-.navbar-logo{height:48px;width:auto;}
-@media(min-width:768px){.navbar-logo{height:56px;}}
-.nav-menu{display:none;align-items:center;gap:28px;}
-@media(min-width:1024px){.nav-menu{display:flex;}}
-.nav-menu a{color:#184a96;font-weight:500;font-size:0.9375rem;transition:color 0.2s;}
+.navbar .container{display:flex;align-items:center;justify-content:space-between;gap:20px;max-width:1360px;}.navbar .container>a{flex:0 0 auto;}
+.navbar-logo{height:72px;width:auto;max-width:none;object-fit:contain;display:block;}@media(max-width:420px){.navbar-logo{height:58px;}}
+.nav-menu{display:none;align-items:center;gap:0;margin-left:auto;}
+@media(min-width:1360px){.nav-menu{display:flex;}}
+.nav-menu a{color:#184a96;font-weight:500;font-size:0.84rem;transition:color 0.2s;}
 .nav-menu a:hover{color:#ff6b6b;}
 .nav-cta{display:inline-flex;align-items:center;gap:6px;background:#f4d000;color:#184a96;font-weight:600;font-size:0.875rem;padding:10px 20px;border-radius:999px;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
-.nav-toggle{display:block;padding:8px;color:#184a96;background:none;border:none;}
-@media(min-width:1024px){.nav-toggle{display:none;}}
+.nav-toggle{display:flex;align-items:center;justify-content:center;width:44px;height:44px;padding:8px;margin-left:auto;color:#184a96;background:none;border:none;flex:0 0 auto;}
+@media(min-width:1360px){#navToggle{display:none;}}
 
 /* Mobile drawer */
-.mobile-drawer{position:fixed;top:0;right:0;height:100%;width:80%;max-width:360px;background:#fff;box-shadow:-8px 0 30px rgba(0,0,0,0.15);z-index:1000;transform:translateX(100%);transition:transform 0.3s;overflow-y:auto;}
+.mobile-drawer{position:fixed;top:0;right:0;height:100%;width:250px;max-width:78%;background:#fff;box-shadow:-8px 0 30px rgba(0,0,0,0.15);z-index:1000;transform:translateX(100%);transition:transform 0.3s;overflow-y:auto;}
 .mobile-drawer.open{transform:translateX(0);}
 .mobile-drawer-header{display:flex;align-items:center;justify-content:space-between;padding:16px;border-bottom:1px solid #e5e7eb;}
 .mobile-drawer nav a{display:block;padding:12px 20px;color:#184a96;font-weight:500;}
@@ -44,21 +43,21 @@ input,textarea,select{font-family:inherit;font-size:inherit;}
 .drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:998;display:none;}
 .drawer-overlay.show{display:block;}
 
-/* Page content — ensure visible even before full CSS loads */
-.section{padding:64px 0;}
-@media(min-width:768px){.section{padding:96px 0;}}
+/* Page content – ensure visible even before full CSS loads */
+.section{padding:24px 0;}
+@media(min-width:768px){.section{padding:40px 0;}}
 .section-title{font-size:1.75rem;color:#184a96;margin-bottom:12px;font-weight:700;}
 .section-subtitle{color:#ff6600;font-size:0.875rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;}
 
 /* Footer */
-.footer{background:#0e2a52;color:#fff;padding:56px 0 24px;}
-.footer-grid{display:grid;gap:40px;}
+.footer{background:#0e2a52;color:#fff;padding:32px 0 16px;}@media(min-width:768px){.footer{padding:56px 0 24px;}}
+.footer-grid{display:grid;gap:8px;}@media(min-width:768px){.footer-grid{gap:40px;}}
 @media(min-width:768px){.footer-grid{grid-template-columns:1fr 1fr;}}
 @media(min-width:1024px){.footer-grid{grid-template-columns:1fr 1fr 1fr 1fr;}}
 .footer h3,.footer h4{color:#f4d000;margin-bottom:16px;}
 .footer p,.footer ul li a{font-size:0.875rem;color:rgba(255,255,255,0.8);}
 .footer ul li{margin-bottom:10px;}
-.footer-bottom{border-top:1px solid rgba(255,255,255,0.15);margin-top:40px;padding-top:20px;text-align:center;font-size:0.75rem;color:rgba(255,255,255,0.6);}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.15);margin-top:16px;padding-top:14px;text-align:center;font-size:0.75rem;color:rgba(255,255,255,0.6);}@media(min-width:768px){.footer-bottom{margin-top:40px;padding-top:20px;}}
 
 /* WhatsApp float */
 .whatsapp-float{position:fixed;bottom:20px;right:20px;z-index:997;width:56px;height:56px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(37,211,102,0.4);}
@@ -86,7 +85,7 @@ input,textarea,select{font-family:inherit;font-size:inherit;}
 @media(min-width:768px){.hidden-mobile{display:block;}.hidden-desktop{display:none;}}
 
 /* Section header */
-.section-header{text-align:center;margin-bottom:48px;}
+.section-header{text-align:center;margin-bottom:16px;}@media(min-width:768px){.section-header{margin-bottom:28px;}}
 </style>
 
 <header class="navbar" id="navbar">
@@ -95,8 +94,9 @@ input,textarea,select{font-family:inherit;font-size:inherit;}
     <ul class="nav-menu">
       <li><a href="/" style="">Home</a></li>
       <li><a href="/about" style="color:#ff6b6b;">About Us</a></li>
-      <li><a href="/programs" style="">Our Programs</a></li>
+      <li><a href="/programs" style="">Program</a></li>
       <li><a href="/daycare" style="">Daycare</a></li>
+      <li><a href="/inclusive-special-education">Inclusive</a></li>
       <li><a href="/gallery" style="">Gallery</a></li>
       <li><a href="/blog" style="">Blogs</a></li>
       <li><a href="/contact" style="">Contact Us</a></li>
@@ -110,7 +110,7 @@ input,textarea,select{font-family:inherit;font-size:inherit;}
 <div class="drawer-overlay" id="drawerOverlay"></div>
 <div class="mobile-drawer" id="mobileDrawer">
   <div class="mobile-drawer-header">
-    <img src="/assets/images/logo.webp" alt="Cocohouse" style="height:44px;">
+    <img src="/assets/images/logo.webp" alt="Cocohouse" style="height:32px;">
     <button class="nav-toggle mobile-drawer-close" aria-label="Close menu">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
@@ -118,8 +118,9 @@ input,textarea,select{font-family:inherit;font-size:inherit;}
   <nav>
     <a href="/">Home</a>
     <a href="/about">About Us</a>
-    <a href="/programs">Our Programs</a>
+    <a href="/programs">Program</a>
     <a href="/daycare">Daycare</a>
+    <a href="/inclusive-special-education">Inclusive</a>
     <a href="/gallery">Gallery</a>
     <a href="/blog">Blogs</a>
     <a href="/contact">Contact Us</a>
@@ -187,27 +188,27 @@ input,textarea,select{font-family:inherit;font-size:inherit;}
               <div class="card">
           <div class="card-icon" style="background:#ff6b6b20;font-size:1.5rem;">❤️</div>
           <h3>Love & Care</h3>
-          <p>Every child is held in a warm, nurturing environment where they feel safe, valued and unconditionally loved — the foundation of all true learning.</p>
+          <p>Every child is held in a warm, nurturing environment where they feel safe, valued and unconditionally loved – the foundation of all true learning.</p>
         </div>
               <div class="card">
           <div class="card-icon" style="background:#184a9620;font-size:1.5rem;">🎓</div>
           <h3>Holistic Growth</h3>
-          <p>We develop the whole child — physical, emotional, social, intellectual and spiritual — through the five-layered Panchakosha approach.</p>
+          <p>We develop the whole child – physical, emotional, social, intellectual and spiritual – through the five-layered Panchakosha approach.</p>
         </div>
               <div class="card">
           <div class="card-icon" style="background:#f4d00020;font-size:1.5rem;">✨</div>
           <h3>Curiosity First</h3>
-          <p>We don't just answer questions — we celebrate them. Inquiry-based learning keeps the natural wonder of childhood alive and thriving.</p>
+          <p>We don't just answer questions – we celebrate them. Inquiry-based learning keeps the natural wonder of childhood alive and thriving.</p>
         </div>
               <div class="card">
           <div class="card-icon" style="background:#25d36620;font-size:1.5rem;">🌿</div>
           <h3>Indian Roots</h3>
-          <p>Sanskrit shlokas, Indian festivals, traditional games and the Gurukulam ethos are woven into daily life — connecting children to their rich heritage.</p>
+          <p>Sanskrit shlokas, Indian festivals, traditional games and the Gurukulam ethos are woven into daily life – connecting children to their rich heritage.</p>
         </div>
               <div class="card">
           <div class="card-icon" style="background:#9333ea20;font-size:1.5rem;">🛡️</div>
           <h3>Safety & Trust</h3>
-          <p>CCTV-monitored preschool & daycare, verified staff, child-proof infrastructure and transparent communication — your peace of mind is non-negotiable.</p>
+          <p>CCTV-monitored preschool & daycare, verified staff, child-proof infrastructure and transparent communication – your peace of mind is non-negotiable.</p>
         </div>
               <div class="card">
           <div class="card-icon" style="background:#0891b220;font-size:1.5rem;">📖</div>
@@ -300,7 +301,7 @@ input,textarea,select{font-family:inherit;font-size:inherit;}
     </div>
   </div>
 </section>
-<!-- Footer — NO Activities, NO Principal -->
+<!-- Footer – NO Activities, NO Principal -->
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
@@ -308,6 +309,7 @@ input,textarea,select{font-family:inherit;font-size:inherit;}
         <img src="/assets/images/school-emblem.png" alt="Cocohouse Preschool" class="footer-logo">
         <h3>Cocohouse Preschool & Daycare</h3>
         <p>Nurturing Little Minds through Thematic Learning, Coding Phonics, CPA Maths & Holistic Development.</p>
+        <p>Preschool and daycare in Hari Om Nagar, Mulund East, for families in Mulund, Thane, Thane East and Kopri.</p>
         <span style="display:inline-block;background:#f4d000;color:#184a96;font-size:0.75rem;font-weight:700;padding:4px 12px;border-radius:999px;">1st Thematic Preschool in Thane</span>
       </div>
       <div>
@@ -332,7 +334,7 @@ input,textarea,select{font-family:inherit;font-size:inherit;}
           <li><a href="/programs">Senior KG</a></li>
           <li><a href="/daycare">Daycare</a></li>
           <li><a href="/gallery">Gallery</a></li>
-          <li><a href="/programs">Inclusive Special Education</a></li>
+          <li><a href="/inclusive-special-education">Inclusive Special Education</a></li>
         </ul>
       </div>
       <div>

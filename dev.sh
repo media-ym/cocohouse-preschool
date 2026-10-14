@@ -1,6 +1,21 @@
 #!/bin/bash
 cd "$(dirname "$0")"
 PHP="/tmp/php-coco/php"
+PHP_URL="https://dl.static-php.dev/static-php-cli/common/php-8.3.27-cli-macos-x86_64.tar.gz"
+
+if [[ ! -x "$PHP" ]]; then
+  echo "PHP missing. Downloading it once..."
+  mkdir -p /tmp/php-coco
+  archive="$(mktemp)"
+  if ! curl -fL --retry 3 --retry-delay 2 -A "Mozilla/5.0" "$PHP_URL" -o "$archive"; then
+    echo "Could not download PHP. Check the internet connection and run npm run dev again."
+    rm -f "$archive"
+    exit 1
+  fi
+  tar -xzf "$archive" -C /tmp/php-coco
+  chmod +x "$PHP"
+  rm -f "$archive"
+fi
 
 if [[ ! -x "$PHP" ]]; then
   echo "PHP not found at $PHP"

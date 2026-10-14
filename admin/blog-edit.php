@@ -23,10 +23,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $category = array_key_first($categories);
     }
     $uploaded = save_uploaded_image($_FILES['image'] ?? []);
+    $visible = trim(str_replace("\xc2\xa0", '', html_entity_decode(strip_tags($content))));
     if ($uploaded === '') {
         $error = 'Image must be a JPG, PNG, WEBP, or GIF under 2 MB.';
-    } elseif ($title === '' || $excerpt === '' || $content === '') {
-        $error = 'Title, summary, and content are required.';
+    } elseif ($title === '' || $excerpt === '' || $visible === '') {
+        $error = 'Title, summary, and article are required.';
     } else {
         $now = date('Y-m-d H:i:s');
         $record = $post ?: [];
@@ -85,66 +86,97 @@ admin_header($post ? 'Edit post' : 'New post', 'blog');
 <h1><?= $post && !empty($post['id']) && find_post($post['id']) ? 'Edit post' : 'New post' ?></h1>
 <p class="lead"><a href="/admin/blog.php">Back to posts</a></p>
 <?php if ($error): ?><div class="flash error"><?= e($error) ?></div><?php endif; ?>
-<form class="card" method="post" enctype="multipart/form-data">
+<form class="editor-layout" method="post" enctype="multipart/form-data">
   <?= csrf_field() ?>
   <input type="hidden" name="id" value="<?= e($post['id'] ?? '') ?>">
-  <div class="field">
-    <label for="title">Title</label>
-    <input id="title" name="title" required value="<?= e($post['title'] ?? '') ?>">
-  </div>
-  <div class="split">
+  <div class="card">
     <div class="field">
-      <label for="author">Author</label>
-      <input id="author" name="author" required value="<?= e($post['author'] ?? default_blog_author()) ?>">
+      <label for="title">Title</label>
+      <input id="title" name="title" required value="<?= e($post['title'] ?? '') ?>">
     </div>
     <div class="field">
-      <label for="slug">Web address</label>
-      <input id="slug" name="slug" placeholder="auto-from-title" value="<?= e($post['slug'] ?? '') ?>">
+      <label for="excerpt">Short summary</label>
+      <textarea id="excerpt" name="excerpt" style="min-height:90px;" required><?= e($post['excerpt'] ?? '') ?></textarea>
     </div>
     <div class="field">
-      <label for="category_name">Category</label>
-      <select id="category_name" name="category_name">
-        <?php foreach ($categories as $name => $color): ?>
-          <option value="<?= e($name) ?>" <?= ($post['category_name'] ?? '') === $name ? 'selected' : '' ?>><?= e($name) ?></option>
-        <?php endforeach; ?>
-      </select>
+      <label for="content">Article</label>
+      <textarea id="content" name="content"><?= e($post['content'] ?? '') ?></textarea>
+      <p class="help">Bold, headings, lists, and links. No HTML needed.</p>
     </div>
   </div>
-  <div class="field">
-    <label for="excerpt">Short summary</label>
-    <textarea id="excerpt" name="excerpt" style="min-height:90px;" required><?= e($post['excerpt'] ?? '') ?></textarea>
-  </div>
-  <div class="field">
-    <label for="content">Article</label>
-    <textarea id="content" name="content" required><?= e($post['content'] ?? '') ?></textarea>
-    <p class="help">Write normal paragraphs, one per line. Or use simple HTML such as &lt;p&gt;, &lt;h2&gt;, and &lt;ul&gt;&lt;li&gt;.</p>
-  </div>
-  <div class="split">
-    <div class="field">
-      <label for="image">Upload photo</label>
-      <input id="image" name="image" type="file" accept="image/jpeg,image/png,image/webp,image/gif">
+  <aside class="editor-side">
+    <div class="card">
+      <h2>Publish</h2>
+      <div class="field">
+        <label for="status">Status</label>
+        <select id="status" name="status">
+          <option value="published" <?= ($post['status'] ?? 'published') === 'published' ? 'selected' : '' ?>>Published</option>
+          <option value="draft" <?= ($post['status'] ?? '') === 'draft' ? 'selected' : '' ?>>Draft</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="read_minutes">Minutes to read</label>
+        <input id="read_minutes" name="read_minutes" type="number" min="1" max="60" value="<?= e((string) ($post['read_minutes'] ?? 4)) ?>">
+      </div>
+      <div class="field">
+        <label class="check"><input type="checkbox" name="is_featured" <?= !empty($post['is_featured']) ? 'checked' : '' ?>> Featured story</label>
+      </div>
+      <button class="btn btn-primary" type="submit">Save post</button>
     </div>
-    <div class="field">
-      <label for="featured_img">Or image address</label>
-      <input id="featured_img" name="featured_img" value="<?= e($post['featured_img'] ?? '/assets/images/joyful-learning.webp') ?>">
+    <div class="card">
+      <h2>Details</h2>
+      <div class="field">
+        <label for="category_name">Category</label>
+        <select id="category_name" name="category_name">
+          <?php foreach ($categories as $name => $color): ?>
+            <option value="<?= e($name) ?>" <?= ($post['category_name'] ?? '') === $name ? 'selected' : '' ?>><?= e($name) ?></option>
+          <?php endforeach; ?>
+        </select>
+      </div>
+      <div class="field">
+        <label for="author">Author</label>
+        <input id="author" name="author" required value="<?= e($post['author'] ?? default_blog_author()) ?>">
+      </div>
+      <div class="field">
+        <label for="slug">Web address</label>
+        <input id="slug" name="slug" placeholder="auto-from-title" value="<?= e($post['slug'] ?? '') ?>">
+      </div>
     </div>
-  </div>
-  <div class="split">
-    <div class="field">
-      <label for="read_minutes">Minutes to read</label>
-      <input id="read_minutes" name="read_minutes" type="number" min="1" max="60" value="<?= e((string) ($post['read_minutes'] ?? 4)) ?>">
+    <div class="card">
+      <h2>Cover photo</h2>
+      <?php if (!empty($post['featured_img'])): ?>
+        <img src="<?= e($post['featured_img']) ?>" alt="" style="width:100%;height:120px;object-fit:cover;border-radius:12px;margin-bottom:12px;">
+      <?php endif; ?>
+      <div class="field">
+        <label for="image">Upload photo</label>
+        <input id="image" name="image" type="file" accept="image/jpeg,image/png,image/webp,image/gif">
+      </div>
+      <div class="field">
+        <label for="featured_img">Or image address</label>
+        <input id="featured_img" name="featured_img" value="<?= e($post['featured_img'] ?? '/assets/images/joyful-learning.webp') ?>">
+      </div>
     </div>
-    <div class="field">
-      <label for="status">Status</label>
-      <select id="status" name="status">
-        <option value="published" <?= ($post['status'] ?? 'published') === 'published' ? 'selected' : '' ?>>Published</option>
-        <option value="draft" <?= ($post['status'] ?? '') === 'draft' ? 'selected' : '' ?>>Draft</option>
-      </select>
-    </div>
-  </div>
-  <div class="field">
-    <label class="check"><input type="checkbox" name="is_featured" <?= !empty($post['is_featured']) ? 'checked' : '' ?>> Show as the featured story</label>
-  </div>
-  <button class="btn btn-primary" type="submit">Save post</button>
+  </aside>
 </form>
+<script src="https://cdn.jsdelivr.net/npm/tinymce@7.6.1/tinymce.min.js"></script>
+<script>
+tinymce.init({
+  selector: '#content',
+  license_key: 'gpl',
+  menubar: false,
+  branding: false,
+  promotion: false,
+  statusbar: false,
+  height: 460,
+  plugins: 'lists link autoresize',
+  toolbar: 'undo redo | blocks | bold italic | bullist numlist | link blockquote | removeformat',
+  block_formats: 'Paragraph=p; Heading 2=h2; Heading 3=h3',
+  skin_url: 'https://cdn.jsdelivr.net/npm/tinymce@7.6.1/skins/ui/oxide',
+  content_css: 'https://cdn.jsdelivr.net/npm/tinymce@7.6.1/skins/content/default/content.min.css',
+  content_style: 'body { font-family: Poppins, sans-serif; font-size: 16px; line-height: 1.6; color: #1f2937; }',
+  setup: function (editor) {
+    editor.on('change input undo redo', function () { editor.save(); });
+  }
+});
+</script>
 <?php admin_footer();

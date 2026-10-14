@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/store.php';
 require_once __DIR__ . '/site.php';
+require_once __DIR__ . '/gallery.php';
 
 function cms_path(): string
 {
@@ -38,6 +39,7 @@ function page_catalog(): array
         'blog' => ['label' => 'Blog', 'file' => '/blog/index.html', 'view' => page_url('blog')],
         'contact' => ['label' => 'Contact', 'file' => '/contact/index.html', 'view' => page_url('contact')],
         'admissions' => ['label' => 'Admissions 2026', 'file' => '/admissions/index.html', 'view' => page_url('admissions')],
+        'special-education' => ['label' => 'Special Education', 'file' => '/special-education/index.html', 'view' => page_url('special-education')],
     ];
 }
 
@@ -99,6 +101,11 @@ function page_fields(string $id): array
             'offer_title' => $text + ['label' => 'Offer heading'],
             'offer_text' => $area + ['label' => 'Offer details'],
         ],
+        'special-education' => [
+            'hero_badge' => $text + ['label' => 'Badge'],
+            'hero_title' => $area + ['label' => 'Main title', 'hint' => 'Use a new line where you want a line break.'],
+            'hero_text' => $area + ['label' => 'Intro'],
+        ],
         'contact' => [
             'hero_title' => $text + ['label' => 'Page title'],
             'hero_text' => $area + ['label' => 'Intro'],
@@ -133,6 +140,10 @@ function cms_render_file(string $file, string $pageId): string
     }
     if ($pageId === 'home') {
         $html = str_replace('{{home_programs}}', render_home_programs(cms_page('programs')['items'] ?? []), $html);
+        $html = str_replace('{{home_gallery}}', render_home_gallery(), $html);
+    }
+    if ($pageId === 'gallery') {
+        $html = str_replace('{{gallery_board}}', render_gallery_board(), $html);
     }
     if ($pageId === 'programs') {
         $html = str_replace('{{programs_grid}}', render_program_board(cms_page('programs')['items'] ?? []), $html);
@@ -196,7 +207,11 @@ function render_home_programs(array $items): string
             $html .= '<li><span class="dot" style="background:' . e($color) . ';"></span><span>' . e((string) $point) . '</span></li>';
         }
         $html .= '</ul>';
-        $html .= '<a href="' . e(page_url('programs')) . '" class="btn btn-sm" style="background:' . e($color) . ';color:' . e($ink) . ';">Enquire Now →</a>';
+        $cardLink = (string) ($item['link'] ?? '');
+        if (!preg_match('#^(https://|/)#', $cardLink)) {
+            $cardLink = page_url('programs');
+        }
+        $html .= '<a href="' . e($cardLink) . '" class="btn btn-sm" style="background:' . e($color) . ';color:' . e($ink) . ';">' . e($item['button'] ?? 'Enquire Now →') . '</a>';
         $html .= '</div>';
     }
     return $html;

@@ -25,13 +25,13 @@ admin_header('Blog', 'blog');
 <div class="row">
   <div>
     <h1>Blog posts</h1>
-    <p class="lead">Published posts appear on the website blog. Author: <a href="/author/nikhil-yelligetti" target="_blank" rel="noopener">Nikhil Yelligetti</a></p>
+    <p class="lead">Write in the editor, then publish. The story shows on the website blog.</p>
   </div>
   <a class="btn btn-primary" href="/admin/blog-edit.php">New post</a>
 </div>
 <div class="posts">
 <?php if (!$posts): ?>
-  <section class="card empty">No posts yet.</section>
+  <section class="card empty">No posts yet. Start with New post.</section>
 <?php endif; ?>
 <?php foreach ($posts as $post): ?>
   <article class="post">
@@ -44,17 +44,20 @@ admin_header('Blog', 'blog');
         · <?= e(blog_author_name($post)) ?>
         <?php if (!empty($post['is_featured'])): ?> · Featured<?php endif; ?>
       </p>
-    </div>
-    <div class="actions">
-      <a class="btn btn-ghost" href="/admin/blog-edit.php?id=<?= e($post['id'] ?? '') ?>">Edit</a>
-      <?php if (($post['status'] ?? '') === 'published'): ?>
-        <a class="btn btn-ghost" href="/blog-post/<?= e(rawurlencode($post['slug'] ?? '')) ?>" target="_blank" rel="noopener">View</a>
+      <?php if (!empty($post['excerpt'])): ?>
+        <p class="excerpt"><?= e($post['excerpt']) ?></p>
       <?php endif; ?>
-      <form method="post" onsubmit="return confirm('Delete this post?');">
-        <?= csrf_field() ?>
-        <input type="hidden" name="id" value="<?= e($post['id'] ?? '') ?>">
-        <button class="btn btn-danger" type="submit">Delete</button>
-      </form>
+      <div class="actions">
+        <a class="btn btn-ghost" href="/admin/blog-edit.php?id=<?= e($post['id'] ?? '') ?>">Edit</a>
+        <?php if (($post['status'] ?? '') === 'published'): ?>
+          <a class="btn btn-ghost" href="/blog-post/<?= e(rawurlencode($post['slug'] ?? '')) ?>" target="_blank" rel="noopener">View</a>
+        <?php endif; ?>
+        <form method="post" onsubmit="return confirm('Delete this post?');">
+          <?= csrf_field() ?>
+          <input type="hidden" name="id" value="<?= e($post['id'] ?? '') ?>">
+          <button class="btn btn-danger" type="submit">Delete</button>
+        </form>
+      </div>
     </div>
   </article>
 <?php endforeach; ?>
