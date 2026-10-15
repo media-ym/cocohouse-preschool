@@ -4,6 +4,7 @@ Thumbs.db
 .idea/
 .vscode/
 storage/enquiries.json
+storage/blog-views.json
 storage/users.json
 storage/login-guard.json
 storage/*.tmp

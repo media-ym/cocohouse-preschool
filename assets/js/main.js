@@ -303,11 +303,8 @@ function renderFeaturedPost(post) {
     cat +
     '<h2>' + escapeHtml(post.title) + '</h2>' +
     '<p>' + escapeHtml(post.excerpt) + '</p>' +
-    '<div class="blog-meta">' +
-    (post.author ? '<span>' + escapeHtml(post.author) + '</span>' : '') +
-    (post.published_at ? '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> ' + formatDate(post.published_at) + '</span>' : '') +
-    '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> ' + post.read_minutes + ' min read</span>' +
-    '</div></div></a>'
+    blogMetaHtml(post) +
+    '</div></a>'
   );
 }
 
@@ -325,12 +322,20 @@ function renderBlogCard(post) {
     cat +
     '<h3>' + escapeHtml(post.title) + '</h3>' +
     '<p>' + escapeHtml(post.excerpt) + '</p>' +
-    '<div class="blog-meta">' +
+    blogMetaHtml(post) +
+    '</div></a>'
+  );
+}
+
+function blogMetaHtml(post) {
+  var views = parseInt(post.views, 10);
+  if (isNaN(views) || views < 0) views = 0;
+  var viewLabel = views === 1 ? '1 view' : views + ' views';
+  return '<div class="blog-meta">' +
     (post.author ? '<span>' + escapeHtml(post.author) + '</span>' : '') +
     (post.published_at ? '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> ' + formatDate(post.published_at) + '</span>' : '') +
-    '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> ' + post.read_minutes + ' min</span>' +
-    '</div></div></a>'
-  );
+    '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg> ' + viewLabel + '</span>' +
+    '</div>';
 }
 
 function formatDate(dateStr) {
@@ -364,7 +369,8 @@ function loadBlogPost() {
       document.getElementById('blog-title').textContent = post.title;
       document.getElementById('blog-excerpt').textContent = post.excerpt;
       if (post.published_at) document.getElementById('blog-date').textContent = formatDate(post.published_at);
-      document.getElementById('blog-read-time').textContent = post.read_minutes + ' min read';
+      var readTime = document.getElementById('blog-read-time');
+      if (readTime) readTime.textContent = post.read_minutes + ' min read';
 
       if (post.category_name) {
         var catEl = document.getElementById('blog-category');

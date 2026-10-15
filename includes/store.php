@@ -78,21 +78,62 @@ function blog_author_slug(string $name): string
     return slugify($name);
 }
 
+function blog_view_counts(): array
+{
+    $data = read_json(COCO_STORAGE . '/blog-views.json', []);
+    return is_array($data) ? $data : [];
+}
+
+function blog_view_count(string $slug): int
+{
+    $counts = blog_view_counts();
+    return max(0, (int) ($counts[$slug] ?? 0));
+}
+
+function record_blog_view(string $slug): int
+{
+    if (!preg_match('/^[a-z0-9-]{1,80}$/', $slug)) {
+        return 0;
+    }
+    $counts = blog_view_counts();
+    $current = max(0, (int) ($counts[$slug] ?? 0));
+    $seen = array_filter(explode(',', (string) ($_COOKIE['coco_blog_seen'] ?? '')), static function ($item) {
+        return preg_match('/^[a-z0-9-]{1,80}$/', $item) === 1;
+    });
+    if (!in_array($slug, $seen, true)) {
+        $current++;
+        $counts[$slug] = $current;
+        write_json(COCO_STORAGE . '/blog-views.json', $counts);
+        $seen[] = $slug;
+        setcookie('coco_blog_seen', implode(',', array_slice($seen, -40)), [
+            'expires' => time() + 86400,
+            'path' => '/',
+            'httponly' => true,
+            'samesite' => 'Lax',
+        ]);
+        export_public_blog(load_blog());
+    }
+    return $current;
+}
+
 function export_public_blog(array $data): void
 {
+    $views = blog_view_counts();
     $items = [];
     foreach ($data['items'] as $post) {
         if (($post['status'] ?? 'published') !== 'published') {
             continue;
         }
         $author = blog_author_name($post);
+        $slug = (string) ($post['slug'] ?? '');
         $items[] = [
             'title' => $post['title'] ?? '',
-            'slug' => $post['slug'] ?? '',
+            'slug' => $slug,
             'excerpt' => $post['excerpt'] ?? '',
             'featured_img' => $post['featured_img'] ?? '',
             'published_at' => $post['published_at'] ?? '',
             'read_minutes' => (int) ($post['read_minutes'] ?? 1),
+            'views' => max(0, (int) ($views[$slug] ?? 0)),
             'is_featured' => !empty($post['is_featured']) ? 1 : 0,
             'category_name' => $post['category_name'] ?? '',
             'category_color' => $post['category_color'] ?? '#184a96',

@@ -19,6 +19,7 @@ $title = $post['title'] ?? 'Blog';
 $author = blog_author_name($post);
 $authorSlug = blog_author_slug($author);
 $authorUrl = '/author/' . rawurlencode($authorSlug);
+$views = record_blog_view((string) ($post['slug'] ?? ''));
 ?>
 <?php ob_start(); ?>
 <!DOCTYPE html>
@@ -123,7 +124,7 @@ $authorUrl = '/author/' . rawurlencode($authorSlug);
     <div class="blog-meta">
       <span>By <a href="<?= e($authorUrl) ?>"><?= e($author) ?></a></span>
       <span><?= e($dateLabel) ?></span>
-      <span><?= (int) ($post['read_minutes'] ?? 1) ?> min read</span>
+      <span><?= number_format($views) ?> views</span>
     </div>
   </div>
 </section>
