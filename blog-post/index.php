@@ -26,15 +26,25 @@ $authorUrl = '/author/' . rawurlencode($authorSlug);
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><?= e($title) ?> | Cocohouse, Mulund East</title>
+  <?php
+    $seoTitle = trim((string) ($post['seo_title'] ?? ''));
+    if ($seoTitle === '') {
+        $seoTitle = $title . ' | Cocohouse, Mulund East';
+    }
+    $seoKeywords = trim((string) ($post['seo_keywords'] ?? ''));
+    if ($seoKeywords === '') {
+        $seoKeywords = 'best daycare in thane east, best daycare in mulund, best preschool in mulund east, daycare Hari Om Nagar';
+    }
+  ?>
+  <title><?= e($seoTitle) ?></title>
   <?php
     $seoSettings = seo_settings();
     $canonical = rtrim($seoSettings['public_url'], '/') . '/blog-post/' . rawurlencode($slug);
     $image = trim((string) ($post['featured_img'] ?? '')) !== '' ? (string) $post['featured_img'] : $seoSettings['image'];
     echo seo_meta_html([
-        'title' => $title . ' | Cocohouse, Mulund East',
+        'title' => $seoTitle,
         'description' => (string) ($post['excerpt'] ?? ''),
-        'keywords' => 'best daycare in thane east, best daycare in mulund, best preschool in mulund east, daycare Hari Om Nagar',
+        'keywords' => $seoKeywords,
         'canonical' => $canonical,
         'robots' => 'index,follow',
         'image' => seo_absolute($image, $seoSettings['public_url']),
@@ -144,6 +154,7 @@ $authorUrl = '/author/' . rawurlencode($authorSlug);
         <a href="/contact" class="btn btn-yellow">Book a Visit →</a>
       <?php endif; ?>
     </div>
+    <p class="blog-excerpt">Cocohouse is in Hari Om Nagar, Mulund East. Parents nearby also look for the best daycare in Thane East and the best preschool in Mulund.</p>
   </div>
 </article>
 

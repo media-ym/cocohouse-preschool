@@ -21,6 +21,7 @@ function seo_settings(): array
         'instagram' => '',
         'youtube' => '',
         'linktree' => '',
+        'areas' => 'Mulund, Mulund East, Thane, Thane East, Kopri, Hari Om Nagar',
     ];
     $merged = $defaults;
     foreach ($defaults as $key => $value) {
@@ -184,6 +185,7 @@ function sanitize_site_seo(array $posted): array
         'instagram' => $social((string) ($posted['instagram'] ?? '')),
         'youtube' => $social((string) ($posted['youtube'] ?? '')),
         'linktree' => $social((string) ($posted['linktree'] ?? '')),
+        'areas' => seo_clip((string) ($posted['areas'] ?? ''), 300),
     ];
 }
 
@@ -231,6 +233,25 @@ function sanitize_page_seo(array $posted): array
     ];
 }
 
+function seo_area_places(string $areas): array
+{
+    $names = preg_split('/\s*,\s*/', trim($areas)) ?: [];
+    $places = [];
+    foreach ($names as $name) {
+        $name = trim($name);
+        if ($name === '') {
+            continue;
+        }
+        $places[] = ['@type' => 'Place', 'name' => seo_clip($name, 60)];
+    }
+    if (!$places) {
+        foreach (['Mulund', 'Mulund East', 'Thane', 'Thane East', 'Kopri', 'Hari Om Nagar'] as $name) {
+            $places[] = ['@type' => 'Place', 'name' => $name];
+        }
+    }
+    return $places;
+}
+
 function seo_json(array $data): string
 {
     $json = json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP);
@@ -262,14 +283,7 @@ function seo_schema_graph(string $pageId, array $bundle, array $settings, string
             'postalCode' => '400081',
             'addressCountry' => 'IN',
         ],
-        'areaServed' => [
-            ['@type' => 'Place', 'name' => 'Mulund'],
-            ['@type' => 'Place', 'name' => 'Mulund East'],
-            ['@type' => 'Place', 'name' => 'Thane'],
-            ['@type' => 'Place', 'name' => 'Thane East'],
-            ['@type' => 'Place', 'name' => 'Kopri'],
-            ['@type' => 'Place', 'name' => 'Hari Om Nagar'],
-        ],
+        'areaServed' => seo_area_places($settings['areas'] ?? ''),
     ];
     if ($sameAs) {
         $org['sameAs'] = $sameAs;
@@ -460,6 +474,121 @@ function seo_public_paths(): array
         }
     }
     return array_values($urls);
+}
+
+function seo_admin_pages_markup(string $host): void
+{
+    $robots = [
+        'index,follow' => 'Index, follow',
+        'index,nofollow' => 'Index, no follow',
+        'noindex,follow' => 'No index, follow',
+        'noindex,nofollow' => 'No index, no follow',
+    ];
+    $catalog = page_catalog();
+    ?>
+    <nav class="filters" aria-label="Pages">
+      <?php foreach ($catalog as $pageId => $info): ?>
+        <a href="#seo-page-<?= e($pageId) ?>"><?= e($info['label']) ?></a>
+      <?php endforeach; ?>
+    </nav>
+    <?php foreach ($catalog as $pageId => $info): ?>
+      <?php
+        $seo = seo_page_bundle($pageId);
+        $id = 'seo-' . $pageId;
+        $path = (string) ($info['view'] ?? '/');
+      ?>
+      <section class="editor-block seo-page" id="seo-page-<?= e($pageId) ?>">
+        <h2><?= e($info['label']) ?></h2>
+        <p class="help">On-page SEO for <?= e($host . ($path === '/' ? '/' : $path)) ?></p>
+        <div class="serp">
+          <div class="serp-url"><?= e($host . ($path === '/' ? '/' : $path)) ?></div>
+          <div class="serp-title" data-preview="title"></div>
+          <div class="serp-desc" data-preview="description"></div>
+        </div>
+        <div class="field">
+          <label for="<?= e($id) ?>-title">Search title</label>
+          <input id="<?= e($id) ?>-title" name="pages[<?= e($pageId) ?>][title]" maxlength="120" data-count="60" data-field="title" value="<?= e($seo['title']) ?>">
+          <p class="help"><span data-for="<?= e($id) ?>-title">0</span> characters. About 50–60 shows fully in Google.</p>
+        </div>
+        <div class="field">
+          <label for="<?= e($id) ?>-description">Meta description</label>
+          <textarea id="<?= e($id) ?>-description" name="pages[<?= e($pageId) ?>][description]" maxlength="320" data-count="160" data-field="description"><?= e($seo['description']) ?></textarea>
+          <p class="help"><span data-for="<?= e($id) ?>-description">0</span> characters. About 150–160 shows fully in Google.</p>
+        </div>
+        <div class="field">
+          <label for="<?= e($id) ?>-keywords">Keywords</label>
+          <input id="<?= e($id) ?>-keywords" name="pages[<?= e($pageId) ?>][keywords]" maxlength="400" value="<?= e($seo['keywords']) ?>">
+          <p class="help">Comma-separated phrases, such as best preschool in Mulund East.</p>
+        </div>
+        <details class="advanced">
+          <summary>Advanced SEO</summary>
+          <div class="field">
+            <label for="<?= e($id) ?>-og-title">Social title</label>
+            <input id="<?= e($id) ?>-og-title" name="pages[<?= e($pageId) ?>][og_title]" maxlength="120" value="<?= e($seo['og_title']) ?>">
+            <p class="help">WhatsApp and Facebook. Leave blank to use the search title.</p>
+          </div>
+          <div class="field">
+            <label for="<?= e($id) ?>-og-description">Social description</label>
+            <textarea id="<?= e($id) ?>-og-description" name="pages[<?= e($pageId) ?>][og_description]" maxlength="320"><?= e($seo['og_description']) ?></textarea>
+          </div>
+          <div class="field">
+            <label for="<?= e($id) ?>-og-image">Social image</label>
+            <input id="<?= e($id) ?>-og-image" name="pages[<?= e($pageId) ?>][og_image]" value="<?= e($seo['og_image']) ?>" placeholder="/assets/images/campus.jpg">
+          </div>
+          <div class="field">
+            <label for="<?= e($id) ?>-canonical">Canonical URL</label>
+            <input id="<?= e($id) ?>-canonical" name="pages[<?= e($pageId) ?>][canonical]" value="<?= e($seo['canonical']) ?>" placeholder="Leave blank to use this page's own address">
+          </div>
+          <div class="split">
+            <div class="field">
+              <label for="<?= e($id) ?>-robots">Search visibility</label>
+              <select id="<?= e($id) ?>-robots" name="pages[<?= e($pageId) ?>][robots]">
+                <?php foreach ($robots as $value => $label): ?>
+                  <option value="<?= e($value) ?>" <?= $seo['robots'] === $value ? 'selected' : '' ?>><?= e($label) ?></option>
+                <?php endforeach; ?>
+              </select>
+            </div>
+            <div class="field">
+              <label>Sitemap</label>
+              <input type="hidden" name="pages[<?= e($pageId) ?>][sitemap]" value="0">
+              <label class="check"><input type="checkbox" name="pages[<?= e($pageId) ?>][sitemap]" value="1" <?= $seo['sitemap'] === '1' ? 'checked' : '' ?>> Include in sitemap.xml</label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="<?= e($id) ?>-extra">Extra structured data (JSON-LD)</label>
+            <textarea class="tall" id="<?= e($id) ?>-extra" name="pages[<?= e($pageId) ?>][extra_schema]" spellcheck="false"><?= e($seo['extra_schema']) ?></textarea>
+            <p class="help">Optional. Paste one JSON object. Invalid JSON is skipped.</p>
+          </div>
+        </details>
+      </section>
+    <?php endforeach; ?>
+    <?php
+}
+
+function seo_admin_pages_script(): void
+{
+    ?>
+    <script>
+    (function () {
+      document.querySelectorAll('.seo-page').forEach(function (section) {
+        function paint() {
+          section.querySelectorAll('[data-count]').forEach(function (el) {
+            var out = section.querySelector('[data-for="' + el.id + '"]');
+            if (out) out.textContent = String(el.value.length);
+          });
+          var title = section.querySelector('[data-field="title"]');
+          var desc = section.querySelector('[data-field="description"]');
+          var titleOut = section.querySelector('[data-preview="title"]');
+          var descOut = section.querySelector('[data-preview="description"]');
+          if (titleOut) titleOut.textContent = title && title.value ? title.value : 'Page title';
+          if (descOut) descOut.textContent = desc && desc.value ? desc.value : 'Meta description';
+        }
+        section.addEventListener('input', paint);
+        paint();
+      });
+    })();
+    </script>
+    <?php
 }
 
 function seo_editor_markup(array $seo, string $host): void

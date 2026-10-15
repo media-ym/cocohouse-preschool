@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../includes/admin-layout.php';
-require_login();
+require_section('enquiries');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_check();

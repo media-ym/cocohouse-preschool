@@ -7,6 +7,8 @@ function admin_header(string $title, string $active): void
 {
     $flash = take_flash();
     $config = admin_config();
+    $account = current_admin();
+    $role = (string) ($account['role'] ?? '');
     $nav = [
         'dashboard' => ['Dashboard', '/admin/dashboard.php'],
         'pages' => ['Pages', '/admin/pages.php'],
@@ -15,6 +17,7 @@ function admin_header(string $title, string $active): void
         'gallery' => ['Gallery', '/admin/gallery.php'],
         'enquiries' => ['Enquiries', '/admin/enquiries.php'],
         'blog' => ['Blog', '/admin/blog.php'],
+        'users' => ['Users', '/admin/users.php'],
         'password' => ['Password', '/admin/password.php'],
     ];
     ?>
@@ -34,10 +37,11 @@ function admin_header(string $title, string $active): void
     <aside class="side">
       <a class="side-brand" href="/admin/dashboard.php">
         <img src="<?= e(media_src('logo')) ?>" alt="Cocohouse">
-        <span>Admin</span>
+        <span><?= e(user_roles()[$role] ?? 'Admin') ?></span>
       </a>
       <nav>
         <?php foreach ($nav as $key => $item): ?>
+          <?php if (!user_can($role, $key)) { continue; } ?>
           <a href="<?= e($item[1]) ?>" class="<?= $active === $key ? 'active' : '' ?>"><?= e($item[0]) ?></a>
         <?php endforeach; ?>
       </nav>
@@ -49,10 +53,15 @@ function admin_header(string $title, string $active): void
     <div class="content">
       <div class="content-bar">
         <strong><?= e($title) ?></strong>
-        <a class="btn btn-ghost" href="/" target="_blank" rel="noopener">Open site</a>
+        <div class="bar-side">
+          <?php if ($account): ?>
+            <span class="who"><?= e($account['name']) ?></span>
+          <?php endif; ?>
+          <a class="btn btn-ghost" href="/" target="_blank" rel="noopener">Open site</a>
+        </div>
       </div>
       <main class="wrap">
-        <?php if (empty($config['password_changed'])): ?>
+        <?php if ($account && $account['username'] === (string) ($config['username'] ?? '') && empty($config['password_changed'])): ?>
           <div class="banner">This is still the starting password. Change it from the Password page.</div>
         <?php endif; ?>
         <?php if ($flash): ?>

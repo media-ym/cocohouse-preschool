@@ -1,7 +1,8 @@
 <?php
 
 require_once __DIR__ . '/../includes/admin-layout.php';
-require_login();
+require_once __DIR__ . '/../includes/seo.php';
+require_section('blog');
 
 $id = (string) ($_GET['id'] ?? $_POST['id'] ?? '');
 $post = $id !== '' ? find_post($id) : null;
@@ -47,6 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($record['status'] === 'published' && empty($post['published_at'])) {
             $record['published_at'] = $now;
         }
+        $record['seo_title'] = seo_clip(trim((string) ($_POST['seo_title'] ?? '')), 120);
+        $record['seo_keywords'] = seo_clip(trim((string) ($_POST['seo_keywords'] ?? '')), 400);
         $record['updated_at'] = $now;
 
         $data = load_blog();
@@ -77,6 +80,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'read_minutes' => (int) ($_POST['read_minutes'] ?? 3),
         'is_featured' => isset($_POST['is_featured']) ? 1 : 0,
         'status' => (string) ($_POST['status'] ?? 'draft'),
+        'seo_title' => trim((string) ($_POST['seo_title'] ?? '')),
+        'seo_keywords' => trim((string) ($_POST['seo_keywords'] ?? '')),
     ]);
 }
 
@@ -97,6 +102,7 @@ admin_header($post ? 'Edit post' : 'New post', 'blog');
     <div class="field">
       <label for="excerpt">Short summary</label>
       <textarea id="excerpt" name="excerpt" style="min-height:90px;" required><?= e($post['excerpt'] ?? '') ?></textarea>
+      <p class="help">This summary is the Google description for the post.</p>
     </div>
     <div class="field">
       <label for="content">Article</label>
@@ -140,6 +146,17 @@ admin_header($post ? 'Edit post' : 'New post', 'blog');
       <div class="field">
         <label for="slug">Web address</label>
         <input id="slug" name="slug" placeholder="auto-from-title" value="<?= e($post['slug'] ?? '') ?>">
+      </div>
+    </div>
+    <div class="card">
+      <h2>Search</h2>
+      <div class="field">
+        <label for="seo_title">Search title</label>
+        <input id="seo_title" name="seo_title" maxlength="120" value="<?= e($post['seo_title'] ?? '') ?>" placeholder="Leave blank to use the article title">
+      </div>
+      <div class="field">
+        <label for="seo_keywords">Keywords</label>
+        <input id="seo_keywords" name="seo_keywords" maxlength="400" value="<?= e($post['seo_keywords'] ?? '') ?>" placeholder="best daycare in thane east, best preschool in mulund">
       </div>
     </div>
     <div class="card">

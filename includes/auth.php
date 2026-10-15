@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/store.php';
+require_once __DIR__ . '/users.php';
 
 function send_security_headers(): void
 {
@@ -72,8 +73,20 @@ function require_login(): void
 {
     send_security_headers();
     start_admin_session();
-    if (empty($_SESSION['admin_user'])) {
+    if (!current_admin()) {
+        $_SESSION = [];
         header('Location: /admin/');
+        exit;
+    }
+}
+
+function require_section(string $section): void
+{
+    require_login();
+    $account = current_admin();
+    if (!$account || !user_can((string) $account['role'], $section)) {
+        flash('That section is not available for your role.', 'error');
+        header('Location: /admin/dashboard.php');
         exit;
     }
 }

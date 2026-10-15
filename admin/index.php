@@ -6,31 +6,29 @@ require_once __DIR__ . '/../includes/site.php';
 send_security_headers();
 start_admin_session();
 
-if (!empty($_SESSION['admin_user'])) {
+if (current_admin()) {
     header('Location: /admin/dashboard.php');
     exit;
 }
+unset($_SESSION['admin_user'], $_SESSION['admin_role']);
 
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_check();
     $username = trim((string) ($_POST['username'] ?? ''));
     $password = (string) ($_POST['password'] ?? '');
-    $config = admin_config();
-
     if (login_is_locked()) {
         $error = 'Too many attempts. Please wait 15 minutes and try again.';
-    } elseif (
-        $username !== ''
-        && hash_equals((string) ($config['username'] ?? ''), $username)
-        && password_verify($password, (string) ($config['password_hash'] ?? ''))
-    ) {
-        session_regenerate_id(true);
-        $_SESSION['admin_user'] = $username;
-        login_succeeded();
-        header('Location: /admin/dashboard.php');
-        exit;
     } else {
+        $account = user_check_login($username, $password);
+        if ($account) {
+            session_regenerate_id(true);
+            $_SESSION['admin_user'] = $account['username'];
+            $_SESSION['admin_role'] = $account['role'];
+            login_succeeded();
+            header('Location: /admin/dashboard.php');
+            exit;
+        }
         login_failed();
         $error = login_is_locked()
             ? 'Too many attempts. Please wait 15 minutes and try again.'

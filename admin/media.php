@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../includes/admin-layout.php';
 require_once __DIR__ . '/../includes/cms.php';
-require_login();
+require_section('media');
 
 $catalog = media_catalog();
 

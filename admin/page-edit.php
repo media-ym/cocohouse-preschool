@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../includes/admin-layout.php';
 require_once __DIR__ . '/../includes/cms.php';
 require_once __DIR__ . '/../includes/seo.php';
-require_login();
+require_section('pages');
 
 $pageId = (string) ($_GET['page'] ?? $_POST['page'] ?? '');
 $catalog = page_catalog();

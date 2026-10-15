@@ -39,6 +39,7 @@ ob_start();
     echo seo_meta_html([
         'title' => $author . ' | Cocohouse, Mulund East',
         'description' => $author . ' writes the Cocohouse blog for parents looking at preschool and daycare in Mulund East, Thane East, Kopri and Hari Om Nagar.',
+        'keywords' => 'best preschool in mulund, best daycare in thane east, best daycare in mulund, daycare Hari Om Nagar',
         'canonical' => $canonical,
         'robots' => 'index,follow',
         'image' => seo_absolute($seoSettings['image'], $seoSettings['public_url']),
@@ -114,7 +115,7 @@ ob_start();
 <section class="blog-related-section">
   <div class="container">
     <div class="author-intro">
-      <p><?= e($author) ?> writes for Cocohouse Preschool &amp; Daycare. These guides are for working parents looking at full day daycare in Thane East, including the 8 AM to 8 PM window.</p>
+      <p><?= e($author) ?> writes for Cocohouse Preschool &amp; Daycare in Hari Om Nagar, Mulund East. These guides are for parents looking at the best daycare in Thane East and the best preschool in Mulund, including the 8 AM to 8 PM window.</p>
     </div>
     <h2 class="blog-related-title">Articles by <?= e($author) ?></h2>
     <div class="blog-related-grid">

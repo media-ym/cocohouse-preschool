@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../includes/admin-layout.php';
 require_once __DIR__ . '/../includes/gallery.php';
-require_login();
+require_section('gallery');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_check();

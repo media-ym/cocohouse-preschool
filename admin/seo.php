@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../includes/admin-layout.php';
 require_once __DIR__ . '/../includes/cms.php';
 require_once __DIR__ . '/../includes/seo.php';
-require_login();
+require_section('seo');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_check();
@@ -12,8 +12,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data['site']['seo'] = sanitize_site_seo($posted);
     $bannerPosted = is_array($_POST['banner'] ?? null) ? $_POST['banner'] : [];
     $data['site']['banner'] = sanitize_banner($bannerPosted);
+    $pagePosted = is_array($_POST['pages'] ?? null) ? $_POST['pages'] : [];
+    $warning = '';
+    foreach (page_catalog() as $pageId => $info) {
+        if (!is_array($pagePosted[$pageId] ?? null)) {
+            continue;
+        }
+        $clean = sanitize_page_seo($pagePosted[$pageId]);
+        if (!is_array($data['pages'][$pageId] ?? null)) {
+            $data['pages'][$pageId] = [];
+        }
+        $data['pages'][$pageId]['seo'] = $clean['data'];
+        if ($warning === '' && $clean['warning'] !== '') {
+            $warning = $info['label'] . ': ' . $clean['warning'];
+        }
+    }
     cms_save($data);
-    flash('SEO settings saved.');
+    flash($warning !== '' ? $warning : 'SEO settings saved.', $warning !== '' ? 'error' : 'ok');
     header('Location: /admin/seo.php');
     exit;
 }
@@ -24,7 +39,7 @@ $host = parse_url($seo['public_url'], PHP_URL_HOST) ?: 'cocohouse.in';
 admin_header('SEO', 'seo');
 ?>
 <h1>SEO</h1>
-<p class="lead">Site-wide search setup. Each page also has its own title, description and advanced fields under Pages.</p>
+<p class="lead">Edit the Google title, description, keywords and advanced settings for the whole site. Blog post search titles are edited on each post.</p>
 
 <form method="post">
   <?= csrf_field() ?>
@@ -58,6 +73,11 @@ admin_header('SEO', 'seo');
       <label for="default-description">Default description</label>
       <textarea id="default-description" name="seo[description]" maxlength="320"><?= e($seo['description']) ?></textarea>
       <p class="help">Used only when a page has no description of its own.</p>
+    </div>
+    <div class="field">
+      <label for="areas">Areas you serve</label>
+      <input id="areas" name="seo[areas]" maxlength="300" value="<?= e($seo['areas']) ?>">
+      <p class="help">Comma-separated. These areas go into the search listing for every page. Example: Mulund, Mulund East, Thane, Kopri.</p>
     </div>
     <div class="field">
       <label for="default-image">Default share image</label>
@@ -108,5 +128,35 @@ admin_header('SEO', 'seo');
   </section>
 
   <button class="btn btn-primary" type="submit">Save SEO</button>
+
+  <h2 style="margin:28px 0 12px;">Page SEO</h2>
+  <p class="lead">Open Advanced SEO on a page for the social title, canonical link, sitemap and extra structured data.</p>
+  <?php seo_admin_pages_markup($host); ?>
+  <?php
+    $posts = load_blog()['items'];
+    usort($posts, function ($a, $b) {
+        return strcmp($b['published_at'] ?? '', $a['published_at'] ?? '');
+    });
+  ?>
+  <section class="editor-block">
+    <h2>Blog posts</h2>
+    <p class="help">Each post uses its summary as the Google description. Set a custom search title and keywords from the post editor.</p>
+    <?php if (!$posts): ?>
+      <p class="empty">No posts yet.</p>
+    <?php else: ?>
+      <?php foreach ($posts as $post): ?>
+        <div class="row" style="padding:12px 0;border-top:1px solid var(--line);">
+          <div>
+            <strong style="color:#184a96;"><?= e($post['title'] ?? 'Untitled') ?></strong>
+            <p class="help" style="margin:4px 0 0;"><?= e(($post['seo_title'] ?? '') !== '' ? $post['seo_title'] : 'Search title follows the article title') ?></p>
+          </div>
+          <a class="btn btn-ghost" href="/admin/blog-edit.php?id=<?= e($post['id'] ?? '') ?>">Edit SEO</a>
+        </div>
+      <?php endforeach; ?>
+    <?php endif; ?>
+  </section>
+
+  <button class="btn btn-primary" type="submit">Save SEO</button>
 </form>
+<?php seo_admin_pages_script(); ?>
 <?php admin_footer();

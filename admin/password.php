@@ -1,25 +1,33 @@
 <?php
 
 require_once __DIR__ . '/../includes/admin-layout.php';
-require_login();
+require_section('password');
 
 $error = '';
+$account = current_admin();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_check();
     $current = (string) ($_POST['current'] ?? '');
     $next = (string) ($_POST['next'] ?? '');
     $confirm = (string) ($_POST['confirm'] ?? '');
-    $config = admin_config();
-    if (!password_verify($current, (string) ($config['password_hash'] ?? ''))) {
+    $stored = user_by_username((string) ($account['username'] ?? ''));
+    if (!$stored || !password_verify($current, (string) ($stored['password_hash'] ?? ''))) {
         $error = 'Current password is incorrect.';
     } elseif (strlen($next) < 8) {
         $error = 'New password must be at least 8 characters.';
     } elseif ($next !== $confirm) {
         $error = 'New password and confirmation do not match.';
     } else {
-        $config['password_hash'] = password_hash($next, PASSWORD_DEFAULT);
-        $config['password_changed'] = true;
-        save_admin_config($config);
+        $data = users_data();
+        foreach ($data['items'] as $index => $item) {
+            if ($item['username'] !== $stored['username']) {
+                continue;
+            }
+            $data['items'][$index]['password_hash'] = password_hash($next, PASSWORD_DEFAULT);
+            user_sync_owner_password($data['items'][$index]);
+            break;
+        }
+        users_save($data);
         flash('Password updated.');
         header('Location: /admin/password.php');
         exit;
