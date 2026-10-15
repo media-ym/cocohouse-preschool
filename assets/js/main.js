@@ -111,6 +111,29 @@ function escapeHtml(str) {
   return div.innerHTML;
 }
 
+function cocoEvent(name, params) {
+  params = params || {};
+  if (!params.page_path) params.page_path = window.location.pathname;
+  var payload = { event: name };
+  Object.keys(params).forEach(function (key) {
+    if (params[key] !== '' && params[key] != null) payload[key] = params[key];
+  });
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push(payload);
+  if (typeof gtag === 'function') gtag('event', name, params);
+}
+
+function cocoLinkPlace(link) {
+  if (link.classList.contains('whatsapp-float')) return 'sticky';
+  if (link.closest('.coco-popup')) return 'popup';
+  if (link.closest('.footer')) return 'footer';
+  if (link.closest('.navbar, .mobile-drawer')) return 'menu';
+  if (link.closest('.contact-ways, .contact-fresh')) return 'contact';
+  if (link.closest('.hero, .page-hero, .hero-content')) return 'hero';
+  if (link.closest('form')) return 'form';
+  return 'page';
+}
+
 // ====== Form submission helper ======
 function setupForm(formId, apiEndpoint, options) {
   options = options || {};
@@ -210,24 +233,20 @@ function setupForm(formId, apiEndpoint, options) {
           options.successTitle || 'Submitted!',
           options.successDesc || 'Our team will contact you within 24 hours.'
         );
+        var programField = form.querySelector('[name="program"]');
+        var program = programField ? String(programField.value || '').trim().slice(0, 80) : '';
         form.reset();
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-          event: 'generate_lead',
-          form_type: options.type || 'contact',
-          page_path: window.location.pathname
+        cocoEvent('generate_lead', {
+          form_name: typeLabels[options.type] || 'Website Enquiry',
+          form_id: options.type || 'contact',
+          program: program
         });
-        if (typeof gtag === 'function') {
-          gtag('event', 'generate_lead', {
-            form_type: options.type || 'contact',
-            page_path: window.location.pathname
-          });
-        }
         if (typeof options.onSuccess === 'function') options.onSuccess();
       })
       .catch(function () {
         var wa = 'https://wa.me/917039152173?text=' + encodeURIComponent(lines.join('\n'));
         window.open(wa, '_blank', 'noopener');
+        cocoEvent('whatsapp_click', { link_place: 'form_fallback', form_id: options.type || 'contact' });
         showToast(
           options.successTitle || 'Submitted!',
           'WhatsApp is opening so you can send this enquiry to our team.'
@@ -536,8 +555,37 @@ function initFlipCards() {
   });
 }
 
+function cocoTrackClicks() {
+  document.addEventListener('click', function (event) {
+    var link = event.target.closest('a');
+    if (!link) return;
+    var href = link.getAttribute('href') || '';
+    var place = cocoLinkPlace(link);
+    if (href.indexOf('tel:') === 0) {
+      cocoEvent('phone_click', { link_place: place });
+      return;
+    }
+    if (href.indexOf('mailto:') === 0) {
+      cocoEvent('email_click', { link_place: place });
+      return;
+    }
+    if (href.indexOf('wa.me') !== -1 || href.indexOf('api.whatsapp.com') !== -1) {
+      cocoEvent('whatsapp_click', { link_place: place });
+      return;
+    }
+    if (link.classList.contains('coco-map-link') || href.indexOf('share.google') !== -1 || href.indexOf('google.com/maps') !== -1 || href.indexOf('maps.google') !== -1) {
+      cocoEvent('directions_click', { link_place: place });
+      return;
+    }
+    if (href.indexOf('adminssion-open-2026') !== -1) {
+      cocoEvent('admission_click', { link_place: place });
+    }
+  });
+}
+
 function initPageExtras() {
   cocoTrackLinks();
+  cocoTrackClicks();
   initBlogView();
   initFlipCards();
 }

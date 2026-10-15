@@ -347,6 +347,7 @@ function inject_entry_popup(string $html): string
     box.classList.add('is-open');
     box.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+    if (typeof cocoEvent === 'function') cocoEvent('popup_open', { form_id: 'popup' });
   }, 600);
   if (typeof setupForm === 'function') {
     setupForm('cocoPopupForm', '/api/submit-enquiry.php', {

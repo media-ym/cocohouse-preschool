@@ -105,7 +105,11 @@ admin_header('SEO', 'seo');
         <input id="gtm-id" name="seo[gtm_id]" value="<?= e($seo['gtm_id']) ?>" placeholder="GTM-XXXXXXX">
       </div>
     </div>
-    <p class="help">Use both if you have both. Analytics starts with G-. Tag Manager starts with GTM-.<br>Sitemap: <a href="/sitemap.xml" target="_blank" rel="noopener"><?= e($host) ?>/sitemap.xml</a> · Robots: <a href="/robots.txt" target="_blank" rel="noopener"><?= e($host) ?>/robots.txt</a></p>
+    <div class="field">
+      <label for="clarity-id">Microsoft Clarity ID</label>
+      <input id="clarity-id" name="seo[clarity_id]" value="<?= e($seo['clarity_id']) ?>" placeholder="yy6paa12av" autocapitalize="off" spellcheck="false">
+    </div>
+    <p class="help">Analytics starts with G-. Tag Manager starts with GTM-. Clarity is the project ID from the Clarity snippet.<br>Sitemap: <a href="/sitemap.xml" target="_blank" rel="noopener"><?= e($host) ?>/sitemap.xml</a> · Robots: <a href="/robots.txt" target="_blank" rel="noopener"><?= e($host) ?>/robots.txt</a></p>
   </section>
 
   <section class="editor-block">

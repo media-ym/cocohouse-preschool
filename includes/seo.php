@@ -17,6 +17,7 @@ function seo_settings(): array
         'bing_verification' => '',
         'analytics_id' => '',
         'gtm_id' => '',
+        'clarity_id' => '',
         'twitter' => '',
         'facebook' => '',
         'instagram' => '',
@@ -48,6 +49,10 @@ function seo_settings(): array
     }
     if (!preg_match('#^GTM-[A-Z0-9]{4,20}$#', $merged['gtm_id'])) {
         $merged['gtm_id'] = '';
+    }
+    $merged['clarity_id'] = strtolower($merged['clarity_id']);
+    if (!preg_match('#^[a-z0-9]{6,20}$#', $merged['clarity_id'])) {
+        $merged['clarity_id'] = '';
     }
     $merged['phone'] = (string) ($site['phone'] ?? '');
     $merged['email'] = (string) ($site['email'] ?? '');
@@ -170,6 +175,10 @@ function sanitize_site_seo(array $posted): array
     if (!preg_match('#^GTM-[A-Z0-9]{4,20}$#', $gtm)) {
         $gtm = '';
     }
+    $clarity = strtolower(trim((string) ($posted['clarity_id'] ?? '')));
+    if (!preg_match('#^[a-z0-9]{6,20}$#', $clarity)) {
+        $clarity = '';
+    }
     $code = static function (string $value): string {
         $value = trim($value);
         return preg_match('#^[A-Za-z0-9_-]{0,80}$#', $value) ? $value : '';
@@ -196,6 +205,7 @@ function sanitize_site_seo(array $posted): array
         'bing_verification' => $code((string) ($posted['bing_verification'] ?? '')),
         'analytics_id' => $analytics,
         'gtm_id' => $gtm,
+        'clarity_id' => $clarity,
         'twitter' => $twitter,
         'facebook' => $social((string) ($posted['facebook'] ?? '')),
         'instagram' => $social((string) ($posted['instagram'] ?? '')),
@@ -433,6 +443,10 @@ function seo_meta_html(array $opts, array $settings): string
     $gtm = $settings['gtm_id'];
     if (str_starts_with($gtm, 'GTM-')) {
         $html .= '<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src="https://www.googletagmanager.com/gtm.js?id="+i+dl;f.parentNode.insertBefore(j,f);})(window,document,"script","dataLayer","' . e($gtm) . '");</script>' . "\n  ";
+    }
+    $clarity = $settings['clarity_id'];
+    if (preg_match('#^[a-z0-9]{6,20}$#', $clarity)) {
+        $html .= '<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","' . e($clarity) . '");</script>' . "\n  ";
     }
     return $html;
 }
