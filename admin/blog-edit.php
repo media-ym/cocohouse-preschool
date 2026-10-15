@@ -53,6 +53,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $record['updated_at'] = $now;
 
         $data = load_blog();
+        if (!empty($record['is_featured'])) {
+            foreach ($data['items'] as $index => $existing) {
+                if (($existing['id'] ?? '') !== $record['id']) {
+                    $data['items'][$index]['is_featured'] = 0;
+                }
+            }
+        }
         $replaced = false;
         foreach ($data['items'] as $index => $existing) {
             if (($existing['id'] ?? '') === $record['id']) {
@@ -126,6 +133,7 @@ admin_header($post ? 'Edit post' : 'New post', 'blog');
       </div>
       <div class="field">
         <label class="check"><input type="checkbox" name="is_featured" <?= !empty($post['is_featured']) ? 'checked' : '' ?>> Featured story</label>
+        <p class="help">This is the large post at the top of the blog. Tick it on another post anytime to switch which story is featured.</p>
       </div>
       <button class="btn btn-primary" type="submit">Save post</button>
     </div>

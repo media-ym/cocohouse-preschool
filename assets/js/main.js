@@ -281,6 +281,8 @@ function loadBlogPosts(containerId, options) {
         var featured = posts.find(function (p) { return p.is_featured == 1; }) || posts[0];
         container.innerHTML = renderFeaturedPost(featured);
       } else {
+        cocoBlogPosts = posts;
+        renderBlogFilters(posts);
         container.innerHTML = posts.map(renderBlogCard).join('');
       }
     })
@@ -533,18 +535,46 @@ function cocoTrackLinks() {
   });
 }
 
-function initBlogView() {
+var cocoBlogPosts = [];
+
+function renderBlogFilters(posts) {
+  var bar = document.getElementById('blogCategories');
+  if (!bar) return;
+  var order = ['Early Education', 'Daycare', 'Parenting Tips', 'School News', 'Activities & Crafts'];
+  var seen = {};
+  posts.forEach(function (post) {
+    if (post.category_name) seen[post.category_name] = true;
+  });
+  var names = order.filter(function (name) { return seen[name]; });
+  Object.keys(seen).forEach(function (name) {
+    if (names.indexOf(name) === -1) names.push(name);
+  });
+  var html = '<button type="button" class="is-active" data-category="">All</button>';
+  names.forEach(function (name) {
+    html += '<button type="button" data-category="' + escapeHtml(name) + '">' + escapeHtml(name) + '</button>';
+  });
+  bar.innerHTML = html;
+}
+
+function initBlogFilters() {
+  var bar = document.getElementById('blogCategories');
   var box = document.getElementById('blogPosts');
-  var bar = document.querySelector('.blog-view');
-  if (!box || !bar) return;
+  if (!bar || !box || bar.dataset.bound) return;
+  bar.dataset.bound = '1';
   bar.addEventListener('click', function (event) {
-    var button = event.target.closest('button[data-view]');
+    var button = event.target.closest('button[data-category]');
     if (!button) return;
-    var list = button.getAttribute('data-view') === 'list';
-    box.classList.toggle('is-list', list);
+    var category = button.getAttribute('data-category') || '';
     bar.querySelectorAll('button').forEach(function (item) {
-      item.classList.toggle('active', item === button);
+      item.classList.toggle('is-active', item === button);
+      item.setAttribute('aria-pressed', item === button ? 'true' : 'false');
     });
+    var posts = cocoBlogPosts.filter(function (post) {
+      return category === '' || post.category_name === category;
+    });
+    box.innerHTML = posts.length
+      ? posts.map(renderBlogCard).join('')
+      : '<div style="grid-column:1/-1;text-align:center;padding:40px;color:#9ca3af;">No posts in this category yet.</div>';
   });
 }
 
@@ -592,7 +622,7 @@ function cocoTrackClicks() {
 function initPageExtras() {
   cocoTrackLinks();
   cocoTrackClicks();
-  initBlogView();
+  initBlogFilters();
   initFlipCards();
 }
 
