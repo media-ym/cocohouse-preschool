@@ -5,6 +5,8 @@ date_default_timezone_set('Asia/Kolkata');
 define('COCO_ROOT', dirname(__DIR__));
 define('COCO_STORAGE', COCO_ROOT . '/storage');
 
+require_once __DIR__ . '/crypto.php';
+
 function e(?string $value): string
 {
     return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
@@ -105,9 +107,12 @@ function record_blog_view(string $slug): int
         $counts[$slug] = $current;
         write_json(COCO_STORAGE . '/blog-views.json', $counts);
         $seen[] = $slug;
+        $https = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+            || (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https');
         setcookie('coco_blog_seen', implode(',', array_slice($seen, -40)), [
             'expires' => time() + 86400,
             'path' => '/',
+            'secure' => $https,
             'httponly' => true,
             'samesite' => 'Lax',
         ]);
@@ -300,7 +305,7 @@ function save_uploaded_image(array $file, int $maxBytes = 2097152): ?string
 
 function load_enquiries(): array
 {
-    $data = read_json(COCO_STORAGE . '/enquiries.json', ['items' => []]);
+    $data = read_private_json(COCO_STORAGE . '/enquiries.json', ['items' => []]);
     $data['items'] = array_values(is_array($data['items'] ?? null) ? $data['items'] : []);
     return $data;
 }
@@ -308,7 +313,7 @@ function load_enquiries(): array
 function save_enquiries(array $data): void
 {
     $data['items'] = array_values($data['items'] ?? []);
-    write_json(COCO_STORAGE . '/enquiries.json', $data);
+    write_private_json(COCO_STORAGE . '/enquiries.json', $data);
 }
 
 function enquiry_labels(): array

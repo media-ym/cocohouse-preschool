@@ -28,26 +28,6 @@
             ]
         },
         {
-            "id": "testimonials",
-            "name": "Testimonials",
-            "items": [
-                {
-                    "id": "nitisha",
-                    "type": "youtube",
-                    "src": "tMTFDT_VD_o",
-                    "title": "Nitisha & Vijay",
-                    "caption": ""
-                },
-                {
-                    "id": "anirudh",
-                    "type": "youtube",
-                    "src": "WQ4MrEJBD8E",
-                    "title": "Anirudh & Shilpa",
-                    "caption": ""
-                }
-            ]
-        },
-        {
             "id": "annual-day",
             "name": "Annual Day",
             "items": []

@@ -38,26 +38,6 @@ function gallery_default(): array
                     ],
                 ],
             ],
-            [
-                'id' => 'testimonials',
-                'name' => 'Testimonials',
-                'items' => [
-                    [
-                        'id' => 'nitisha',
-                        'type' => 'youtube',
-                        'src' => 'tMTFDT_VD_o',
-                        'title' => 'Nitisha & Vijay',
-                        'caption' => '',
-                    ],
-                    [
-                        'id' => 'anirudh',
-                        'type' => 'youtube',
-                        'src' => 'WQ4MrEJBD8E',
-                        'title' => 'Anirudh & Shilpa',
-                        'caption' => '',
-                    ],
-                ],
-            ],
         ],
     ];
 }
@@ -72,7 +52,7 @@ function gallery_data(): array
         }
         $id = gallery_slug((string) ($category['id'] ?? $category['name'] ?? ''));
         $name = trim((string) ($category['name'] ?? ''));
-        if ($id === '' || $name === '') {
+        if ($id === '' || $name === '' || $id === 'testimonials') {
             continue;
         }
         $items = [];
@@ -453,10 +433,9 @@ function render_gallery_board(): string
         foreach ($category['items'] as $item) {
             $count++;
             $kind = $item['type'] === 'youtube' ? 'youtube' : ($item['type'] === 'video' ? 'video' : 'image');
-            $thumb = $item['src'];
-            if ($item['type'] === 'youtube') {
-                $thumb = 'https://img.youtube.com/vi/' . rawurlencode($item['src']) . '/hqdefault.jpg';
-            }
+            $thumb = $item['type'] === 'youtube'
+                ? '/api/yt-thumb.php?id=' . rawurlencode($item['src'])
+                : $item['src'];
             $cards .= '<article class="gallery-card" data-cat="' . e($category['id']) . '">';
             $cards .= '<button type="button" class="gallery-shot" aria-label="' . e($item['title']) . '" data-kind="' . e($kind) . '" data-src="' . e($item['src']) . '" data-title="' . e($item['title']) . '">';
             if ($item['type'] === 'video') {
@@ -520,10 +499,9 @@ function render_home_gallery(int $limit = 4): string
             if ($shown >= $limit) {
                 break 2;
             }
-            $thumb = $item['src'];
-            if ($item['type'] === 'youtube') {
-                $thumb = 'https://img.youtube.com/vi/' . rawurlencode($item['src']) . '/hqdefault.jpg';
-            }
+            $thumb = $item['type'] === 'youtube'
+                ? '/api/yt-thumb.php?id=' . rawurlencode($item['src'])
+                : $item['src'];
             $html .= '<a class="home-shot" href="/gallery">';
             if ($item['type'] === 'video') {
                 $html .= '<video src="' . e($item['src']) . '" muted preload="metadata"></video>';

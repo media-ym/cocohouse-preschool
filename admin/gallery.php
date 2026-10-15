@@ -162,7 +162,7 @@ admin_header('Gallery', 'gallery');
             $thumb = $item['src'];
             $kind = 'Photo';
             if ($item['type'] === 'youtube') {
-                $thumb = 'https://img.youtube.com/vi/' . rawurlencode($item['src']) . '/hqdefault.jpg';
+                $thumb = '/api/yt-thumb.php?id=' . rawurlencode($item['src']);
                 $kind = 'YouTube';
             } elseif ($item['type'] === 'video') {
                 $kind = 'Video';

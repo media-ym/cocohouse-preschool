@@ -4,6 +4,11 @@ Thumbs.db
 .idea/
 .vscode/
 storage/enquiries.json
+storage/consents.json
+storage/data-rights.json
+storage/data.key
+storage/captcha-used.json
+storage/yt-thumbs/
 storage/blog-views.json
 storage/users.json
 storage/login-guard.json

@@ -106,6 +106,15 @@ admin_header('Enquiries', 'enquiries');
       <dt>Program</dt><dd><?= e($item['program'] ?? '—') ?></dd>
       <dt>Phone</dt><dd><?php if (!empty($item['phone'])): ?><a href="tel:<?= e(preg_replace('/\s+/', '', $item['phone'])) ?>"><?= e($item['phone']) ?></a><?php else: ?>—<?php endif; ?></dd>
       <dt>Email</dt><dd><?= e($item['email'] ?? '—') ?></dd>
+      <?php if (!empty($item['consent']['purposes']) && is_array($item['consent']['purposes'])): ?>
+        <dt>Consent</dt><dd><?php
+          $bits = [];
+          foreach ($item['consent']['purposes'] as $purpose => $on) {
+              $bits[] = str_replace('_', ' ', (string) $purpose) . ': ' . ($on ? 'yes' : 'no');
+          }
+          echo e(implode(' · ', $bits));
+        ?></dd>
+      <?php endif; ?>
       <?php if (!empty($item['message'])): ?>
         <dt>Message</dt><dd><?= e($item['message']) ?></dd>
       <?php endif; ?>

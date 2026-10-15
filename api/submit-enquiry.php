@@ -1,6 +1,8 @@
 <?php
 
 require_once __DIR__ . '/../includes/mail.php';
+require_once __DIR__ . '/../includes/privacy.php';
+require_once __DIR__ . '/../includes/captcha.php';
 
 header('Content-Type: application/json; charset=UTF-8');
 
@@ -43,6 +45,21 @@ if (strlen($phone) < 10 || ($parent === '' && $child === '')) {
     echo json_encode(['success' => false, 'error' => 'Please add a name and a valid mobile number.']);
     exit;
 }
+if (!dpdp_consent_granted($payload, 'consent_enquiry')) {
+    http_response_code(400);
+    echo json_encode(['success' => false, 'error' => 'Tick the box that agrees to this enquiry. It is separate from updates and analytics.']);
+    exit;
+}
+if ($type === 'special_education' && !dpdp_consent_granted($payload, 'consent_support')) {
+    http_response_code(400);
+    echo json_encode(['success' => false, 'error' => 'Tick the box about the support you describe before this form is sent.']);
+    exit;
+}
+if (!captcha_verify((string) ($payload['captcha_token'] ?? ''), (string) ($payload['captcha_answer'] ?? ''))) {
+    http_response_code(400);
+    echo json_encode(['success' => false, 'error' => 'Type the code shown in the picture. If it expired, use the new code.']);
+    exit;
+}
 
 $item = [
     'id' => 'enq_' . bin2hex(random_bytes(4)),
@@ -68,10 +85,38 @@ foreach (['gclid', 'gbraid', 'wbraid', 'utm_source', 'utm_medium', 'utm_campaign
 if ($ads) {
     $item['ads'] = $ads;
 }
-$item['emailed'] = send_enquiry_emails($item);
-
-$data = load_enquiries();
-array_unshift($data['items'], $item);
-save_enquiries($data);
+$purposes = [
+    'enquiry_response' => true,
+    'child_details' => true,
+    'support_details' => $type === 'special_education',
+    'admission_updates' => dpdp_consent_granted($payload, 'consent_updates'),
+];
+$consent = dpdp_consent_record($item['id'], $type, $purposes);
+$item['consent'] = $consent;
+$item['emailed'] = false;
+try {
+    save_consent_record($consent);
+    $data = load_enquiries();
+    array_unshift($data['items'], $item);
+    save_enquiries($data);
+} catch (RuntimeException $error) {
+    http_response_code(500);
+    echo json_encode(['success' => false, 'error' => 'Could not store this securely. Please call the school.']);
+    exit;
+}
+if (send_enquiry_emails($item)) {
+    try {
+        $data = load_enquiries();
+        foreach ($data['items'] as $index => $existing) {
+            if (($existing['id'] ?? '') === $item['id']) {
+                $data['items'][$index]['emailed'] = true;
+                break;
+            }
+        }
+        save_enquiries($data);
+    } catch (RuntimeException $error) {
+        // The enquiry is already stored.
+    }
+}
 
 echo json_encode(['success' => true]);

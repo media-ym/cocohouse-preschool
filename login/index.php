@@ -65,6 +65,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
       <button class="btn btn-primary" type="submit">Log in</button>
     </form>
+    <p style="margin-top:16px;font-size:0.75rem;line-height:1.6;color:#6b7280;">
+      Grievance Officer: Mrs. Pratheeksha Darak<br>
+      <a href="mailto:info@cocohouse.in">info@cocohouse.in</a> · <a href="tel:+917039152173">+91-7039152173</a><br>
+      <a href="/privacy-notice">Privacy notice</a> · <a href="/privacy-policy">Privacy policy</a> · <a href="/terms-and-conditions">Terms &amp; Conditions</a>
+    </p>
   </div>
 </body>
 </html>

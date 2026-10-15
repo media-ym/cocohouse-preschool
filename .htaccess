@@ -4,10 +4,16 @@ ErrorDocument 404 /404.html
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP_HOST} ^(www\.)?cocohouse\.in$ [NC]
+  RewriteRule ^ https://cocohouse.in%{REQUEST_URI} [L,R=301]
+
   RewriteRule ^storage/ - [F,L]
   RewriteRule ^includes/ - [F,L]
   RewriteRule ^sitemap\.xml$ sitemap.php [L]
   RewriteRule ^robots\.txt$ robots.php [L]
+  RewriteRule ^privacy/?$ /privacy-policy [R=301,L]
+  RewriteRule ^terms/?$ /terms-and-conditions [R=301,L]
 
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteRule ^blog-post/([^/]+)/?$ blog-post/index.php?slug=$1 [L,QSA]

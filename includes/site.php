@@ -202,10 +202,10 @@ function media_catalog(): array
         'se-play' => ['label' => 'Hands-on play', 'src' => '/assets/images/se-play.jpg', 'where' => 'Special education'],
         'se-down' => ['label' => 'Down syndrome session', 'src' => '/assets/images/se-down.jpg', 'where' => 'Special education'],
         'principal' => ['label' => 'Principal', 'src' => '/assets/images/principal.webp', 'where' => 'Home and Gallery'],
-        'yt-nitisha' => ['label' => 'Nitisha & Vijay', 'src' => 'https://img.youtube.com/vi/tMTFDT_VD_o/hqdefault.jpg', 'where' => 'Home and Gallery testimonial'],
-        'yt-anirudh' => ['label' => 'Anirudh & Shilpa', 'src' => 'https://img.youtube.com/vi/WQ4MrEJBD8E/hqdefault.jpg', 'where' => 'Home and Gallery testimonial'],
-        'yt-darshana' => ['label' => 'Darshana & Rahul', 'src' => 'https://img.youtube.com/vi/ptSo4Vg7zGY/hqdefault.jpg', 'where' => 'Home testimonial'],
-        'yt-nikita' => ['label' => 'Nikita & Amit', 'src' => 'https://img.youtube.com/vi/w5twGdXxz3s/hqdefault.jpg', 'where' => 'Home testimonial'],
+        'yt-nitisha' => ['label' => 'Nitisha & Vijay', 'src' => '/api/yt-thumb.php?id=tMTFDT_VD_o', 'where' => 'Home testimonial'],
+        'yt-anirudh' => ['label' => 'Anirudh & Shilpa', 'src' => '/api/yt-thumb.php?id=WQ4MrEJBD8E', 'where' => 'Home testimonial'],
+        'yt-darshana' => ['label' => 'Darshana & Rahul', 'src' => '/api/yt-thumb.php?id=ptSo4Vg7zGY', 'where' => 'Home testimonial'],
+        'yt-nikita' => ['label' => 'Nikita & Amit', 'src' => '/api/yt-thumb.php?id=w5twGdXxz3s', 'where' => 'Home testimonial'],
     ];
 }
 
@@ -277,14 +277,20 @@ function format_file_size(int $bytes): string
 
 function public_finish(string $html): string
 {
+    require_once __DIR__ . '/privacy.php';
     $html = inject_banner($html);
     $html = rewrite_page_links($html);
     $html = inject_entry_popup($html);
+    $html = inject_privacy_chrome($html);
     return apply_media_swaps($html);
 }
 
 function inject_entry_popup(string $html): string
 {
+    $path = rtrim((string) (parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/'), '/');
+    if (in_array($path, ['/privacy', '/privacy-policy', '/privacy-notice', '/terms', '/terms-and-conditions', '/data-rights'], true)) {
+        return $html;
+    }
     if (!str_contains($html, '</body>') || str_contains($html, 'id="cocoPopup"')) {
         return $html;
     }
@@ -328,6 +334,19 @@ function inject_entry_popup(string $html): string
 (function () {
   var box = document.getElementById('cocoPopup');
   var storageKey = document.body.classList.contains('ads-page') ? 'coco_ads_popup_closed' : 'coco_popup_closed';
+  if (box && typeof setupForm === 'function') {
+    setupForm('cocoPopupForm', '/api/submit-enquiry.php', {
+      type: 'popup',
+      successTitle: 'Enquiry received',
+      successDesc: 'Thank you. Cocohouse will call you within 24 hours.',
+      onSuccess: function () {
+        box.classList.remove('is-open');
+        box.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        sessionStorage.setItem(storageKey, '1');
+      }
+    });
+  }
   if (!box || sessionStorage.getItem(storageKey) === '1') return;
   function closePopup() {
     box.classList.remove('is-open');
@@ -349,14 +368,6 @@ function inject_entry_popup(string $html): string
     document.body.style.overflow = 'hidden';
     if (typeof cocoEvent === 'function') cocoEvent('popup_open', { form_id: 'popup' });
   }, 600);
-  if (typeof setupForm === 'function') {
-    setupForm('cocoPopupForm', '/api/submit-enquiry.php', {
-      type: 'popup',
-      successTitle: 'Enquiry received',
-      successDesc: 'Thank you. Cocohouse will call you within 24 hours.',
-      onSuccess: closePopup
-    });
-  }
 })();
 </script>
 HTML;

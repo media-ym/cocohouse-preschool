@@ -435,18 +435,15 @@ function seo_meta_html(array $opts, array $settings): string
             }
         }
     }
-    $analytics = $settings['analytics_id'];
-    if (str_starts_with($analytics, 'G-')) {
-        $html .= '<script async src="https://www.googletagmanager.com/gtag/js?id=' . e($analytics) . '"></script>' . "\n  ";
-        $html .= '<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","' . e($analytics) . '");</script>' . "\n  ";
-    }
-    $gtm = $settings['gtm_id'];
-    if (str_starts_with($gtm, 'GTM-')) {
-        $html .= '<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src="https://www.googletagmanager.com/gtm.js?id="+i+dl;f.parentNode.insertBefore(j,f);})(window,document,"script","dataLayer","' . e($gtm) . '");</script>' . "\n  ";
-    }
-    $clarity = $settings['clarity_id'];
-    if (preg_match('#^[a-z0-9]{6,20}$#', $clarity)) {
-        $html .= '<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","' . e($clarity) . '");</script>' . "\n  ";
+    $analytics = str_starts_with($settings['analytics_id'], 'G-') ? $settings['analytics_id'] : '';
+    $gtm = str_starts_with($settings['gtm_id'], 'GTM-') ? $settings['gtm_id'] : '';
+    $clarity = preg_match('#^[a-z0-9]{6,20}$#', $settings['clarity_id']) ? $settings['clarity_id'] : '';
+    if ($analytics !== '' || $gtm !== '' || $clarity !== '') {
+        $config = json_encode(
+            ['analytics' => $analytics, 'gtm' => $gtm, 'clarity' => $clarity],
+            JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS
+        );
+        $html .= '<script>window.cocoTrackers=' . $config . ';</script>' . "\n  ";
     }
     return $html;
 }
@@ -504,6 +501,9 @@ function seo_public_paths(): array
         if ($authorSlug !== '') {
             $urls['author:' . $authorSlug] = $base . '/author/' . rawurlencode($authorSlug);
         }
+    }
+    foreach (['/privacy-notice', '/privacy-policy', '/terms-and-conditions', '/data-rights'] as $path) {
+        $urls[] = $base . $path;
     }
     return array_values($urls);
 }

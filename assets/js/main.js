@@ -118,6 +118,8 @@ function cocoEvent(name, params) {
   Object.keys(params).forEach(function (key) {
     if (params[key] !== '' && params[key] != null) payload[key] = params[key];
   });
+  var consent = cocoReadConsent();
+  if (!consent || !consent.analytics) return;
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push(payload);
   if (typeof gtag === 'function') gtag('event', name, params);
@@ -139,14 +141,24 @@ function setupForm(formId, apiEndpoint, options) {
   options = options || {};
   var form = document.getElementById(formId);
   if (!form) return;
+  cocoEnsureConsent(form);
+  cocoEnsureCaptcha(form);
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
-    // Validate required fields
+    cocoEnsureConsent(form);
     var required = form.querySelectorAll('[required]');
     for (var i = 0; i < required.length; i++) {
-      if (!required[i].value.trim()) {
+      var field = required[i];
+      if (field.type === 'checkbox') {
+        if (!field.checked) {
+          showToast('Consent needed', 'Tick the required consent boxes. Update messages and analytics stay optional.', 'error');
+          return;
+        }
+        continue;
+      }
+      if (!String(field.value || '').trim()) {
         showToast('Please fill all required fields', '', 'error');
         return;
       }
@@ -166,9 +178,12 @@ function setupForm(formId, apiEndpoint, options) {
     var data = {};
     var inputs = form.querySelectorAll('input, select, textarea');
     inputs.forEach(function (input) {
-      if (input.name) {
-        data[input.name] = input.value;
+      if (!input.name) return;
+      if (input.type === 'checkbox') {
+        data[input.name] = input.checked ? '1' : '0';
+        return;
       }
+      data[input.name] = input.value;
     });
     // Add type if specified
     if (options.type) data.type = options.type;
@@ -200,7 +215,7 @@ function setupForm(formId, apiEndpoint, options) {
     var lines = ['Hello Cocohouse Preschool,'];
     lines.push('Enquiry: ' + (typeLabels[options.type] || 'Website Enquiry'));
     lines.push('Source: ' + (new URLSearchParams(window.location.search).get('utm_source') || 'website'));
-    var skipKeys = { type: 1, company: 1, gclid: 1, gbraid: 1, wbraid: 1, utm_source: 1, utm_medium: 1, utm_campaign: 1, utm_term: 1, utm_content: 1, landing: 1 };
+    var skipKeys = { type: 1, company: 1, gclid: 1, gbraid: 1, wbraid: 1, utm_source: 1, utm_medium: 1, utm_campaign: 1, utm_term: 1, utm_content: 1, landing: 1, consent_enquiry: 1, consent_updates: 1, consent_support: 1, consent_rights: 1, captcha_token: 1, captcha_answer: 1 };
     Object.keys(data).forEach(function (key) {
       if (!data[key] || skipKeys[key]) return;
       lines.push((labels[key] || key) + ': ' + String(data[key]).trim());
@@ -227,6 +242,7 @@ function setupForm(formId, apiEndpoint, options) {
         if (!result.ok || !result.body || !result.body.success) {
           var message = (result.body && result.body.error) || 'Please try again.';
           showToast('Could not submit', message, 'error');
+          cocoRefreshCaptcha(form);
           return;
         }
         showToast(
@@ -236,6 +252,7 @@ function setupForm(formId, apiEndpoint, options) {
         var programField = form.querySelector('[name="program"]');
         var program = programField ? String(programField.value || '').trim().slice(0, 80) : '';
         form.reset();
+        cocoRefreshCaptcha(form);
         cocoEvent('generate_lead', {
           form_name: typeLabels[options.type] || 'Website Enquiry',
           form_id: options.type || 'contact',
@@ -252,6 +269,7 @@ function setupForm(formId, apiEndpoint, options) {
           'WhatsApp is opening so you can send this enquiry to our team.'
         );
         form.reset();
+        cocoRefreshCaptcha(form);
       })
       .finally(function () {
         if (submitBtn) {
@@ -283,7 +301,7 @@ function loadBlogPosts(containerId, options) {
       } else {
         cocoBlogPosts = posts;
         renderBlogFilters(posts);
-        container.innerHTML = posts.map(renderBlogCard).join('');
+        renderBlogPage();
       }
     })
     .catch(function () {
@@ -536,6 +554,46 @@ function cocoTrackLinks() {
 }
 
 var cocoBlogPosts = [];
+var cocoBlogCategory = '';
+var cocoBlogQuery = '';
+var cocoBlogPage = 1;
+var COCO_BLOG_PAGE = 9;
+
+function blogPostMatches(post) {
+  if (cocoBlogCategory && post.category_name !== cocoBlogCategory) return false;
+  var query = cocoBlogQuery.trim().toLowerCase();
+  if (!query) return true;
+  var haystack = [post.title, post.excerpt, post.category_name, post.author].join(' ').toLowerCase();
+  return haystack.indexOf(query) !== -1;
+}
+
+function renderBlogPage() {
+  var box = document.getElementById('blogPosts');
+  var nav = document.getElementById('blogPages');
+  if (!box) return;
+  var posts = cocoBlogPosts.filter(blogPostMatches);
+  var pages = Math.max(1, Math.ceil(posts.length / COCO_BLOG_PAGE));
+  if (cocoBlogPage > pages) cocoBlogPage = pages;
+  if (cocoBlogPage < 1) cocoBlogPage = 1;
+  var start = (cocoBlogPage - 1) * COCO_BLOG_PAGE;
+  var slice = posts.slice(start, start + COCO_BLOG_PAGE);
+  box.innerHTML = slice.length
+    ? slice.map(renderBlogCard).join('')
+    : '<div style="grid-column:1/-1;text-align:center;padding:40px;color:#9ca3af;">No posts match that search.</div>';
+  if (!nav) return;
+  if (posts.length <= COCO_BLOG_PAGE) {
+    nav.hidden = true;
+    nav.innerHTML = '';
+    return;
+  }
+  nav.hidden = false;
+  var html = '<button type="button" data-page="' + (cocoBlogPage - 1) + '"' + (cocoBlogPage === 1 ? ' disabled' : '') + '>Prev</button>';
+  for (var page = 1; page <= pages; page++) {
+    html += '<button type="button" data-page="' + page + '"' + (page === cocoBlogPage ? ' class="is-active" aria-current="page"' : '') + '>' + page + '</button>';
+  }
+  html += '<button type="button" data-page="' + (cocoBlogPage + 1) + '"' + (cocoBlogPage === pages ? ' disabled' : '') + '>Next</button>';
+  nav.innerHTML = html;
+}
 
 function renderBlogFilters(posts) {
   var bar = document.getElementById('blogCategories');
@@ -564,18 +622,35 @@ function initBlogFilters() {
   bar.addEventListener('click', function (event) {
     var button = event.target.closest('button[data-category]');
     if (!button) return;
-    var category = button.getAttribute('data-category') || '';
+    cocoBlogCategory = button.getAttribute('data-category') || '';
+    cocoBlogPage = 1;
     bar.querySelectorAll('button').forEach(function (item) {
       item.classList.toggle('is-active', item === button);
       item.setAttribute('aria-pressed', item === button ? 'true' : 'false');
     });
-    var posts = cocoBlogPosts.filter(function (post) {
-      return category === '' || post.category_name === category;
-    });
-    box.innerHTML = posts.length
-      ? posts.map(renderBlogCard).join('')
-      : '<div style="grid-column:1/-1;text-align:center;padding:40px;color:#9ca3af;">No posts in this category yet.</div>';
+    renderBlogPage();
   });
+  var search = document.getElementById('blogSearch');
+  if (search && !search.dataset.bound) {
+    search.dataset.bound = '1';
+    search.addEventListener('input', function () {
+      cocoBlogQuery = search.value || '';
+      cocoBlogPage = 1;
+      renderBlogPage();
+    });
+  }
+  var pages = document.getElementById('blogPages');
+  if (pages && !pages.dataset.bound) {
+    pages.dataset.bound = '1';
+    pages.addEventListener('click', function (event) {
+      var pageButton = event.target.closest('button[data-page]');
+      if (!pageButton || pageButton.disabled) return;
+      cocoBlogPage = parseInt(pageButton.getAttribute('data-page'), 10) || 1;
+      renderBlogPage();
+      var toolbar = document.querySelector('.blog-toolbar');
+      if (toolbar) toolbar.scrollIntoView({ block: 'start' });
+    });
+  }
 }
 
 function initFlipCards() {
@@ -619,11 +694,192 @@ function cocoTrackClicks() {
   });
 }
 
+function cocoReadConsent() {
+  try {
+    var saved = JSON.parse(localStorage.getItem('coco_consent') || 'null');
+    return saved && typeof saved === 'object' ? saved : null;
+  } catch (error) {
+    return null;
+  }
+}
+
+function cocoStoreConsent(analytics) {
+  localStorage.setItem('coco_consent', JSON.stringify({
+    analytics: !!analytics,
+    version: '2026-10-15-draft',
+    at: new Date().toISOString()
+  }));
+}
+
+function cocoLoadTrackers() {
+  var ids = window.cocoTrackers || {};
+  if (window.cocoTrackersLoaded) return;
+  if (!ids.analytics && !ids.gtm && !ids.clarity) return;
+  window.cocoTrackersLoaded = true;
+  window.dataLayer = window.dataLayer || [];
+  if (ids.analytics) {
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag('js', new Date());
+    window.gtag('config', ids.analytics);
+    var ga = document.createElement('script');
+    ga.async = true;
+    ga.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(ids.analytics);
+    document.head.appendChild(ga);
+  }
+  if (ids.gtm) {
+    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+    var gtm = document.createElement('script');
+    gtm.async = true;
+    gtm.src = 'https://www.googletagmanager.com/gtm.js?id=' + encodeURIComponent(ids.gtm);
+    document.head.appendChild(gtm);
+  }
+  if (ids.clarity) {
+    (function (c, l, a, r, i) {
+      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+      var t = l.createElement(r);
+      t.async = 1;
+      t.src = 'https://www.clarity.ms/tag/' + i;
+      var y = l.getElementsByTagName(r)[0];
+      y.parentNode.insertBefore(t, y);
+    })(window, document, 'clarity', 'script', ids.clarity);
+  }
+}
+
+function cocoInitConsentBanner() {
+  var banner = document.getElementById('cocoConsent');
+  var saved = cocoReadConsent();
+  if (saved && saved.analytics) cocoLoadTrackers();
+  if (!banner || !window.cocoTrackers) return;
+  if (saved) return;
+  banner.hidden = false;
+  var more = document.getElementById('cocoConsentMore');
+  var analyticsBox = document.getElementById('cocoConsentAnalytics');
+  function close(analytics) {
+    cocoStoreConsent(analytics);
+    banner.hidden = true;
+    if (analytics) cocoLoadTrackers();
+  }
+  var accept = document.getElementById('cocoConsentAccept');
+  var reject = document.getElementById('cocoConsentReject');
+  var customize = document.getElementById('cocoConsentCustomize');
+  var save = document.getElementById('cocoConsentSave');
+  if (accept) accept.addEventListener('click', function () { close(true); });
+  if (reject) reject.addEventListener('click', function () { close(false); });
+  if (customize && more) {
+    customize.addEventListener('click', function () {
+      more.hidden = !more.hidden;
+    });
+  }
+  if (save) {
+    save.addEventListener('click', function () {
+      close(!!(analyticsBox && analyticsBox.checked));
+    });
+  }
+}
+
+function cocoEnsureCaptcha(form) {
+  if (!form || form.querySelector('[name="captcha_token"]')) return;
+  var button = form.querySelector('button[type="submit"]');
+  if (!button) return;
+  var box = document.createElement('div');
+  box.className = 'captcha-box';
+  box.innerHTML = '<img alt="Check code" width="156" height="48"><input class="form-input captcha-answer" name="captcha_answer" required autocomplete="off" autocapitalize="characters" placeholder="Type the code" maxlength="8"><button type="button" class="captcha-refresh" aria-label="New code"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button><input type="hidden" name="captcha_token">';
+  button.parentNode.insertBefore(box, button);
+  box.querySelector('.captcha-refresh').addEventListener('click', function () {
+    cocoRefreshCaptcha(form);
+  });
+  cocoRefreshCaptcha(form);
+}
+
+function cocoRefreshCaptcha(form) {
+  var box = form && form.querySelector('.captcha-box');
+  if (!box) return;
+  fetch('/api/captcha.php', { headers: { 'Accept': 'application/json' } })
+    .then(function (res) { return res.json(); })
+    .then(function (body) {
+      if (!body || !body.image || !body.token) return;
+      box.querySelector('img').src = body.image;
+      box.querySelector('[name="captcha_token"]').value = body.token;
+      var answer = box.querySelector('[name="captcha_answer"]');
+      if (answer) answer.value = '';
+    })
+    .catch(function () {});
+}
+
+function cocoEnsureConsent(form) {
+  if (!form || form.querySelector('[name="consent_enquiry"]') || form.querySelector('[name="consent_rights"]')) return;
+  var button = form.querySelector('button[type="submit"]');
+  if (!button) return;
+  var box = document.createElement('div');
+  box.className = 'consent-box';
+  var enquiry = '<label class="consent-line"><input type="checkbox" name="consent_enquiry" value="1" required><span>Required. I am the parent or guardian. Use my details and my child\'s name and age to reply. <a href="/privacy-notice">Privacy notice</a>.</span></label>';
+  var support = form.id === 'specialForm'
+    ? '<label class="consent-line"><input type="checkbox" name="consent_support" value="1" required><span>Required. Use the support I describe, including any condition I name, only to arrange a call with the special educator.</span></label>'
+    : '';
+  var updates = '<label class="consent-line"><input type="checkbox" name="consent_updates" value="1"><span>Optional. Send admission or daycare updates by phone, email, or WhatsApp.</span></label>';
+  box.innerHTML = enquiry + support + updates;
+  button.parentNode.insertBefore(box, button);
+}
+
+function setupRightsForm(formId) {
+  var form = document.getElementById(formId);
+  if (!form) return;
+  cocoEnsureCaptcha(form);
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    var consent = form.querySelector('[name="consent_rights"]');
+    if (!consent || !consent.checked) {
+      showToast('Consent needed', 'Tick the box that lets us use your contact details for this request.', 'error');
+      return;
+    }
+    var data = {};
+    form.querySelectorAll('input, select, textarea').forEach(function (input) {
+      if (!input.name) return;
+      data[input.name] = input.type === 'checkbox' ? (input.checked ? '1' : '0') : input.value;
+    });
+    var button = form.querySelector('button[type="submit"]');
+    var original = button ? button.innerHTML : '';
+    if (button) {
+      button.disabled = true;
+      button.innerHTML = 'Sending...';
+    }
+    fetch('/api/submit-rights.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+      .then(function (res) {
+        return res.json().then(function (body) { return { ok: res.ok, body: body }; });
+      })
+      .then(function (result) {
+        if (!result.ok || !result.body || !result.body.success) {
+          showToast('Could not send', (result.body && result.body.error) || 'Please try again.', 'error');
+          cocoRefreshCaptcha(form);
+          return;
+        }
+        showToast('Request received', 'The school will use these details only to handle this request.');
+        form.reset();
+        cocoRefreshCaptcha(form);
+      })
+      .catch(function () {
+        showToast('Could not send', 'Email info@cocohouse.in or call 7039152173.', 'error');
+      })
+      .finally(function () {
+        if (button) {
+          button.disabled = false;
+          button.innerHTML = original;
+        }
+      });
+  });
+}
+
 function initPageExtras() {
   cocoTrackLinks();
   cocoTrackClicks();
   initBlogFilters();
   initFlipCards();
+  cocoInitConsentBanner();
+  if (document.getElementById('rightsForm')) setupRightsForm('rightsForm');
 }
 
 if (document.readyState === 'loading') {
