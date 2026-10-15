@@ -20,7 +20,7 @@ function gallery_default(): array
                         'type' => 'image',
                         'src' => '/assets/images/campus.jpg',
                         'title' => 'Preschool & Daycare Building',
-                        'caption' => 'Our beautiful preschool & daycare in Mulund East',
+                        'caption' => 'Our beautiful preschool & daycare in Thane East',
                     ],
                     [
                         'id' => 'joyful',

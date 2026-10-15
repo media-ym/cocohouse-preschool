@@ -11,17 +11,18 @@ function seo_settings(): array
     $defaults = [
         'site_name' => 'Cocohouse Preschool & Daycare',
         'public_url' => 'https://cocohouse.in',
-        'description' => 'Best preschool and daycare in Mulund East, Thane East, Kopri and Hari Om Nagar. Playgroup, nursery, KG, daycare till 8 PM and special education.',
+        'description' => 'Best preschool and daycare in Thane East, Kopri and Hari Om Nagar. Playgroup, nursery, KG, daycare till 8 PM and special education.',
         'image' => '/assets/images/campus.jpg',
         'google_verification' => '',
         'bing_verification' => '',
         'analytics_id' => '',
+        'gtm_id' => '',
         'twitter' => '',
         'facebook' => '',
         'instagram' => '',
         'youtube' => '',
         'linktree' => '',
-        'areas' => 'Mulund, Mulund East, Thane, Thane East, Kopri, Hari Om Nagar',
+        'areas' => 'Mulund, Thane, Thane East, Kopri, Hari Om Nagar',
     ];
     $merged = $defaults;
     foreach ($defaults as $key => $value) {
@@ -38,6 +39,16 @@ function seo_settings(): array
     if ($merged['image'] === '') {
         $merged['image'] = $defaults['image'];
     }
+    if (str_starts_with($merged['analytics_id'], 'GTM-') && $merged['gtm_id'] === '') {
+        $merged['gtm_id'] = $merged['analytics_id'];
+        $merged['analytics_id'] = '';
+    }
+    if (!preg_match('#^G-[A-Z0-9]{4,20}$#', $merged['analytics_id'])) {
+        $merged['analytics_id'] = '';
+    }
+    if (!preg_match('#^GTM-[A-Z0-9]{4,20}$#', $merged['gtm_id'])) {
+        $merged['gtm_id'] = '';
+    }
     $merged['phone'] = (string) ($site['phone'] ?? '');
     $merged['email'] = (string) ($site['email'] ?? '');
     $merged['address'] = (string) ($site['address'] ?? '');
@@ -49,48 +60,48 @@ function seo_page_defaults(string $pageId): array
     $pages = [
         'home' => [
             'title' => 'Best Preschool in Mulund & Thane | Cocohouse',
-            'description' => 'Best preschool in Mulund East, Thane East, Kopri and Hari Om Nagar. Daycare till 8 PM and a special education preschool with its own teacher. Call 7039152173.',
-            'keywords' => 'best preschool in thane, best preschool in mulund, best preschool in kopri, best preschool in mulund east, best preschool in thane east, best preschool in hari om nagar, best preschool near me, best daycare near me, best daycare in thane, best daycare in mulund, best daycare in hari om nagar, best daycare in kopri, special education preschool near me',
+            'description' => 'Best preschool in Thane East, Kopri and Hari Om Nagar. Daycare till 8 PM and a special education preschool with its own teacher. Call 7039152173.',
+            'keywords' => 'best preschool in thane, best preschool in mulund, best preschool in kopri, best preschool in thane east, best preschool in thane east, best preschool in hari om nagar, best preschool near me, best daycare near me, best daycare in thane, best daycare in mulund, best daycare in hari om nagar, best daycare in kopri, special education preschool near me',
         ],
         'about' => [
             'title' => 'Best Preschool in Hari Om Nagar | Cocohouse',
-            'description' => 'Cocohouse is a thematic preschool in Hari Om Nagar, Mulund East. Families from Mulund, Thane, Thane East and Kopri visit for playgroup, nursery and KG.',
-            'keywords' => 'best preschool in hari om nagar, best preschool in mulund east, best preschool in mulund, preschool Hari Om Nagar, Cocohouse about',
+            'description' => 'Cocohouse is a thematic preschool in Hari Om Nagar, Thane East. Families from Mulund, Thane, Thane East and Kopri visit for playgroup, nursery and KG.',
+            'keywords' => 'best preschool in hari om nagar, best preschool in thane east, best preschool in mulund, preschool Hari Om Nagar, Cocohouse about',
         ],
         'programs' => [
-            'title' => 'Best Preschool in Mulund East | Cocohouse Programs',
-            'description' => 'Playgroup, Nursery, Junior KG and Senior KG at Cocohouse, a preschool in Mulund East for families from Thane East, Kopri and Hari Om Nagar.',
-            'keywords' => 'best preschool in mulund east, best preschool in thane east, best preschool in kopri, playgroup Mulund, nursery Mulund East, junior KG, senior KG',
+            'title' => 'Best Preschool in Thane East | Cocohouse Programs',
+            'description' => 'Playgroup, Nursery, Junior KG and Senior KG at Cocohouse, a preschool in Thane East for families from Kopri and Hari Om Nagar.',
+            'keywords' => 'best preschool in thane east, best preschool in kopri, playgroup Mulund, nursery Thane East, junior KG, senior KG',
         ],
         'daycare' => [
             'title' => 'Best Daycare in Mulund & Thane | Cocohouse',
             'description' => 'Best daycare in Mulund, Thane, Thane East, Kopri and Hari Om Nagar. Open till 8 PM for children up to 10, with meals, rest and homework help. Call 7039152173.',
-            'keywords' => 'best daycare in mulund, best daycare in thane, best daycare in thane east, best daycare in kopri, best daycare in hari om nagar, best daycare near me, daycare Mulund East',
+            'keywords' => 'best daycare in mulund, best daycare in thane, best daycare in thane east, best daycare in kopri, best daycare in hari om nagar, best daycare near me, daycare Thane East',
         ],
         'gallery' => [
-            'title' => 'Preschool & Daycare Photos, Mulund East | Cocohouse',
-            'description' => 'Photos and parent videos from Cocohouse preschool and daycare in Hari Om Nagar, Mulund East, near Thane East and Kopri.',
-            'keywords' => 'preschool photos Mulund East, daycare photos Hari Om Nagar, Cocohouse gallery, best preschool in mulund east',
+            'title' => 'Preschool & Daycare Photos, Thane East | Cocohouse',
+            'description' => 'Photos and parent videos from Cocohouse preschool and daycare in Hari Om Nagar, Thane East, near Kopri.',
+            'keywords' => 'preschool photos Thane East, daycare photos Hari Om Nagar, Cocohouse gallery, best preschool in thane east',
         ],
         'blog' => [
             'title' => 'Preschool & Daycare Blog for Mulund & Thane | Cocohouse',
-            'description' => 'Parenting articles from Cocohouse for families looking at preschool and daycare in Mulund East, Thane East, Kopri and Hari Om Nagar.',
+            'description' => 'Parenting articles from Cocohouse for families looking at preschool and daycare in Thane East, Kopri and Hari Om Nagar.',
             'keywords' => 'best preschool in mulund, best daycare in thane east, preschool blog Mulund, daycare tips Thane',
         ],
         'admissions' => [
-            'title' => 'Preschool Admission in Mulund East 2026 | Cocohouse',
-            'description' => 'Admissions open for preschool and daycare in Mulund East, Thane East, Kopri and Hari Om Nagar. Mid-term seats, flat 60% off. Call 7039152173.',
-            'keywords' => 'best preschool in mulund east, best preschool in thane east, preschool admission 2026, daycare admission Mulund, best daycare in hari om nagar',
+            'title' => 'Preschool Admission in Thane East 2026 | Cocohouse',
+            'description' => 'Admissions open for preschool and daycare in Thane East, Kopri and Hari Om Nagar. Mid-term seats, flat 60% off. Call 7039152173.',
+            'keywords' => 'best preschool in thane east, best preschool in thane east, preschool admission 2026, daycare admission Mulund, best daycare in hari om nagar',
         ],
         'special-education' => [
             'title' => 'Special Education Preschool near Mulund | Cocohouse',
-            'description' => 'Special education preschool near Mulund East, Thane, Thane East, Kopri and Hari Om Nagar. Separate time, separate teacher, admissions up to 10 years. Call 7039152173.',
+            'description' => 'Special education preschool near Thane, Thane East, Kopri and Hari Om Nagar. Separate time, separate teacher, admissions up to 10 years. Call 7039152173.',
             'keywords' => 'special education preschool near me, special education preschool Mulund, special education Thane East, inclusive preschool Hari Om Nagar, best preschool near me',
         ],
         'contact' => [
             'title' => 'Preschool near Hari Om Nagar | Contact Cocohouse',
-            'description' => 'Visit Cocohouse at Row House No 3, Millenium Park, Hari Om Nagar, Mulund East, Mumbai 400081. Near Kopri and Thane East. Call +91-7039152173.',
-            'keywords' => 'best preschool near me, best daycare near me, best preschool in hari om nagar, preschool Mulund East address, daycare Kopri, Cocohouse contact',
+            'description' => 'Visit Cocohouse at Row House No 3, Millenium Park, Hari Om Nagar, Thane East, Mumbai 400081. Near Kopri. Call +91-7039152173.',
+            'keywords' => 'best preschool near me, best daycare near me, best preschool in hari om nagar, preschool Thane East address, daycare Kopri, Cocohouse contact',
         ],
     ];
     $base = $pages[$pageId] ?? [
@@ -152,8 +163,12 @@ function sanitize_site_seo(array $posted): array
         $url = 'https://cocohouse.in';
     }
     $analytics = strtoupper(trim((string) ($posted['analytics_id'] ?? '')));
-    if (!preg_match('#^(G-[A-Z0-9]{4,20}|GTM-[A-Z0-9]{4,20})$#', $analytics)) {
+    if (!preg_match('#^G-[A-Z0-9]{4,20}$#', $analytics)) {
         $analytics = '';
+    }
+    $gtm = strtoupper(trim((string) ($posted['gtm_id'] ?? '')));
+    if (!preg_match('#^GTM-[A-Z0-9]{4,20}$#', $gtm)) {
+        $gtm = '';
     }
     $code = static function (string $value): string {
         $value = trim($value);
@@ -180,6 +195,7 @@ function sanitize_site_seo(array $posted): array
         'google_verification' => $code((string) ($posted['google_verification'] ?? '')),
         'bing_verification' => $code((string) ($posted['bing_verification'] ?? '')),
         'analytics_id' => $analytics,
+        'gtm_id' => $gtm,
         'twitter' => $twitter,
         'facebook' => $social((string) ($posted['facebook'] ?? '')),
         'instagram' => $social((string) ($posted['instagram'] ?? '')),
@@ -245,7 +261,7 @@ function seo_area_places(string $areas): array
         $places[] = ['@type' => 'Place', 'name' => seo_clip($name, 60)];
     }
     if (!$places) {
-        foreach (['Mulund', 'Mulund East', 'Thane', 'Thane East', 'Kopri', 'Hari Om Nagar'] as $name) {
+        foreach (['Mulund', 'Thane', 'Thane East', 'Kopri', 'Hari Om Nagar'] as $name) {
             $places[] = ['@type' => 'Place', 'name' => $name];
         }
     }
@@ -278,7 +294,7 @@ function seo_schema_graph(string $pageId, array $bundle, array $settings, string
         'address' => [
             '@type' => 'PostalAddress',
             'streetAddress' => 'Row House No 3, Millenium Park, Hari Om Nagar',
-            'addressLocality' => 'Mulund East',
+            'addressLocality' => 'Thane East',
             'addressRegion' => 'Maharashtra',
             'postalCode' => '400081',
             'addressCountry' => 'IN',
@@ -413,8 +429,10 @@ function seo_meta_html(array $opts, array $settings): string
     if (str_starts_with($analytics, 'G-')) {
         $html .= '<script async src="https://www.googletagmanager.com/gtag/js?id=' . e($analytics) . '"></script>' . "\n  ";
         $html .= '<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","' . e($analytics) . '");</script>' . "\n  ";
-    } elseif (str_starts_with($analytics, 'GTM-')) {
-        $html .= '<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src="https://www.googletagmanager.com/gtm.js?id="+i+dl;f.parentNode.insertBefore(j,f);})(window,document,"script","dataLayer","' . e($analytics) . '");</script>' . "\n  ";
+    }
+    $gtm = $settings['gtm_id'];
+    if (str_starts_with($gtm, 'GTM-')) {
+        $html .= '<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src="https://www.googletagmanager.com/gtm.js?id="+i+dl;f.parentNode.insertBefore(j,f);})(window,document,"script","dataLayer","' . e($gtm) . '");</script>' . "\n  ";
     }
     return $html;
 }
@@ -476,6 +494,80 @@ function seo_public_paths(): array
     return array_values($urls);
 }
 
+function seo_score(string $title, string $description, string $keywords, bool $indexable = true): int
+{
+    $score = 0;
+    $titleLength = mb_strlen(trim($title));
+    if ($titleLength >= 45 && $titleLength <= 65) {
+        $score += 30;
+    } elseif ($titleLength >= 25 && $titleLength <= 80) {
+        $score += 18;
+    } elseif ($titleLength > 0) {
+        $score += 8;
+    }
+    $descriptionLength = mb_strlen(trim($description));
+    if ($descriptionLength >= 120 && $descriptionLength <= 170) {
+        $score += 30;
+    } elseif ($descriptionLength >= 70 && $descriptionLength <= 220) {
+        $score += 18;
+    } elseif ($descriptionLength > 0) {
+        $score += 8;
+    }
+    $keywordText = trim($keywords);
+    if ($keywordText !== '') {
+        $score += substr_count($keywordText, ',') >= 2 ? 20 : 12;
+    }
+    if ($indexable) {
+        $score += 20;
+    }
+    return min(100, $score);
+}
+
+function seo_score_class(int $score): string
+{
+    if ($score >= 80) {
+        return 'score-good';
+    }
+    if ($score >= 55) {
+        return 'score-ok';
+    }
+    return 'score-low';
+}
+
+function seo_score_notes(string $title, string $description, string $keywords, bool $indexable = true): array
+{
+    $notes = [];
+    $titleLength = mb_strlen(trim($title));
+    if ($titleLength === 0) {
+        $notes[] = 'Search title is empty. Write 45–65 characters.';
+    } elseif ($titleLength < 45) {
+        $notes[] = 'Title is ' . $titleLength . ' characters. Add words until it is 45–65.';
+    } elseif ($titleLength > 65) {
+        $notes[] = 'Title is ' . $titleLength . ' characters. Shorten it to 45–65.';
+    }
+    $descriptionLength = mb_strlen(trim($description));
+    if ($descriptionLength === 0) {
+        $notes[] = 'Meta description is empty. Write 120–170 characters.';
+    } elseif ($descriptionLength < 120) {
+        $notes[] = 'Description is ' . $descriptionLength . ' characters. Add words until it is 120–170.';
+    } elseif ($descriptionLength > 170) {
+        $notes[] = 'Description is ' . $descriptionLength . ' characters. Shorten it to 120–170.';
+    }
+    $phrases = array_values(array_filter(array_map('trim', explode(',', $keywords)), static function ($part) {
+        return $part !== '';
+    }));
+    $phraseCount = count($phrases);
+    if ($phraseCount === 0) {
+        $notes[] = 'Keywords are empty. Add at least 3 phrases.';
+    } elseif ($phraseCount < 3) {
+        $notes[] = 'Only ' . $phraseCount . ' keyword' . ($phraseCount === 1 ? '' : 's') . '. Add at least 3.';
+    }
+    if (!$indexable) {
+        $notes[] = 'Search visibility is noindex, so Google can skip this page.';
+    }
+    return $notes;
+}
+
 function seo_admin_pages_markup(string $host): void
 {
     $robots = [
@@ -491,15 +583,31 @@ function seo_admin_pages_markup(string $host): void
         <a href="#seo-page-<?= e($pageId) ?>"><?= e($info['label']) ?></a>
       <?php endforeach; ?>
     </nav>
+    <div class="seo-pages">
     <?php foreach ($catalog as $pageId => $info): ?>
       <?php
         $seo = seo_page_bundle($pageId);
         $id = 'seo-' . $pageId;
         $path = (string) ($info['view'] ?? '/');
+        $score = seo_score($seo['title'], $seo['description'], $seo['keywords'], !str_starts_with($seo['robots'], 'noindex'));
+        $notes = seo_score_notes($seo['title'], $seo['description'], $seo['keywords'], !str_starts_with($seo['robots'], 'noindex'));
       ?>
       <section class="editor-block seo-page" id="seo-page-<?= e($pageId) ?>">
-        <h2><?= e($info['label']) ?></h2>
-        <p class="help">On-page SEO for <?= e($host . ($path === '/' ? '/' : $path)) ?></p>
+        <div class="seo-page-head">
+          <div>
+            <h2><?= e($info['label']) ?></h2>
+            <p class="help"><?= e($host . ($path === '/' ? '/' : $path)) ?></p>
+          </div>
+          <div class="seo-score <?= e(seo_score_class($score)) ?>" data-score="<?= $score ?>"><?= $score ?></div>
+        </div>
+        <ul class="score-notes">
+          <?php if (!$notes): ?>
+            <li>Nothing missing. Title, description and keywords are in range.</li>
+          <?php endif; ?>
+          <?php foreach ($notes as $note): ?>
+            <li><?= e($note) ?></li>
+          <?php endforeach; ?>
+        </ul>
         <div class="serp">
           <div class="serp-url"><?= e($host . ($path === '/' ? '/' : $path)) ?></div>
           <div class="serp-title" data-preview="title"></div>
@@ -518,7 +626,7 @@ function seo_admin_pages_markup(string $host): void
         <div class="field">
           <label for="<?= e($id) ?>-keywords">Keywords</label>
           <input id="<?= e($id) ?>-keywords" name="pages[<?= e($pageId) ?>][keywords]" maxlength="400" value="<?= e($seo['keywords']) ?>">
-          <p class="help">Comma-separated phrases, such as best preschool in Mulund East.</p>
+          <p class="help">Comma-separated phrases, such as best preschool in Thane East.</p>
         </div>
         <details class="advanced">
           <summary>Advanced SEO</summary>
@@ -562,6 +670,7 @@ function seo_admin_pages_markup(string $host): void
         </details>
       </section>
     <?php endforeach; ?>
+    </div>
     <?php
 }
 
@@ -570,6 +679,37 @@ function seo_admin_pages_script(): void
     ?>
     <script>
     (function () {
+      function seoScore(title, description, keywords, indexable) {
+        var score = 0;
+        var titleLength = title.trim().length;
+        if (titleLength >= 45 && titleLength <= 65) score += 30;
+        else if (titleLength >= 25 && titleLength <= 80) score += 18;
+        else if (titleLength > 0) score += 8;
+        var descriptionLength = description.trim().length;
+        if (descriptionLength >= 120 && descriptionLength <= 170) score += 30;
+        else if (descriptionLength >= 70 && descriptionLength <= 220) score += 18;
+        else if (descriptionLength > 0) score += 8;
+        var keywordText = keywords.trim();
+        if (keywordText) score += (keywordText.split(',').length >= 3) ? 20 : 12;
+        if (indexable) score += 20;
+        return Math.min(100, score);
+      }
+      function seoNotes(title, description, keywords, indexable) {
+        var notes = [];
+        var titleLength = title.trim().length;
+        if (!titleLength) notes.push('Search title is empty. Write 45–65 characters.');
+        else if (titleLength < 45) notes.push('Title is ' + titleLength + ' characters. Add words until it is 45–65.');
+        else if (titleLength > 65) notes.push('Title is ' + titleLength + ' characters. Shorten it to 45–65.');
+        var descriptionLength = description.trim().length;
+        if (!descriptionLength) notes.push('Meta description is empty. Write 120–170 characters.');
+        else if (descriptionLength < 120) notes.push('Description is ' + descriptionLength + ' characters. Add words until it is 120–170.');
+        else if (descriptionLength > 170) notes.push('Description is ' + descriptionLength + ' characters. Shorten it to 120–170.');
+        var phrases = keywords.split(',').map(function (part) { return part.trim(); }).filter(Boolean);
+        if (!phrases.length) notes.push('Keywords are empty. Add at least 3 phrases.');
+        else if (phrases.length < 3) notes.push('Only ' + phrases.length + ' keyword' + (phrases.length === 1 ? '' : 's') + '. Add at least 3.');
+        if (!indexable) notes.push('Search visibility is noindex, so Google can skip this page.');
+        return notes;
+      }
       document.querySelectorAll('.seo-page').forEach(function (section) {
         function paint() {
           section.querySelectorAll('[data-count]').forEach(function (el) {
@@ -582,8 +722,38 @@ function seo_admin_pages_script(): void
           var descOut = section.querySelector('[data-preview="description"]');
           if (titleOut) titleOut.textContent = title && title.value ? title.value : 'Page title';
           if (descOut) descOut.textContent = desc && desc.value ? desc.value : 'Meta description';
+          var badge = section.querySelector('[data-score]');
+          if (badge) {
+            var keywords = section.querySelector('[id$="-keywords"]');
+            var robots = section.querySelector('[id$="-robots"]');
+            var next = seoScore(
+              title ? title.value : '',
+              desc ? desc.value : '',
+              keywords ? keywords.value : '',
+              !(robots && robots.value.indexOf('noindex') === 0)
+            );
+            badge.textContent = String(next);
+            badge.classList.remove('score-good', 'score-ok', 'score-low');
+            badge.classList.add(next >= 80 ? 'score-good' : next >= 55 ? 'score-ok' : 'score-low');
+          }
+          var list = section.querySelector('.score-notes');
+          if (list) {
+            var notes = seoNotes(
+              title ? title.value : '',
+              desc ? desc.value : '',
+              keywords ? keywords.value : '',
+              !(robots && robots.value.indexOf('noindex') === 0)
+            );
+            list.innerHTML = '';
+            (notes.length ? notes : ['Nothing missing. Title, description and keywords are in range.']).forEach(function (note) {
+              var item = document.createElement('li');
+              item.textContent = note;
+              list.appendChild(item);
+            });
+          }
         }
         section.addEventListener('input', paint);
+        section.addEventListener('change', paint);
         paint();
       });
     })();

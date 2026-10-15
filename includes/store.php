@@ -156,9 +156,36 @@ function unique_slug(string $slug, string $ignoreId = ''): string
 
 function sanitize_html(string $html): string
 {
-    $html = strip_tags($html, '<p><h2><h3><ul><ol><li><strong><em><b><i><a><br><blockquote>');
+    $html = strip_tags($html, '<p><h2><h3><ul><ol><li><strong><em><b><i><u><a><br><blockquote><span>');
     $html = preg_replace('/\sdata-mce-[a-z0-9-]+\s*=\s*("[^"]*"|\'[^\']*\')/i', '', $html) ?? $html;
-    $html = preg_replace('/\s(on\w+|style|class|id)\s*=\s*("[^"]*"|\'[^\']*\')/i', '', $html) ?? $html;
+    $html = preg_replace('/\son\w+\s*=\s*("[^"]*"|\'[^\']*\')/i', '', $html) ?? $html;
+    $html = preg_replace('/\s(class|id)\s*=\s*("[^"]*"|\'[^\']*\')/i', '', $html) ?? $html;
+    $html = preg_replace_callback('/\sstyle\s*=\s*("|\')(.*?)\1/i', static function (array $match): string {
+        $keep = [];
+        foreach (explode(';', $match[2]) as $rule) {
+            if (!str_contains($rule, ':')) {
+                continue;
+            }
+            [$prop, $value] = array_map('trim', explode(':', $rule, 2));
+            $prop = strtolower($prop);
+            $value = strtolower($value);
+            if (preg_match('/url|expression|javascript|@import/i', $value)) {
+                continue;
+            }
+            if ($prop === 'font-family' && preg_match('/^[a-z0-9 ,\'"-]+$/', $value)) {
+                $keep[] = 'font-family:' . $value;
+            } elseif ($prop === 'font-size' && preg_match('/^\d+(?:\.\d+)?(?:px|pt|rem|em)$/', $value)) {
+                $keep[] = 'font-size:' . $value;
+            } elseif ($prop === 'color' && preg_match('/^(#[0-9a-f]{3,8}|rgb\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*\))$/', $value)) {
+                $keep[] = 'color:' . $value;
+            } elseif ($prop === 'text-align' && in_array($value, ['left', 'center', 'right'], true)) {
+                $keep[] = 'text-align:' . $value;
+            } elseif ($prop === 'text-decoration' && in_array($value, ['underline', 'line-through', 'none'], true)) {
+                $keep[] = 'text-decoration:' . $value;
+            }
+        }
+        return $keep ? ' style="' . implode(';', $keep) . '"' : '';
+    }, $html) ?? $html;
     $html = preg_replace('/href\s*=\s*("|\')\s*javascript:[^"\']*\1/i', 'href="#"', $html) ?? $html;
     return trim($html);
 }
@@ -246,11 +273,14 @@ function save_enquiries(array $data): void
 function enquiry_labels(): array
 {
     return [
+        'home_hero' => 'Home Hero Section Form',
+        'admission_page' => 'Admission Page Form',
+        'popup' => 'Popup Form',
+        'school_visit' => 'School Visit Footer Form',
+        'daycare' => 'Daycare Page Form',
+        'contact' => 'Contact Page Form',
+        'special_education' => 'Special Ed Form',
         'admission' => 'Admission',
-        'school_visit' => 'School visit',
-        'daycare' => 'Daycare',
-        'contact' => 'Contact',
-        'special_education' => 'Special Education',
     ];
 }
 

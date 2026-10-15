@@ -107,7 +107,7 @@ admin_header($post ? 'Edit post' : 'New post', 'blog');
     <div class="field">
       <label for="content">Article</label>
       <textarea id="content" name="content"><?= e($post['content'] ?? '') ?></textarea>
-      <p class="help">Bold, headings, lists, and links. No HTML needed.</p>
+      <p class="help">Font, size, colour, headings, lists, and links. No HTML needed.</p>
     </div>
   </div>
   <aside class="editor-side">
@@ -186,11 +186,17 @@ tinymce.init({
   statusbar: false,
   height: 460,
   plugins: 'lists link autoresize',
-  toolbar: 'undo redo | blocks | bold italic | bullist numlist | link blockquote | removeformat',
+  toolbar_mode: 'wrap',
+  toolbar: [
+    'undo redo | blocks | fontfamily fontsize',
+    'bold italic underline | forecolor | alignleft aligncenter alignright | bullist numlist | link blockquote | removeformat'
+  ],
+  font_family_formats: 'Poppins=Poppins,sans-serif; Arial=arial,helvetica,sans-serif; Georgia=georgia,serif; Times New Roman=times new roman,times,serif; Verdana=verdana,geneva,sans-serif',
+  font_size_formats: '12px 14px 16px 18px 20px 24px 28px 32px',
   block_formats: 'Paragraph=p; Heading 2=h2; Heading 3=h3',
   skin_url: 'https://cdn.jsdelivr.net/npm/tinymce@7.6.1/skins/ui/oxide',
   content_css: 'https://cdn.jsdelivr.net/npm/tinymce@7.6.1/skins/content/default/content.min.css',
-  content_style: 'body { font-family: Poppins, sans-serif; font-size: 16px; line-height: 1.6; color: #1f2937; }',
+  content_style: "@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap'); body { font-family: Poppins, sans-serif; font-size: 16px; line-height: 1.6; color: #1f2937; }",
   setup: function (editor) {
     editor.on('change input undo redo', function () { editor.save(); });
   }

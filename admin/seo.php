@@ -39,13 +39,14 @@ $host = parse_url($seo['public_url'], PHP_URL_HOST) ?: 'cocohouse.in';
 admin_header('SEO', 'seo');
 ?>
 <h1>SEO</h1>
-<p class="lead">Edit the Google title, description, keywords and advanced settings for the whole site. Blog post search titles are edited on each post.</p>
+<p class="lead">Each card is one job. The number on a page is its SEO score: 80 and above is strong, 55 to 79 needs a tighter title or description.</p>
 
 <form method="post">
   <?= csrf_field() ?>
+  <div class="seo-setup">
   <section class="editor-block">
     <h2>Top banner</h2>
-    <p class="help">Scrolling line above the menu on every page.</p>
+    <p class="help">The yellow line above the menu.</p>
     <input type="hidden" name="banner[enabled]" value="0">
     <label class="check"><input type="checkbox" name="banner[enabled]" value="1" <?= $banner['enabled'] === '1' ? 'checked' : '' ?>> Show banner</label>
     <div class="field" style="margin-top:14px;">
@@ -60,29 +61,27 @@ admin_header('SEO', 'seo');
 
   <section class="editor-block">
     <h2>Website</h2>
-    <div class="field">
-      <label for="site-name">Site name</label>
-      <input id="site-name" name="seo[site_name]" maxlength="80" value="<?= e($seo['site_name']) ?>">
-    </div>
-    <div class="field">
-      <label for="public-url">Public website URL</label>
-      <input id="public-url" name="seo[public_url]" value="<?= e($seo['public_url']) ?>" placeholder="https://cocohouse.in">
-      <p class="help">Used for the canonical link, sitemap and social share address. Keep the live https address, even while you preview on localhost.</p>
+    <div class="split">
+      <div class="field">
+        <label for="site-name">Site name</label>
+        <input id="site-name" name="seo[site_name]" maxlength="80" value="<?= e($seo['site_name']) ?>">
+      </div>
+      <div class="field">
+        <label for="public-url">Public website URL</label>
+        <input id="public-url" name="seo[public_url]" value="<?= e($seo['public_url']) ?>" placeholder="https://cocohouse.in">
+      </div>
     </div>
     <div class="field">
       <label for="default-description">Default description</label>
       <textarea id="default-description" name="seo[description]" maxlength="320"><?= e($seo['description']) ?></textarea>
-      <p class="help">Used only when a page has no description of its own.</p>
     </div>
     <div class="field">
       <label for="areas">Areas you serve</label>
       <input id="areas" name="seo[areas]" maxlength="300" value="<?= e($seo['areas']) ?>">
-      <p class="help">Comma-separated. These areas go into the search listing for every page. Example: Mulund, Mulund East, Thane, Kopri.</p>
     </div>
     <div class="field">
       <label for="default-image">Default share image</label>
       <input id="default-image" name="seo[image]" value="<?= e($seo['image']) ?>">
-      <p class="help">Shown when a page is shared and that page has no social image.</p>
     </div>
   </section>
 
@@ -96,11 +95,17 @@ admin_header('SEO', 'seo');
       <label for="bing-verification">Bing Webmaster code</label>
       <input id="bing-verification" name="seo[bing_verification]" value="<?= e($seo['bing_verification']) ?>">
     </div>
-    <div class="field">
-      <label for="analytics-id">Google Analytics or Tag Manager ID</label>
-      <input id="analytics-id" name="seo[analytics_id]" value="<?= e($seo['analytics_id']) ?>" placeholder="G-XXXXXXXX or GTM-XXXXXXX">
+    <div class="split">
+      <div class="field">
+        <label for="analytics-id">Google Analytics ID</label>
+        <input id="analytics-id" name="seo[analytics_id]" value="<?= e($seo['analytics_id']) ?>" placeholder="G-XXXXXXXX">
+      </div>
+      <div class="field">
+        <label for="gtm-id">Google Tag Manager ID</label>
+        <input id="gtm-id" name="seo[gtm_id]" value="<?= e($seo['gtm_id']) ?>" placeholder="GTM-XXXXXXX">
+      </div>
     </div>
-    <p class="help">Sitemap: <a href="/sitemap.xml" target="_blank" rel="noopener"><?= e($host) ?>/sitemap.xml</a><br>Robots: <a href="/robots.txt" target="_blank" rel="noopener"><?= e($host) ?>/robots.txt</a></p>
+    <p class="help">Use both if you have both. Analytics starts with G-. Tag Manager starts with GTM-.<br>Sitemap: <a href="/sitemap.xml" target="_blank" rel="noopener"><?= e($host) ?>/sitemap.xml</a> · Robots: <a href="/robots.txt" target="_blank" rel="noopener"><?= e($host) ?>/robots.txt</a></p>
   </section>
 
   <section class="editor-block">
@@ -113,24 +118,27 @@ admin_header('SEO', 'seo');
       <label for="instagram">Instagram</label>
       <input id="instagram" name="seo[instagram]" value="<?= e($seo['instagram']) ?>" placeholder="https://instagram.com/...">
     </div>
-    <div class="field">
-      <label for="twitter">X / Twitter handle</label>
-      <input id="twitter" name="seo[twitter]" value="<?= e($seo['twitter']) ?>" placeholder="cocohouse">
-    </div>
-    <div class="field">
-      <label for="youtube">YouTube</label>
-      <input id="youtube" name="seo[youtube]" value="<?= e($seo['youtube']) ?>" placeholder="https://youtube.com/...">
+    <div class="split">
+      <div class="field">
+        <label for="twitter">X / Twitter handle</label>
+        <input id="twitter" name="seo[twitter]" value="<?= e($seo['twitter']) ?>" placeholder="cocohouse">
+      </div>
+      <div class="field">
+        <label for="youtube">YouTube</label>
+        <input id="youtube" name="seo[youtube]" value="<?= e($seo['youtube']) ?>" placeholder="https://youtube.com/...">
+      </div>
     </div>
     <div class="field">
       <label for="linktree">Linktree</label>
       <input id="linktree" name="seo[linktree]" value="<?= e($seo['linktree']) ?>" placeholder="https://linktr.ee/...">
     </div>
   </section>
+  </div>
 
   <button class="btn btn-primary" type="submit">Save SEO</button>
 
-  <h2 style="margin:28px 0 12px;">Page SEO</h2>
-  <p class="lead">Open Advanced SEO on a page for the social title, canonical link, sitemap and extra structured data.</p>
+  <h2 style="margin:28px 0 8px;">Page SEO</h2>
+  <p class="lead">Two pages per row. Open Advanced SEO only when you need the social image, canonical link or sitemap switch.</p>
   <?php seo_admin_pages_markup($host); ?>
   <?php
     $posts = load_blog()['items'];
@@ -144,15 +152,21 @@ admin_header('SEO', 'seo');
     <?php if (!$posts): ?>
       <p class="empty">No posts yet.</p>
     <?php else: ?>
+      <div class="seo-posts">
       <?php foreach ($posts as $post): ?>
-        <div class="row" style="padding:12px 0;border-top:1px solid var(--line);">
+        <?php
+          $postTitle = trim((string) ($post['seo_title'] ?? '')) !== '' ? (string) $post['seo_title'] : (string) ($post['title'] ?? '');
+          $postScore = seo_score($postTitle, (string) ($post['excerpt'] ?? ''), (string) ($post['seo_keywords'] ?? ''), ($post['status'] ?? '') === 'published');
+        ?>
+        <a class="seo-post" href="/admin/blog-edit.php?id=<?= e($post['id'] ?? '') ?>">
+          <div class="seo-score <?= e(seo_score_class($postScore)) ?>"><?= $postScore ?></div>
           <div>
-            <strong style="color:#184a96;"><?= e($post['title'] ?? 'Untitled') ?></strong>
-            <p class="help" style="margin:4px 0 0;"><?= e(($post['seo_title'] ?? '') !== '' ? $post['seo_title'] : 'Search title follows the article title') ?></p>
+            <strong><?= e($post['title'] ?? 'Untitled') ?></strong>
+            <p class="help"><?= e(($post['seo_title'] ?? '') !== '' ? $post['seo_title'] : 'Search title follows the article title') ?></p>
           </div>
-          <a class="btn btn-ghost" href="/admin/blog-edit.php?id=<?= e($post['id'] ?? '') ?>">Edit SEO</a>
-        </div>
+        </a>
       <?php endforeach; ?>
+      </div>
     <?php endif; ?>
   </section>
 

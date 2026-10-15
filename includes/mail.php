@@ -38,32 +38,151 @@ function enquiry_recipients(): array
     return array_values(array_unique($clean));
 }
 
+function enquiry_field(array $item, string $key): string
+{
+    $value = trim((string) ($item[$key] ?? ''));
+    return $value !== '' ? $value : '—';
+}
+
+function enquiry_ad(array $item, string $key): string
+{
+    $ads = is_array($item['ads'] ?? null) ? $item['ads'] : [];
+    $value = trim((string) ($ads[$key] ?? ''));
+    return $value !== '' ? $value : '—';
+}
+
+function enquiry_admin_url(): string
+{
+    $data = read_json(COCO_STORAGE . '/pages.json', []);
+    $seo = is_array($data['site']['seo'] ?? null) ? $data['site']['seo'] : [];
+    $url = trim((string) ($seo['public_url'] ?? ''));
+    if (!preg_match('#^https://#i', $url)) {
+        $url = 'https://cocohouse.in';
+    }
+    return rtrim($url, '/') . '/admin/enquiries.php';
+}
+
+function enquiry_mail_text(string $value): string
+{
+    return e($value);
+}
+
+function enquiry_mail_link(string $href, string $label): string
+{
+    return '<a href="' . e($href) . '" style="color:#184a96;text-decoration:underline;">' . e($label) . '</a>';
+}
+
+function enquiry_mail_row(string $label, string $valueHtml): string
+{
+    return '<tr>'
+        . '<td width="180" style="width:180px;background:#f3f6fb;padding:14px 16px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.4;font-weight:700;color:#3d4b63;border-bottom:1px solid #ffffff;vertical-align:middle;">'
+        . e($label)
+        . '</td>'
+        . '<td style="padding:14px 16px;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.45;color:#1c2433;border-bottom:1px solid #eef1f6;vertical-align:middle;word-break:break-word;">'
+        . $valueHtml
+        . '</td>'
+        . '</tr>';
+}
+
 function enquiry_message(array $item): array
 {
     $labels = enquiry_labels();
     $type = $labels[$item['type'] ?? ''] ?? 'Enquiry';
-    $who = trim((string) ($item['parentName'] ?? ''));
-    if ($who === '') {
-        $who = trim((string) ($item['childName'] ?? '')) ?: 'Parent';
-    }
-    $subject = mail_header('Cocohouse enquiry: ' . $type . ' — ' . $who);
-    $rows = [
+    $program = enquiry_field($item, 'program');
+    $parent = enquiry_field($item, 'parentName');
+    $child = enquiry_field($item, 'childName');
+    $age = enquiry_field($item, 'childAge');
+    $phone = enquiry_field($item, 'phone');
+    $email = enquiry_field($item, 'email');
+    $message = enquiry_field($item, 'message');
+    $page = enquiry_ad($item, 'landing');
+    $source = enquiry_ad($item, 'utm_source');
+    $medium = enquiry_ad($item, 'utm_medium');
+    $campaign = enquiry_ad($item, 'utm_campaign');
+    $gclid = enquiry_ad($item, 'gclid');
+    $who = $parent !== '—' ? $parent : ($child !== '—' ? $child : '—');
+    $subjectProgram = $program;
+    $subject = mail_header('Cocohouse Enquiry | ' . $type . ' | ' . $subjectProgram . ' | ' . $who);
+
+    $created = (string) ($item['created_at'] ?? '');
+    $ts = strtotime($created);
+    $when = $ts ? date('M j, Y', $ts) . ' · ' . date('g:i A', $ts) : format_when($created);
+    $received = format_when($created);
+
+    $plain = implode("\n", [
         'New enquiry from the Cocohouse website',
         '',
         'Type: ' . $type,
-        'Parent: ' . (($item['parentName'] ?? '') !== '' ? $item['parentName'] : '—'),
-        'Child: ' . (($item['childName'] ?? '') !== '' ? $item['childName'] : '—'),
-        'Age: ' . (($item['childAge'] ?? '') !== '' ? $item['childAge'] : '—'),
-        'Program: ' . (($item['program'] ?? '') !== '' ? $item['program'] : '—'),
-        'Mobile: ' . (($item['phone'] ?? '') !== '' ? $item['phone'] : '—'),
-        'Email: ' . (($item['email'] ?? '') !== '' ? $item['email'] : '—'),
-        'Message: ' . (($item['message'] ?? '') !== '' ? $item['message'] : '—'),
-        'Page: ' . (($item['ads']['landing'] ?? '') !== '' ? $item['ads']['landing'] : '—'),
-        'Campaign: ' . (($item['ads']['utm_campaign'] ?? '') !== '' ? $item['ads']['utm_campaign'] : '—'),
-        'Google click: ' . (($item['ads']['gclid'] ?? '') !== '' ? $item['ads']['gclid'] : '—'),
-        'Received: ' . format_when((string) ($item['created_at'] ?? '')),
-    ];
-    return [$subject, implode("\n", $rows)];
+        'Parent: ' . $parent,
+        'Child: ' . $child,
+        'Age: ' . $age,
+        'Program: ' . $program,
+        'Mobile: ' . $phone,
+        'Email: ' . $email,
+        'Message: ' . $message,
+        'Page: ' . $page,
+        'Source: ' . $source,
+        'Medium: ' . $medium,
+        'Campaign: ' . $campaign,
+        'Google click: ' . $gclid,
+        'Received: ' . $received,
+        '',
+        'Admin: ' . enquiry_admin_url(),
+    ]);
+
+    $phoneHtml = $phone === '—'
+        ? enquiry_mail_text('—')
+        : enquiry_mail_link('tel:' . preg_replace('/[^\d+]/', '', $phone), $phone);
+    $emailHtml = filter_var($email, FILTER_VALIDATE_EMAIL)
+        ? enquiry_mail_link('mailto:' . $email, $email)
+        : enquiry_mail_text($email);
+    $adminUrl = enquiry_admin_url();
+
+    $rows = enquiry_mail_row('Parent Name', enquiry_mail_text($parent))
+        . enquiry_mail_row('Child Name', enquiry_mail_text($child))
+        . enquiry_mail_row('Child Age', enquiry_mail_text($age))
+        . enquiry_mail_row('Phone', $phoneHtml)
+        . enquiry_mail_row('Email', $emailHtml)
+        . enquiry_mail_row('Program', enquiry_mail_text($program))
+        . enquiry_mail_row('Message', enquiry_mail_text($message))
+        . enquiry_mail_row('Page', enquiry_mail_text($page))
+        . ($source === '—' ? '' : enquiry_mail_row('Source', enquiry_mail_text($source)))
+        . ($medium === '—' ? '' : enquiry_mail_row('Medium', enquiry_mail_text($medium)))
+        . ($campaign === '—' ? '' : enquiry_mail_row('Campaign', enquiry_mail_text($campaign)))
+        . ($gclid === '—' ? '' : enquiry_mail_row('Google click', enquiry_mail_text($gclid)));
+
+    $html = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>'
+        . '<body style="margin:0;padding:0;background:#eef2f6;">'
+        . '<div style="display:none;max-height:0;overflow:hidden;opacity:0;">New enquiry from ' . e($who) . ' — ' . e($program) . '</div>'
+        . '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#eef2f6;margin:0;padding:0;">'
+        . '<tr><td align="center" style="padding:28px 12px;">'
+        . '<table role="presentation" width="560" cellpadding="0" cellspacing="0" style="width:560px;max-width:560px;background:#ffffff;border-radius:18px;overflow:hidden;">'
+        . '<tr><td style="background:#184a96;padding:28px 28px 24px;">'
+        . '<div style="font-family:Arial,Helvetica,sans-serif;font-size:26px;line-height:1.25;font-weight:700;color:#ffffff;">&#128276; New Enquiry Received</div>'
+        . '<div style="margin-top:8px;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.4;color:#dbe7fb;">' . e($type) . ' · ' . e($when) . '</div>'
+        . '</td></tr>'
+        . '<tr><td style="padding:22px 22px 6px;">'
+        . '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">'
+        . $rows
+        . '</table>'
+        . '</td></tr>'
+        . '<tr><td style="padding:16px 22px 8px;">'
+        . '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#fff8e6;border-left:4px solid #f4d000;border-radius:8px;">'
+        . '<tr><td style="padding:14px 16px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.45;color:#8a5a12;">'
+        . '&#128222; <strong style="color:#8a4b08;">Action needed:</strong> Please respond within 24 hours.'
+        . '</td></tr></table>'
+        . '</td></tr>'
+        . '<tr><td align="center" style="padding:18px 22px 28px;">'
+        . '<table role="presentation" cellpadding="0" cellspacing="0"><tr>'
+        . '<td style="background:#184a96;border-radius:10px;">'
+        . '<a href="' . e($adminUrl) . '" style="display:inline-block;padding:12px 22px;font-family:Arial,Helvetica,sans-serif;font-size:15px;font-weight:700;color:#ffffff;text-decoration:none;">View in Admin Panel →</a>'
+        . '</td></tr></table>'
+        . '</td></tr>'
+        . '</table>'
+        . '</td></tr></table>'
+        . '</body></html>';
+
+    return [$subject, $plain, $html];
 }
 
 function send_enquiry_emails(array $item): bool
@@ -84,14 +203,24 @@ function send_enquiry_emails(array $item): bool
         $reply = $fromEmail;
     }
 
-    [$subject, $body] = enquiry_message($item);
+    [$subject, $plain, $html] = enquiry_message($item);
+    $boundary = 'coco_' . bin2hex(random_bytes(8));
     $encodedSubject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
     $headers = implode("\r\n", [
         'MIME-Version: 1.0',
-        'Content-Type: text/plain; charset=UTF-8',
+        'Content-Type: multipart/alternative; boundary="' . $boundary . '"',
         'From: ' . $fromName . ' <' . $fromEmail . '>',
         'Reply-To: ' . $reply,
     ]);
+    $body = "--{$boundary}\r\n"
+        . "Content-Type: text/plain; charset=UTF-8\r\n"
+        . "Content-Transfer-Encoding: 8bit\r\n\r\n"
+        . $plain . "\r\n"
+        . "--{$boundary}\r\n"
+        . "Content-Type: text/html; charset=UTF-8\r\n"
+        . "Content-Transfer-Encoding: 8bit\r\n\r\n"
+        . $html . "\r\n"
+        . "--{$boundary}--";
 
     $sentAll = true;
     foreach ($recipients as $to) {

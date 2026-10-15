@@ -35,10 +35,13 @@ function admin_header(string $title, string $active): void
 <body>
   <div class="shell">
     <aside class="side">
-      <a class="side-brand" href="/admin/dashboard.php">
-        <img src="<?= e(media_src('logo')) ?>" alt="Cocohouse">
-        <span><?= e(user_roles()[$role] ?? 'Admin') ?></span>
-      </a>
+      <div class="side-brand">
+        <a href="/admin/dashboard.php">
+          <img src="<?= e(media_src('logo')) ?>" alt="Cocohouse">
+          <span><?= e(user_roles()[$role] ?? 'Admin') ?></span>
+        </a>
+        <button class="side-toggle" type="button" id="adminMenu" aria-label="Open admin menu">Menu</button>
+      </div>
       <nav>
         <?php foreach ($nav as $key => $item): ?>
           <?php if (!user_can($role, $key)) { continue; } ?>
@@ -47,7 +50,7 @@ function admin_header(string $title, string $active): void
       </nav>
       <div class="side-foot">
         <a href="/" target="_blank" rel="noopener">View website</a>
-        <a href="/admin/logout.php">Log out</a>
+        <a class="logout" href="/admin/logout.php">Log out</a>
       </div>
     </aside>
     <div class="content">
@@ -57,6 +60,7 @@ function admin_header(string $title, string $active): void
           <?php if ($account): ?>
             <span class="who"><?= e($account['name']) ?></span>
           <?php endif; ?>
+          <a class="btn btn-logout" href="/admin/logout.php">Log out</a>
           <a class="btn btn-ghost" href="/" target="_blank" rel="noopener">Open site</a>
         </div>
       </div>
@@ -76,6 +80,18 @@ function admin_footer(): void
       </main>
     </div>
   </div>
+  <script>
+  (function () {
+    var button = document.getElementById('adminMenu');
+    var side = document.querySelector('.side');
+    if (!button || !side) return;
+    button.addEventListener('click', function () {
+      var open = side.classList.toggle('menu-open');
+      button.setAttribute('aria-label', open ? 'Close admin menu' : 'Open admin menu');
+      button.textContent = open ? 'Close' : 'Menu';
+    });
+  })();
+  </script>
 </body>
 </html>
     <?php

@@ -88,7 +88,8 @@ admin_header('Enquiries', 'enquiries');
 </nav>
 <?php if (!$visible): ?>
   <section class="card empty"><?= $items ? 'No enquiries for this program.' : 'No enquiries yet.' ?></section>
-<?php endif; ?>
+<?php else: ?>
+<div class="enquiry-grid">
 <?php foreach ($visible as $item): ?>
   <article class="enquiry">
     <header>
@@ -140,4 +141,6 @@ admin_header('Enquiries', 'enquiries');
     </div>
   </article>
 <?php endforeach; ?>
+</div>
+<?php endif; ?>
 <?php admin_footer();

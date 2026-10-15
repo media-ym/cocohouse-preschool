@@ -29,11 +29,11 @@ $authorUrl = '/author/' . rawurlencode($authorSlug);
   <?php
     $seoTitle = trim((string) ($post['seo_title'] ?? ''));
     if ($seoTitle === '') {
-        $seoTitle = $title . ' | Cocohouse, Mulund East';
+        $seoTitle = $title . ' | Cocohouse, Thane East';
     }
     $seoKeywords = trim((string) ($post['seo_keywords'] ?? ''));
     if ($seoKeywords === '') {
-        $seoKeywords = 'best daycare in thane east, best daycare in mulund, best preschool in mulund east, daycare Hari Om Nagar';
+        $seoKeywords = 'best daycare in thane east, best daycare in mulund, best preschool in thane east, daycare Hari Om Nagar';
     }
   ?>
   <title><?= e($seoTitle) ?></title>
@@ -154,7 +154,7 @@ $authorUrl = '/author/' . rawurlencode($authorSlug);
         <a href="/contact" class="btn btn-yellow">Book a Visit →</a>
       <?php endif; ?>
     </div>
-    <p class="blog-excerpt">Cocohouse is in Hari Om Nagar, Mulund East. Parents nearby also look for the best daycare in Thane East and the best preschool in Mulund.</p>
+    <p class="blog-excerpt">Cocohouse is in Hari Om Nagar, Thane East. Parents nearby also look for the best daycare in Thane East and the best preschool in Mulund.</p>
   </div>
 </article>
 
@@ -200,7 +200,7 @@ $related = array_slice($related, 0, 3);
         <img src="/assets/images/school-emblem.png" alt="Cocohouse Preschool" class="footer-logo">
         <h3>Cocohouse Preschool & Daycare</h3>
         <p>Nurturing Little Minds through Thematic Learning, Coding Phonics, CPA Maths & Holistic Development.</p>
-        <p>Preschool and daycare in Hari Om Nagar, Mulund East, for families in Mulund, Thane, Thane East and Kopri.</p>
+        <p>Preschool and daycare in Hari Om Nagar, Thane East, for families in Mulund, Thane, Thane East and Kopri.</p>
       </div>
       <div>
         <h4>Quick Links</h4>
@@ -228,9 +228,10 @@ $related = array_slice($related, 0, 3);
       </div>
       <div>
         <h4>Contact Us</h4>
-        <p>Row House No 3, Millenium Park, Hari Om Nagar, Mulund East, Mumbai-400081</p>
+        <p>Row House No 3, Millenium Park, Hari Om Nagar, Thane East, Mumbai-400081</p>
         <p><a href="tel:+917039152173">+91-7039152173</a></p>
         <p><a href="mailto:info@cocohouse.in">info@cocohouse.in</a></p>
+        <a class="footer-admin" href="/login">Admin Login</a>
       </div>
     </div>
     <div class="footer-bottom">

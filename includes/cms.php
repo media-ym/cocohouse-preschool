@@ -170,12 +170,12 @@ function apply_site_details(string $html): string
     }
     if ($address !== '') {
         $html = str_replace(
-            'Row House No 3, Millenium Park, Hari Om Nagar, Mulund East, Mumbai-400081',
+            'Row House No 3, Millenium Park, Hari Om Nagar, Thane East, Mumbai-400081',
             e($address),
             $html
         );
         $html = str_replace(
-            'Row House No 3, Millenium Park, Hari Om Nagar, Mulund East, Mumbai - 400081',
+            'Row House No 3, Millenium Park, Hari Om Nagar, Thane East, Mumbai - 400081',
             e($address),
             $html
         );

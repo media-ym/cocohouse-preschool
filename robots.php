@@ -7,6 +7,7 @@ header('Content-Type: text/plain; charset=UTF-8');
 echo "User-agent: *\n";
 echo "Allow: /\n";
 echo "Disallow: /admin/\n";
+echo "Disallow: /login\n";
 echo "Disallow: /storage/\n";
 echo "Disallow: /includes/\n";
 echo "Disallow: /api/\n";

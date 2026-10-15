@@ -166,10 +166,13 @@ function setupForm(formId, apiEndpoint, options) {
       message: 'Message'
     };
     var typeLabels = {
-      admission: 'Admission Enquiry',
-      school_visit: 'School Visit',
-      daycare: 'Daycare Enquiry',
-      contact: 'Contact Enquiry'
+      home_hero: 'Home Hero Section Form',
+      admission_page: 'Admission Page Form',
+      popup: 'Popup Form',
+      school_visit: 'School Visit Footer Form',
+      daycare: 'Daycare Page Form',
+      contact: 'Contact Page Form',
+      special_education: 'Special Ed Form'
     };
     var lines = ['Hello Cocohouse Preschool,'];
     lines.push('Enquiry: ' + (typeLabels[options.type] || 'Website Enquiry'));
@@ -505,8 +508,42 @@ function cocoTrackLinks() {
   });
 }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', cocoTrackLinks);
-} else {
+function initBlogView() {
+  var box = document.getElementById('blogPosts');
+  var bar = document.querySelector('.blog-view');
+  if (!box || !bar) return;
+  bar.addEventListener('click', function (event) {
+    var button = event.target.closest('button[data-view]');
+    if (!button) return;
+    var list = button.getAttribute('data-view') === 'list';
+    box.classList.toggle('is-list', list);
+    bar.querySelectorAll('button').forEach(function (item) {
+      item.classList.toggle('active', item === button);
+    });
+  });
+}
+
+function initFlipCards() {
+  document.querySelectorAll('.se-type').forEach(function (card) {
+    card.addEventListener('click', function () {
+      card.classList.toggle('is-flipped');
+    });
+    card.addEventListener('keydown', function (event) {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      event.preventDefault();
+      card.classList.toggle('is-flipped');
+    });
+  });
+}
+
+function initPageExtras() {
   cocoTrackLinks();
+  initBlogView();
+  initFlipCards();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initPageExtras);
+} else {
+  initPageExtras();
 }

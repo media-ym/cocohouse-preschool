@@ -196,7 +196,11 @@ function media_catalog(): array
     return [
         'logo' => ['label' => 'Logo', 'src' => '/assets/images/logo.webp', 'where' => 'Header and footer on every page'],
         'story' => ['label' => 'Joyful learning', 'src' => '/assets/images/joyful-learning.webp', 'where' => 'Home and About'],
-        'campus' => ['label' => 'Preschool & Daycare', 'src' => '/assets/images/campus.jpg', 'where' => 'Home, Daycare and Gallery'],
+        'campus' => ['label' => 'Preschool & Daycare', 'src' => '/assets/images/campus.jpg', 'where' => 'Home, Daycare, Gallery and Special education'],
+        'se-session' => ['label' => 'One-to-one session', 'src' => '/assets/images/se-session.jpg', 'where' => 'Special education'],
+        'se-talk' => ['label' => 'Picture-based learning', 'src' => '/assets/images/se-talk.jpg', 'where' => 'Special education'],
+        'se-play' => ['label' => 'Hands-on play', 'src' => '/assets/images/se-play.jpg', 'where' => 'Special education'],
+        'se-down' => ['label' => 'Down syndrome session', 'src' => '/assets/images/se-down.jpg', 'where' => 'Special education'],
         'principal' => ['label' => 'Principal', 'src' => '/assets/images/principal.webp', 'where' => 'Home and Gallery'],
         'yt-nitisha' => ['label' => 'Nitisha & Vijay', 'src' => 'https://img.youtube.com/vi/tMTFDT_VD_o/hqdefault.jpg', 'where' => 'Home and Gallery testimonial'],
         'yt-anirudh' => ['label' => 'Anirudh & Shilpa', 'src' => 'https://img.youtube.com/vi/WQ4MrEJBD8E/hqdefault.jpg', 'where' => 'Home and Gallery testimonial'],
@@ -346,7 +350,7 @@ function inject_entry_popup(string $html): string
   }, 600);
   if (typeof setupForm === 'function') {
     setupForm('cocoPopupForm', '/api/submit-enquiry.php', {
-      type: 'admission',
+      type: 'popup',
       successTitle: 'Enquiry received',
       successDesc: 'Thank you. Cocohouse will call you within 24 hours.',
       onSuccess: closePopup
