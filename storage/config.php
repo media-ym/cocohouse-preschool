@@ -7,6 +7,8 @@ return array (
   array (
     0 => 'cocohousepreschool@gmail.com',
     1 => 'info@cocohouse.in',
+    2 => 'pratheeksha.msw@gmail.com',
+    3 => 'yunickmedia@gmail.com',
   ),
   'from_email' => 'info@cocohouse.in',
   'from_name' => 'Cocohouse Preschool',

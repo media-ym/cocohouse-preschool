@@ -180,10 +180,111 @@ function enquiry_message(array $item): array
     return [$subject, $plain, $html];
 }
 
+function mail_last_error(): string
+{
+    return (string) ($GLOBALS['coco_mail_error'] ?? '');
+}
+
+function mail_set_error(string $message): void
+{
+    $message = trim(preg_replace('/\s+/', ' ', $message) ?? '');
+    if ($message === '') {
+        $message = 'The mail server did not accept this message.';
+    }
+    $GLOBALS['coco_mail_error'] = function_exists('mb_substr') ? mb_substr($message, 0, 240) : substr($message, 0, 240);
+}
+
+function mail_subject(string $subject): string
+{
+    $subject = mail_header($subject);
+    if ($subject === '' || !preg_match('/[^\x20-\x7E]/', $subject)) {
+        return $subject;
+    }
+    $parts = [];
+    $buffer = '';
+    $chars = preg_split('//u', $subject, -1, PREG_SPLIT_NO_EMPTY);
+    if (!is_array($chars)) {
+        return $subject;
+    }
+    foreach ($chars as $char) {
+        $next = $buffer . $char;
+        $encoded = '=?UTF-8?B?' . base64_encode($next) . '?=';
+        if (strlen($encoded) > 75 && $buffer !== '') {
+            $parts[] = '=?UTF-8?B?' . base64_encode($buffer) . '?=';
+            $buffer = $char;
+            continue;
+        }
+        $buffer = $next;
+    }
+    if ($buffer !== '') {
+        $parts[] = '=?UTF-8?B?' . base64_encode($buffer) . '?=';
+    }
+    return implode("\r\n ", $parts);
+}
+
+function deliver_mail(string $to, string $subject, string $plain, string $html, string $fromEmail, string $fromName, string $replyTo): bool
+{
+    $to = mail_header($to);
+    if (!filter_var($to, FILTER_VALIDATE_EMAIL)) {
+        mail_set_error('A notification address is not a valid email.');
+        return false;
+    }
+    if (!can_send_mail()) {
+        mail_set_error('PHP mail is turned off on this server.');
+        return false;
+    }
+    $fromName = trim(str_replace('"', '', mail_header($fromName)));
+    if ($fromName === '') {
+        $fromName = 'Cocohouse Preschool';
+    }
+    $domain = 'cocohouse.in';
+    $at = strrchr($fromEmail, '@');
+    if (is_string($at) && strlen($at) > 1) {
+        $domain = substr($at, 1);
+    }
+    $boundary = 'coco_' . bin2hex(random_bytes(8));
+    $headers = [
+        'MIME-Version: 1.0',
+        'Date: ' . date('r'),
+        'Message-ID: <' . bin2hex(random_bytes(8)) . '@' . $domain . '>',
+        'From: "' . $fromName . '" <' . $fromEmail . '>',
+        'Reply-To: ' . $replyTo,
+        'Content-Type: multipart/alternative; boundary="' . $boundary . '"',
+    ];
+    $body = "--{$boundary}\r\n"
+        . "Content-Type: text/plain; charset=UTF-8\r\n"
+        . "Content-Transfer-Encoding: quoted-printable\r\n\r\n"
+        . quoted_printable_encode($plain) . "\r\n"
+        . "--{$boundary}\r\n"
+        . "Content-Type: text/html; charset=UTF-8\r\n"
+        . "Content-Transfer-Encoding: quoted-printable\r\n\r\n"
+        . quoted_printable_encode($html) . "\r\n"
+        . "--{$boundary}--\r\n";
+    $headerText = implode("\r\n", $headers);
+    $encodedSubject = mail_subject($subject);
+    $sent = @mail($to, $encodedSubject, $body, $headerText, '-f ' . $fromEmail);
+    if (!$sent) {
+        $sent = @mail($to, $encodedSubject, $body, $headerText);
+    }
+    if ($sent) {
+        $GLOBALS['coco_mail_error'] = '';
+        return true;
+    }
+    $last = error_get_last();
+    $reason = is_array($last) ? (string) ($last['message'] ?? '') : '';
+    mail_set_error(stripos($reason, 'mail') !== false ? $reason : 'The mail server did not accept this message.');
+    return false;
+}
+
 function send_enquiry_emails(array $item): bool
 {
     $recipients = enquiry_recipients();
-    if (!$recipients || !can_send_mail()) {
+    if (!$recipients) {
+        mail_set_error('No notification email is saved in the site settings.');
+        return false;
+    }
+    if (!can_send_mail()) {
+        mail_set_error('PHP mail is turned off on this server.');
         return false;
     }
 
@@ -199,31 +300,9 @@ function send_enquiry_emails(array $item): bool
     }
 
     [$subject, $plain, $html] = enquiry_message($item);
-    $boundary = 'coco_' . bin2hex(random_bytes(8));
-    $encodedSubject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
-    $headers = implode("\r\n", [
-        'MIME-Version: 1.0',
-        'Content-Type: multipart/alternative; boundary="' . $boundary . '"',
-        'From: ' . $fromName . ' <' . $fromEmail . '>',
-        'Reply-To: ' . $reply,
-    ]);
-    $body = "--{$boundary}\r\n"
-        . "Content-Type: text/plain; charset=UTF-8\r\n"
-        . "Content-Transfer-Encoding: 8bit\r\n\r\n"
-        . $plain . "\r\n"
-        . "--{$boundary}\r\n"
-        . "Content-Type: text/html; charset=UTF-8\r\n"
-        . "Content-Transfer-Encoding: 8bit\r\n\r\n"
-        . $html . "\r\n"
-        . "--{$boundary}--";
-
     $sentAll = true;
     foreach ($recipients as $to) {
-        $sent = @mail($to, $encodedSubject, $body, $headers, '-f ' . $fromEmail);
-        if (!$sent) {
-            $sent = @mail($to, $encodedSubject, $body, $headers);
-        }
-        if (!$sent) {
+        if (!deliver_mail($to, $subject, $plain, $html, $fromEmail, $fromName, $reply)) {
             $sentAll = false;
         }
     }

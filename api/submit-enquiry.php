@@ -104,19 +104,23 @@ try {
     echo json_encode(['success' => false, 'error' => 'Could not store this securely. Please call the school.']);
     exit;
 }
-if (send_enquiry_emails($item)) {
-    try {
-        $data = load_enquiries();
-        foreach ($data['items'] as $index => $existing) {
-            if (($existing['id'] ?? '') === $item['id']) {
-                $data['items'][$index]['emailed'] = true;
-                break;
+$sent = send_enquiry_emails($item);
+try {
+    $data = load_enquiries();
+    foreach ($data['items'] as $index => $existing) {
+        if (($existing['id'] ?? '') === $item['id']) {
+            $data['items'][$index]['emailed'] = $sent;
+            if ($sent) {
+                unset($data['items'][$index]['mail_error']);
+            } else {
+                $data['items'][$index]['mail_error'] = mail_last_error();
             }
+            break;
         }
-        save_enquiries($data);
-    } catch (RuntimeException $error) {
-        // The enquiry is already stored.
     }
+    save_enquiries($data);
+} catch (RuntimeException $error) {
+    // The enquiry is already stored.
 }
 
 echo json_encode(['success' => true]);

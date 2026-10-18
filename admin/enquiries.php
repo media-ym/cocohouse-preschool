@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../includes/admin-layout.php';
+require_once __DIR__ . '/../includes/mail.php';
 require_section('enquiries');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -10,6 +11,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = load_enquiries();
     $next = [];
     $found = false;
+    $notice = 'Enquiry updated.';
+    $noticeType = 'ok';
     foreach ($data['items'] as $item) {
         if (($item['id'] ?? '') !== $id) {
             $next[] = $item;
@@ -17,19 +20,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         $found = true;
         if ($action === 'delete') {
+            $notice = 'Enquiry deleted.';
             continue;
         }
         if ($action === 'contacted') {
             $item['status'] = 'contacted';
         } elseif ($action === 'new') {
             $item['status'] = 'new';
+        } elseif ($action === 'email') {
+            if (send_enquiry_emails($item)) {
+                $item['emailed'] = true;
+                unset($item['mail_error']);
+                $notice = 'Enquiry email sent.';
+            } else {
+                $item['emailed'] = false;
+                $item['mail_error'] = mail_last_error() !== '' ? mail_last_error() : 'The mail server did not accept this message.';
+                $notice = $item['mail_error'];
+                $noticeType = 'error';
+            }
         }
         $next[] = $item;
     }
     if ($found) {
         $data['items'] = $next;
         save_enquiries($data);
-        flash($action === 'delete' ? 'Enquiry deleted.' : 'Enquiry updated.');
+        flash($notice, $noticeType);
     }
     $back = '/admin/enquiries.php';
     $returnProgram = trim((string) ($_POST['return_program'] ?? ''));
@@ -79,7 +94,7 @@ if ($active !== '') {
 admin_header('Enquiries', 'enquiries');
 ?>
 <h1>Enquiries</h1>
-<p class="lead"><?= count($items) ?> saved from the website forms. Each one is also emailed to cocohousepreschool@gmail.com and info@cocohouse.in.</p>
+<p class="lead"><?= count($items) ?> saved from the website forms. Each one is also emailed to <?= e(implode(', ', enquiry_recipients())) ?>.</p>
 <nav class="filters">
   <a class="<?= $active === '' ? 'active' : '' ?>" href="/admin/enquiries.php">All <b><?= count($items) ?></b></a>
   <?php foreach ($filters as $name => $count): ?>
@@ -122,7 +137,15 @@ admin_header('Enquiries', 'enquiries');
         <dt>Ad</dt><dd><?= e(trim(($item['ads']['utm_source'] ?? '') . ' ' . ($item['ads']['utm_campaign'] ?? '')) ?: ($item['ads']['landing'] ?? 'Landing page')) ?></dd>
       <?php endif; ?>
     </dl>
+    <?php if (!empty($item['mail_error'])): ?><p class="help"><?= e((string) $item['mail_error']) ?></p><?php endif; ?>
     <div class="actions">
+      <form method="post">
+        <?= csrf_field() ?>
+        <input type="hidden" name="id" value="<?= e($item['id'] ?? '') ?>">
+        <input type="hidden" name="return_program" value="<?= e($active) ?>">
+        <input type="hidden" name="action" value="email">
+        <button class="btn btn-ghost" type="submit"><?= empty($item['emailed']) ? 'Send email' : 'Send again' ?></button>
+      </form>
       <?php if (($item['status'] ?? 'new') !== 'contacted'): ?>
         <form method="post">
           <?= csrf_field() ?>

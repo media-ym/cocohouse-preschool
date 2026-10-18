@@ -206,7 +206,7 @@ function dpdp_notice_body(): string
         . '</ul><h2>How long</h2>'
         . '<p>Proposed retention, still to be confirmed by the school and a lawyer: enquiry and consent records are kept while the enquiry is open, and not longer than 24 months after the last contact, unless a law requires a longer period. A data-rights request is kept until it is answered, and then for up to 24 months as a record of that answer. Analytics retention is set inside Google and Microsoft accounts and is not fixed by this website.</p>'
         . '<h2>Who else receives it</h2><ul>'
-        . '<li>Cocohouse staff who answer enquiries, at ' . $email . ' and cocohousepreschool@gmail.com.</li>'
+        . '<li>Cocohouse staff who answer enquiries, at ' . $email . ', cocohousepreschool@gmail.com, pratheeksha.msw@gmail.com, and yunickmedia@gmail.com.</li>'
         . '<li>The hosting company stores the website files, including enquiry records, on the server.</li>'
         . '<li>If the site email fails, your browser may open WhatsApp with the same enquiry text. WhatsApp is operated by Meta.</li>'
         . '<li>Google Fonts loads the typeface. Google Analytics and Tag Manager load only after you accept analytics.</li>'
