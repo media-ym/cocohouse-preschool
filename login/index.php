@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <title>Admin Login | Cocohouse</title>
   <link rel="icon" href="/assets/images/logo.webp">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/admin/admin.css">
+  <link rel="stylesheet" href="/admin/admin.css?v=20261016">
 </head>
 <body class="login-page">
   <div class="login-card">
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h1>Admin login</h1>
     <p class="lead">Manage enquiries and blog posts.</p>
     <?php if ($error): ?><div class="flash error"><?= e($error) ?></div><?php endif; ?>
-    <form method="post" action="/login">
+    <form method="post" action="/login/">
       <?= csrf_field() ?>
       <div class="field">
         <label for="username">Username</label>

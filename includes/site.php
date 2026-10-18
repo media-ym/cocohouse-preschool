@@ -317,6 +317,10 @@ function inject_entry_popup(string $html): string
           <option>Special Education</option>
         </select>
       </div>
+      <div class="consent-box">
+        <label class="consent-line"><input type="checkbox" name="consent_enquiry" value="1" required><span>Required. I am the parent or guardian. Use my details and my child's name and age to reply. <a href="/privacy-notice">Privacy notice</a>.</span></label>
+        <label class="consent-line"><input type="checkbox" name="consent_updates" value="1"><span>Optional. Send admission or daycare updates by phone, email, or WhatsApp.</span></label>
+      </div>
       <button class="btn-submit" type="submit">Get a Call Back</button>
     </form>
   </div>

@@ -13,12 +13,7 @@ function can_send_mail(): bool
         return false;
     }
     $disabled = array_map('trim', explode(',', (string) ini_get('disable_functions')));
-    if (in_array('mail', $disabled, true)) {
-        return false;
-    }
-    $sendmail = trim((string) ini_get('sendmail_path'));
-    $binary = strtok($sendmail, ' ');
-    return is_string($binary) && $binary !== '' && is_executable($binary);
+    return !in_array('mail', $disabled, true);
 }
 
 function enquiry_recipients(): array
@@ -225,6 +220,9 @@ function send_enquiry_emails(array $item): bool
     $sentAll = true;
     foreach ($recipients as $to) {
         $sent = @mail($to, $encodedSubject, $body, $headers, '-f ' . $fromEmail);
+        if (!$sent) {
+            $sent = @mail($to, $encodedSubject, $body, $headers);
+        }
         if (!$sent) {
             $sentAll = false;
         }

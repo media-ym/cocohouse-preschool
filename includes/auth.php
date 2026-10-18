@@ -75,7 +75,7 @@ function require_login(): void
     start_admin_session();
     if (!current_admin()) {
         $_SESSION = [];
-        header('Location: /login');
+        header('Location: /login/');
         exit;
     }
 }

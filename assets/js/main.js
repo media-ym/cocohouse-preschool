@@ -44,7 +44,7 @@
 (function () {
   document.querySelectorAll('.footer h4').forEach(function (heading) {
     var label = heading.textContent.trim();
-    if (label !== 'Quick Links' && label !== 'Our Programs') return;
+    if (label !== 'Quick Links' && label !== 'Our Programs' && label !== 'Policies') return;
     var box = heading.parentElement;
     box.classList.add('footer-fold');
     heading.setAttribute('role', 'button');
@@ -194,15 +194,6 @@ function setupForm(formId, apiEndpoint, options) {
     });
     data.landing = window.location.pathname;
 
-    var labels = {
-      childName: "Child's Name",
-      childAge: "Child's Age",
-      program: 'Program',
-      parentName: "Parent's Name",
-      phone: 'Mobile',
-      email: 'Email',
-      message: 'Message'
-    };
     var typeLabels = {
       home_hero: 'Home Hero Section Form',
       admission_page: 'Admission Page Form',
@@ -212,14 +203,6 @@ function setupForm(formId, apiEndpoint, options) {
       contact: 'Contact Page Form',
       special_education: 'Special Ed Form'
     };
-    var lines = ['Hello Cocohouse Preschool,'];
-    lines.push('Enquiry: ' + (typeLabels[options.type] || 'Website Enquiry'));
-    lines.push('Source: ' + (new URLSearchParams(window.location.search).get('utm_source') || 'website'));
-    var skipKeys = { type: 1, company: 1, gclid: 1, gbraid: 1, wbraid: 1, utm_source: 1, utm_medium: 1, utm_campaign: 1, utm_term: 1, utm_content: 1, landing: 1, consent_enquiry: 1, consent_updates: 1, consent_support: 1, consent_rights: 1, captcha_token: 1, captcha_answer: 1 };
-    Object.keys(data).forEach(function (key) {
-      if (!data[key] || skipKeys[key]) return;
-      lines.push((labels[key] || key) + ': ' + String(data[key]).trim());
-    });
 
     var submitBtn = form.querySelector('button[type="submit"]');
     var originalText = submitBtn ? submitBtn.innerHTML : '';
@@ -234,7 +217,13 @@ function setupForm(formId, apiEndpoint, options) {
       body: JSON.stringify(data)
     })
       .then(function (res) {
-        return res.json().then(function (body) {
+        return res.text().then(function (text) {
+          var body = null;
+          try {
+            body = JSON.parse(text);
+          } catch (err) {
+            body = null;
+          }
           return { ok: res.ok, body: body };
         });
       })
@@ -261,14 +250,7 @@ function setupForm(formId, apiEndpoint, options) {
         if (typeof options.onSuccess === 'function') options.onSuccess();
       })
       .catch(function () {
-        var wa = 'https://wa.me/917039152173?text=' + encodeURIComponent(lines.join('\n'));
-        window.open(wa, '_blank', 'noopener');
-        cocoEvent('whatsapp_click', { link_place: 'form_fallback', form_id: options.type || 'contact' });
-        showToast(
-          options.successTitle || 'Submitted!',
-          'WhatsApp is opening so you can send this enquiry to our team.'
-        );
-        form.reset();
+        showToast('Could not submit', 'Please try again in a moment.', 'error');
         cocoRefreshCaptcha(form);
       })
       .finally(function () {

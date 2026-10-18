@@ -464,7 +464,7 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 700; }
   .diff-grid .card h3 { font-size: 0.92rem; line-height: 1.25; margin-bottom: 0; }
 }
 @media (min-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
-@media (min-width: 1024px) { .footer-grid { grid-template-columns: 1.25fr .85fr .8fr .9fr 1.15fr; } }
+@media (min-width: 1024px) { .footer-grid { grid-template-columns: 1.15fr .72fr .68fr .72fr .78fr 1.05fr; } }
 .footer-logo { height: 84px; width: auto; background: transparent; padding: 0; margin-bottom: 10px; }
 @media (min-width: 768px) { .footer-logo { height: 112px; margin-bottom: 16px; } }
 .footer-bottom a { color: inherit; text-decoration: underline; }

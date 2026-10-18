@@ -4,6 +4,9 @@ ErrorDocument 404 /404.html
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
+  # Hostinger turns POST /login into a redirect and drops the password.
+  RewriteRule ^login$ login/index.php [L,QSA]
+
   RewriteCond %{HTTPS} !=on
   RewriteCond %{HTTP_HOST} ^(www\.)?cocohouse\.in$ [NC]
   RewriteRule ^ https://cocohouse.in%{REQUEST_URI} [L,R=301]
