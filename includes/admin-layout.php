@@ -30,7 +30,7 @@ function admin_header(string $title, string $active): void
   <title><?= e($title) ?> | Cocohouse Admin</title>
   <link rel="icon" href="/assets/images/logo.webp">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/admin/admin.css?v=20261016">
+  <link rel="stylesheet" href="/admin/admin.css?v=20261018">
 </head>
 <body>
   <div class="shell">
@@ -60,6 +60,7 @@ function admin_header(string $title, string $active): void
           <?php if ($account): ?>
             <span class="who"><?= e($account['name']) ?></span>
           <?php endif; ?>
+          <button class="btn btn-ghost" type="button" onclick="location.reload()">Refresh</button>
           <a class="btn btn-logout" href="/admin/logout.php">Log out</a>
           <a class="btn btn-ghost" href="/" target="_blank" rel="noopener">Open site</a>
         </div>

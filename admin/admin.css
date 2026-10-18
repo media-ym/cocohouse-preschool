@@ -207,7 +207,16 @@ h1 { margin: 0 0 6px; color: var(--blue); font-size: 1.7rem; }
 .enquiry header { display: flex; justify-content: space-between; gap: 8px; align-items: flex-start; margin-bottom: 10px; }
 .enquiry header time { color: var(--muted); font-size: .75rem; white-space: nowrap; }
 .enquiry .meta { grid-template-columns: 68px minmax(0, 1fr); gap: 4px 8px; font-size: .82rem; }
-.enquiry .actions { margin-top: auto; }
+.enquiry .actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: auto;
+}
+.enquiry .actions form { margin: 0; min-width: 0; }
+.enquiry .actions form:last-child { grid-column: 1 / -1; }
+.enquiry .actions .btn { width: 100%; padding: 9px 12px; font-size: .84rem; }
+.enquiry .actions .btn-ghost { background: #fff; border: 1px solid #c5d4ea; }
 .meta { display: grid; grid-template-columns: 140px 1fr; gap: 6px 12px; font-size: .92rem; }
 .meta dt { color: var(--muted); }
 .meta dd { margin: 0; }
