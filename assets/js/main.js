@@ -203,6 +203,15 @@ function setupForm(formId, apiEndpoint, options) {
       contact: 'Contact Page Form',
       special_education: 'Special Ed Form'
     };
+    var leadEvents = {
+      home_hero: 'hero_form_submit',
+      school_visit: 'footer_form_submit',
+      popup: 'popup_form_submit',
+      admission_page: 'admission_form_submit',
+      daycare: 'daycare_form_submit',
+      contact: 'contact_form_submit',
+      special_education: 'special_ed_form_submit'
+    };
 
     var submitBtn = form.querySelector('button[type="submit"]');
     var originalText = submitBtn ? submitBtn.innerHTML : '';
@@ -242,7 +251,7 @@ function setupForm(formId, apiEndpoint, options) {
         var program = programField ? String(programField.value || '').trim().slice(0, 80) : '';
         form.reset();
         cocoRefreshCaptcha(form);
-        cocoEvent('generate_lead', {
+        cocoEvent(leadEvents[options.type] || 'form_submit', {
           form_name: typeLabels[options.type] || 'Website Enquiry',
           form_id: options.type || 'contact',
           program: program

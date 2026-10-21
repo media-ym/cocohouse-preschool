@@ -137,7 +137,7 @@ function render_legal_page(string $title, string $description, string $path, str
         . legal_nav()
         . '<main class="legal-page"><div class="container">' . $body . '</div></main>'
         . legal_footer()
-        . '<script src="/assets/js/main.js?v=20261018"></script></body></html>';
+        . '<script src="/assets/js/main.js?v=20261021"></script></body></html>';
     echo public_finish($html);
 }
 
