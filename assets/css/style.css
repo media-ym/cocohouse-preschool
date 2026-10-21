@@ -568,6 +568,13 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 700; }
   animation: floatPulse 2.5s ease-in-out infinite;
 }
 .whatsapp-float svg { width: 32px; height: 32px; color: #fff; }
+.call-float {
+  position: fixed; right: 20px; bottom: 88px; z-index: 997;
+  width: 56px; height: 56px; border-radius: 50%; background: #184a96; color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 6px 20px rgba(24,74,150,0.4);
+}
+.call-float svg { width: 28px; height: 28px; color: #fff; }
 @keyframes floatPulse {
   0%, 100% { transform: scale(1); box-shadow: 0 6px 20px rgba(37,211,102,0.4); }
   50% { transform: scale(1.05); box-shadow: 0 10px 30px rgba(37,211,102,0.6); }
@@ -870,10 +877,12 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 700; }
 .ads-bar .wa { color: #128c4a; }
 .ads-bar .go { background: #f4d000; color: #184a96; }
 .ads-page .whatsapp-float { bottom: 78px; }
+.ads-page .call-float { bottom: 146px; }
 @media (min-width: 1024px) {
   .ads-page { padding-bottom: 0; }
   .ads-bar { display: none; }
   .ads-page .whatsapp-float { bottom: 20px; }
+  .ads-page .call-float { bottom: 88px; }
 }
 
 /* ====== Contact page ====== */

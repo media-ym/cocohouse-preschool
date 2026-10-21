@@ -126,7 +126,7 @@ function cocoEvent(name, params) {
 }
 
 function cocoLinkPlace(link) {
-  if (link.classList.contains('whatsapp-float')) return 'sticky';
+  if (link.classList.contains('whatsapp-float') || link.classList.contains('call-float')) return 'sticky';
   if (link.closest('.coco-popup')) return 'popup';
   if (link.closest('.footer')) return 'footer';
   if (link.closest('.navbar, .mobile-drawer')) return 'menu';
@@ -482,10 +482,19 @@ function cocoWithUtm(href, content) {
   return base + '?' + merged.toString() + hash;
 }
 
+var COCO_CALL_ICON = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.62 10.79a15.15 15.15 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24 11.36 11.36 0 0 0 3.57.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.36 11.36 0 0 0 .57 3.57 1 1 0 0 1-.25 1.02l-2.2 2.2z"/></svg>';
+
 function cocoTrackLinks() {
   document.querySelectorAll('.whatsapp-float').forEach(function (link) {
     link.innerHTML = COCO_WA_ICON;
     link.href = cocoWaLink('whatsapp-sticky');
+    if (link.previousElementSibling && link.previousElementSibling.classList.contains('call-float')) return;
+    var call = document.createElement('a');
+    call.className = 'call-float';
+    call.href = 'tel:+917039152173';
+    call.setAttribute('aria-label', 'Call');
+    call.innerHTML = COCO_CALL_ICON;
+    link.parentNode.insertBefore(call, link);
   });
 
   document.querySelectorAll('a.btn, a.nav-cta, .ads-bar a, a[href*="wa.me"]').forEach(function (link) {
