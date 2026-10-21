@@ -131,13 +131,13 @@ function render_legal_page(string $title, string $description, string $path, str
         . '<title>' . e($title) . '</title>'
         . '<link rel="icon" href="/assets/images/logo.webp">'
         . '<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">'
-        . '<link rel="stylesheet" href="/assets/css/style.css?v=20261021b">'
+        . '<link rel="stylesheet" href="/assets/css/style.css?v=20261021i">'
         . $meta
         . '</head><body>'
         . legal_nav()
         . '<main class="legal-page"><div class="container">' . $body . '</div></main>'
         . legal_footer()
-        . '<script src="/assets/js/main.js?v=20261021b"></script></body></html>';
+        . '<script src="/assets/js/main.js?v=20261021f"></script></body></html>';
     echo public_finish($html);
 }
 

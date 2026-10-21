@@ -30,7 +30,7 @@ function admin_header(string $title, string $active): void
   <title><?= e($title) ?> | Cocohouse Admin</title>
   <link rel="icon" href="/assets/images/logo.webp">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/admin/admin.css?v=20261018">
+  <link rel="stylesheet" href="/admin/admin.css?v=20261021d">
 </head>
 <body>
   <div class="shell">
@@ -90,6 +90,13 @@ function admin_footer(): void
       var open = side.classList.toggle('menu-open');
       button.setAttribute('aria-label', open ? 'Close admin menu' : 'Open admin menu');
       button.textContent = open ? 'Close' : 'Menu';
+    });
+    side.querySelectorAll('nav a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        side.classList.remove('menu-open');
+        button.setAttribute('aria-label', 'Open admin menu');
+        button.textContent = 'Menu';
+      });
     });
   })();
   </script>

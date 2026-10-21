@@ -126,7 +126,7 @@ function cocoEvent(name, params) {
 }
 
 function cocoLinkPlace(link) {
-  if (link.classList.contains('whatsapp-float') || link.classList.contains('call-float')) return 'sticky';
+  if (link.classList.contains('whatsapp-float') || link.classList.contains('call-float') || link.closest('.coco-sticky-bar')) return 'sticky';
   if (link.closest('.coco-popup')) return 'popup';
   if (link.closest('.footer')) return 'footer';
   if (link.closest('.navbar, .mobile-drawer')) return 'menu';
@@ -485,7 +485,17 @@ function cocoWithUtm(href, content) {
 var COCO_CALL_ICON = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.62 10.79a15.15 15.15 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24 11.36 11.36 0 0 0 3.57.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.36 11.36 0 0 0 .57 3.57 1 1 0 0 1-.25 1.02l-2.2 2.2z"/></svg>';
 
 function cocoTrackLinks() {
-  document.querySelectorAll('.whatsapp-float').forEach(function (link) {
+  var menuButton = document.getElementById('navToggle');
+  if (menuButton && !document.querySelector('.nav-call')) {
+    var navCall = document.createElement('a');
+    navCall.className = 'nav-call';
+    navCall.href = 'tel:+917039152173';
+    navCall.setAttribute('aria-label', 'Call');
+    navCall.innerHTML = COCO_CALL_ICON;
+    menuButton.parentNode.insertBefore(navCall, menuButton);
+  }
+  var floats = document.querySelectorAll('.whatsapp-float');
+  floats.forEach(function (link) {
     link.innerHTML = COCO_WA_ICON;
     link.href = cocoWaLink('whatsapp-sticky');
     if (link.previousElementSibling && link.previousElementSibling.classList.contains('call-float')) return;
@@ -496,6 +506,24 @@ function cocoTrackLinks() {
     call.innerHTML = COCO_CALL_ICON;
     link.parentNode.insertBefore(call, link);
   });
+  if (floats.length && !document.querySelector('.ads-bar') && !document.querySelector('.coco-sticky-bar')) {
+    var bar = document.createElement('nav');
+    bar.className = 'coco-sticky-bar';
+    bar.setAttribute('aria-label', 'Call or WhatsApp');
+    var phone = document.createElement('a');
+    phone.className = 'call';
+    phone.href = 'tel:+917039152173';
+    phone.innerHTML = COCO_CALL_ICON + '<span>Call</span>';
+    var chat = document.createElement('a');
+    chat.className = 'wa';
+    chat.href = cocoWaLink('whatsapp-sticky');
+    chat.target = '_blank';
+    chat.rel = 'noopener';
+    chat.innerHTML = COCO_WA_ICON + '<span>WhatsApp</span>';
+    bar.appendChild(phone);
+    bar.appendChild(chat);
+    document.body.appendChild(bar);
+  }
 
   document.querySelectorAll('a.btn, a.nav-cta, .ads-bar a, a[href*="wa.me"]').forEach(function (link) {
     if (link.classList.contains('whatsapp-float')) return;
@@ -812,7 +840,7 @@ function cocoEnsureConsent(form) {
   if (!button) return;
   var box = document.createElement('div');
   box.className = 'consent-box';
-  var enquiry = '<label class="consent-line"><input type="checkbox" name="consent_enquiry" value="1" required><span>Required. I am the parent or guardian. Use my details and my child\'s name and age to reply. <a href="/privacy-notice">Privacy notice</a>.</span></label>';
+  var enquiry = '<label class="consent-line"><input type="checkbox" name="consent_enquiry" value="1" required checked><span>Required. I am the parent or guardian. Use my details and my child\'s name and age to reply. <a href="/privacy-notice">Privacy notice</a>.</span></label>';
   var support = form.id === 'specialForm'
     ? '<label class="consent-line"><input type="checkbox" name="consent_support" value="1" required><span>Required. Use the support I describe, including any condition I name, only to arrange a call with the special educator.</span></label>'
     : '';

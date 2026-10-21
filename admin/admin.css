@@ -440,31 +440,49 @@ h1 { margin: 0 0 6px; color: var(--blue); font-size: 1.7rem; }
 .tox-tinymce { border-radius: 12px !important; border-color: #d7deea !important; }
 
 @media (max-width: 900px) {
+  body { overflow-x: hidden; }
   .shell { display: block; }
   .side { width: 100%; height: auto; position: sticky; top: 0; z-index: 20; overflow: visible; }
   .side-brand { align-items: center; padding: 10px 12px; }
   .side-brand a { flex-direction: row; align-items: center; }
-  .side-brand img { width: auto; height: 42px; max-width: 170px; padding: 4px 8px; }
+  .side-brand img { width: auto; height: 42px; max-width: 150px; padding: 4px 8px; }
   .side-brand span { display: none; }
-  .side-toggle { display: inline-flex; flex: none; }
+  .side-toggle { display: inline-flex; flex: none; min-height: 40px; }
   .side nav, .side-foot { display: none; }
-  .side.menu-open nav { display: flex; flex-direction: column; padding-bottom: 8px; }
-  .side.menu-open .side-foot { display: flex; padding: 0 8px 12px; }
-  .side nav a { margin: 2px 8px; }
-  .content-bar { position: static; flex-wrap: wrap; }
-  .bar-side { flex-wrap: wrap; }
+  .side.menu-open nav { display: flex; flex-direction: column; padding-bottom: 8px; background: var(--blue-dark); }
+  .side.menu-open .side-foot { display: flex; padding: 0 8px 12px; background: var(--blue-dark); }
+  .side nav a { margin: 2px 8px; min-height: 44px; display: flex; align-items: center; }
+  .content-bar {
+    position: static;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .content-bar strong { font-size: 1.05rem; }
+  .bar-side { display: grid; grid-template-columns: 1fr 1fr; width: 100%; gap: 8px; }
+  .bar-side .who { grid-column: 1 / -1; }
+  .bar-side .btn { width: 100%; }
   .wrap, .content-bar { padding-left: 16px; padding-right: 16px; }
   .wrap { padding-top: 18px; }
-  h1 { font-size: 1.4rem; }
-  .split, .dash-split, .dash-main, .dash-tiles, .admin-duo, .editor-layout, .perm-grid, .enquiry-grid, .seo-setup, .seo-pages, .seo-posts { grid-template-columns: 1fr; }
-  .dash-head { align-items: flex-start; flex-direction: column; }
-  .page-grid { grid-template-columns: 1fr 1fr; }
-  .post { grid-template-columns: 96px minmax(0, 1fr); }
-  .post img { width: 96px; height: 72px; }
+  h1 { font-size: 1.35rem; }
+  .split, .dash-split, .dash-main, .dash-tiles, .admin-duo, .editor-layout, .perm-grid, .enquiry-grid, .seo-setup, .seo-pages, .seo-posts, .role-notes { grid-template-columns: 1fr; }
+  .dash-head { align-items: stretch; flex-direction: column; }
+  .dash-head-actions .btn, .row .btn { width: auto; }
+  .dash-post { grid-template-columns: 72px minmax(0, 1fr); }
+  .dash-post em { grid-column: 2; justify-self: start; }
+  .page-grid { grid-template-columns: 1fr; }
+  .post { grid-template-columns: 1fr; }
+  .post img { width: 100%; height: 160px; }
+  .post h2 { flex-wrap: wrap; }
   .stats { grid-template-columns: 1fr 1fr; }
   .meta, .enquiry .meta { grid-template-columns: 1fr; }
+  .enquiry header time { white-space: normal; }
   .btn { min-height: 44px; }
-  .enquiry header { flex-wrap: wrap; }
+  .enquiry header, .seo-page-head, .page-card-top, .cat-head { flex-wrap: wrap; }
+  .cat-tools, .cat-tools .field { min-width: 0; width: 100%; }
+  .slug-field { flex-wrap: wrap; }
+  .filters a { max-width: 100%; }
+  .card, .editor-block, .enquiry { overflow-wrap: anywhere; }
 }
 @media (max-width: 1100px) {
   .posts.is-grid { grid-template-columns: 1fr 1fr; }

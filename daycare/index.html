@@ -6,7 +6,7 @@
   <title>Daycare | Cocohouse Preschool & Daycare</title>
   <link rel="icon" href="/assets/images/logo.webp">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/style.css?v=20261021b">
+  <link rel="stylesheet" href="/assets/css/style.css?v=20261021i">
 </head>
 <body>
 <!-- Critical inline CSS – prevents FOUC (Flash of Unstyled Content) -->
@@ -23,8 +23,8 @@ input,textarea,select{font-family:inherit;font-size:inherit;}
 
 /* Navbar – always styled even if CSS file is delayed */
 .navbar{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);padding:12px 0;box-shadow:0 2px 8px rgba(0,0,0,0.08);}
-.navbar .container{display:flex;align-items:center;justify-content:space-between;gap:20px;max-width:1360px;}.navbar .container>a{flex:0 0 auto;}
-.navbar-logo{height:72px;width:auto;max-width:none;object-fit:contain;display:block;}@media(max-width:420px){.navbar-logo{height:58px;}}
+.navbar .container{display:flex;align-items:center;justify-content:space-between;gap:20px;max-width:1360px;}.navbar .container>a{flex:0 0 auto;}@media(max-width:1199px){.navbar .container{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;align-items:center;gap:8px;}.navbar .container>a:not(.nav-call){grid-column:2;grid-row:1;justify-self:center;}.navbar #navToggle{grid-column:1;grid-row:1;margin-left:0;justify-self:start;}.navbar .nav-call{display:flex;grid-column:3;grid-row:1;margin-left:0;justify-self:end;}}
+.navbar-logo{height:72px;width:auto;max-width:none;object-fit:contain;display:block;}@media(max-width:767px){.navbar{padding:8px 0;}.navbar-logo{height:46px;}}
 .nav-menu{display:none;align-items:center;gap:0;margin-left:auto;}
 @media(min-width:1200px){.nav-menu{display:flex;}}
 .nav-menu a{color:#184a96;font-weight:500;font-size:0.84rem;transition:color 0.2s;}
@@ -34,7 +34,7 @@ input,textarea,select{font-family:inherit;font-size:inherit;}
 @media(min-width:1200px){#navToggle{display:none;}}
 
 /* Mobile drawer */
-.mobile-drawer{position:fixed;top:0;right:0;height:100%;width:250px;max-width:78%;background:#fff;box-shadow:-8px 0 30px rgba(0,0,0,0.15);z-index:1000;transform:translateX(100%);transition:transform 0.3s;overflow-y:auto;}
+.mobile-drawer{position:fixed;top:0;left:0;height:100%;width:250px;max-width:78%;background:#fff;box-shadow:8px 0 30px rgba(0,0,0,0.15);z-index:1000;transform:translateX(-100%);transition:transform 0.3s;overflow-y:auto;}
 .mobile-drawer.open{transform:translateX(0);}
 .mobile-drawer-header{display:flex;align-items:center;justify-content:space-between;padding:16px;border-bottom:1px solid #e5e7eb;}
 .mobile-drawer nav a{display:block;padding:12px 20px;color:#184a96;font-weight:500;}
@@ -491,7 +491,7 @@ input,textarea,select{font-family:inherit;font-size:inherit;}
             <option>Hourly</option><option>Daily</option><option>Weekly</option><option>Monthly</option><option>Quarterly</option><option>Semi-Annually</option><option>Annually</option>          </select></div>
           <div class="form-group"><textarea name="message" class="form-textarea" rows="2" placeholder="Any specific questions?"></textarea></div>
           <div class="consent-box">
-            <label class="consent-line"><input type="checkbox" name="consent_enquiry" value="1" required><span>Required. I am the parent or guardian. Use my details and my child's name and age to reply. <a href="/privacy-notice">Privacy notice</a>.</span></label>
+            <label class="consent-line"><input type="checkbox" name="consent_enquiry" value="1" required checked><span>Required. I am the parent or guardian. Use my details and my child's name and age to reply. <a href="/privacy-notice">Privacy notice</a>.</span></label>
             <label class="consent-line"><input type="checkbox" name="consent_updates" value="1"><span>Optional. Send admission or daycare updates by phone, email, or WhatsApp.</span></label>
           </div>
           <button type="submit" class="btn-submit">Submit Daycare Enquiry</button>
@@ -559,7 +559,7 @@ input,textarea,select{font-family:inherit;font-size:inherit;}
 <a href="https://wa.me/917039152173" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
   <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.003 3.2c-7.06 0-12.8 5.74-12.8 12.8 0 2.26.6 4.46 1.73 6.4l-1.83 6.67 6.83-1.79a12.74 12.74 0 0 0 6.07 1.55c7.06 0 12.8-5.74 12.8-12.8s-5.74-12.83-12.8-12.83zm0 23.04c-1.93 0-3.82-.52-5.47-1.5l-.39-.23-4.05 1.06 1.08-3.95-.25-.4a10.55 10.55 0 0 1-1.62-5.62c0-5.86 4.77-10.63 10.63-10.63s10.63 4.77 10.63 10.63-4.77 10.64-10.63 10.64z"/></svg>
 </a>
-<script src="/assets/js/main.js?v=20261021b"></script>
+<script src="/assets/js/main.js?v=20261021f"></script>
 <script>
 setupForm('daycareForm', '/api/submit-enquiry.php', { type: 'daycare', successTitle: 'Daycare Enquiry Submitted!', successDesc: 'Our daycare team will call you within 24 hours with pricing details.' });
 </script>
