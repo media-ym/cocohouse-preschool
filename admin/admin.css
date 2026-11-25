@@ -258,6 +258,14 @@ h1 { margin: 0 0 6px; color: var(--blue); font-size: 1.7rem; }
   border-color: #184a96;
   box-shadow: 0 0 0 3px rgba(24, 74, 150, .12);
 }
+.password-wrap { position: relative; }
+.password-wrap input { padding-right: 76px; }
+.password-show {
+  position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+  border: 0; background: transparent; color: var(--blue); font-weight: 700;
+  font-size: .82rem; cursor: pointer; padding: 6px 8px; line-height: 1;
+}
+.password-show:hover { color: var(--blue-dark); }
 .field textarea { min-height: 110px; resize: vertical; }
 .field textarea.tall { min-height: 160px; }
 .check { display: flex; gap: 8px; align-items: center; font-weight: 600; }

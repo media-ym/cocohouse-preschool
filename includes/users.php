@@ -22,6 +22,7 @@ function user_section_choices(): array
     return [
         'pages' => 'Pages',
         'seo' => 'SEO',
+        'tracking' => 'Tracking',
         'media' => 'Images',
         'gallery' => 'Gallery',
         'enquiries' => 'Enquiries',
@@ -33,9 +34,9 @@ function user_section_choices(): array
 function user_default_sections(): array
 {
     return [
-        'admin' => ['dashboard', 'pages', 'seo', 'media', 'gallery', 'enquiries', 'blog', 'password', 'users'],
-        'subadmin' => ['dashboard', 'pages', 'seo', 'media', 'gallery', 'enquiries', 'blog', 'password', 'users'],
-        'editor' => ['dashboard', 'pages', 'seo', 'media', 'gallery', 'blog', 'password'],
+        'admin' => ['dashboard', 'pages', 'seo', 'tracking', 'media', 'gallery', 'enquiries', 'blog', 'password', 'users'],
+        'subadmin' => ['dashboard', 'pages', 'seo', 'tracking', 'media', 'gallery', 'enquiries', 'blog', 'password', 'users'],
+        'editor' => ['dashboard', 'pages', 'seo', 'tracking', 'media', 'gallery', 'blog', 'password'],
         'reception' => ['dashboard', 'enquiries', 'password'],
     ];
 }
@@ -65,6 +66,9 @@ function users_role_map(): array
     foreach (user_editable_roles() as $role) {
         $picked = $stored[$role] ?? $defaults[$role];
         $map[$role] = user_normalize_sections(is_array($picked) ? $picked : $defaults[$role]);
+        if (in_array('seo', $map[$role], true) && !in_array('tracking', $map[$role], true)) {
+            $map[$role][] = 'tracking';
+        }
     }
     return $map;
 }

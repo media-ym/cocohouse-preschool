@@ -20,7 +20,7 @@ function dpdp_grievance(): array
 
 function dpdp_updated_line(): string
 {
-    return '<p class="legal-updated">Last updated: August 26, 2026</p>';
+    return '<p class="legal-updated">Last updated: November 25, 2026</p>';
 }
 
 function dpdp_consent_granted(array $payload, string $key): bool
@@ -75,14 +75,14 @@ function dpdp_banner_html(): string
     return <<<'HTML'
 <div class="cookie-card" id="cocoConsent" hidden>
   <strong>Cookies</strong>
-  <p>We use cookies to run the site. Analytics and recordings are optional. <a href="/privacy-notice">Notice</a></p>
+  <p>We use cookies to run the site. Analytics, recordings and the Meta pixel are optional. <a href="/privacy-notice">Notice</a></p>
   <div class="cookie-actions">
     <button type="button" class="cookie-reject" id="cocoConsentReject">Reject</button>
     <button type="button" class="cookie-accept" id="cocoConsentAccept">Accept</button>
     <button type="button" class="cookie-link" id="cocoConsentCustomize">Customize</button>
   </div>
   <div class="cookie-more" id="cocoConsentMore" hidden>
-    <label><input type="checkbox" id="cocoConsentAnalytics"> Analytics and recordings</label>
+    <label><input type="checkbox" id="cocoConsentAnalytics"> Analytics, recordings and Meta</label>
     <button type="button" class="cookie-accept" id="cocoConsentSave">Save</button>
   </div>
 </div>
@@ -137,7 +137,7 @@ function render_legal_page(string $title, string $description, string $path, str
         . legal_nav()
         . '<main class="legal-page"><div class="container">' . $body . '</div></main>'
         . legal_footer()
-        . '<script src="/assets/js/main.js?v=20261021g"></script></body></html>';
+        . '<script src="/assets/js/main.js?v=20261125c"></script></body></html>';
     echo public_finish($html);
 }
 
@@ -197,7 +197,7 @@ function dpdp_notice_body(): string
         . '<li>Child\'s name and age, when the form asks for them. This is a child\'s personal data. Only a parent or legal guardian should submit it.</li>'
         . '<li>The program you ask about. On the special education form, that can include a condition you choose to name, such as speech or learning support.</li>'
         . '<li>The message you write, the page you sent it from, and the date and time.</li>'
-        . '<li>If you allow analytics, Google and Microsoft may receive your IP address, device, and pages viewed. Form fields for name, phone, and email are not sent in those analytics events.</li>'
+        . '<li>If you allow analytics, Google, Microsoft and Meta may receive your IP address, device, and pages viewed. Form fields for name, phone, and email are not sent in those analytics events.</li>'
         . '</ul><h2>Why</h2><ul>'
         . '<li><strong>Reply to your enquiry.</strong> To call or write back about admission, daycare, a school visit, or special education. The required consent box covers this.</li>'
         . '<li><strong>Child details.</strong> To know which age group should call you. The same required box covers the child\'s name and age.</li>'
@@ -205,7 +205,7 @@ function dpdp_notice_body(): string
         . '<li><strong>Admission updates.</strong> Phone, email, or WhatsApp updates. This box starts unticked. The form can be sent without it.</li>'
         . '<li><strong>Analytics.</strong> To see which pages are used. A separate banner asks for this. Rejecting it does not block the enquiry.</li>'
         . '</ul><h2>How long</h2>'
-        . '<p>Proposed retention, still to be confirmed by the school and a lawyer: enquiry and consent records are kept while the enquiry is open, and not longer than 24 months after the last contact, unless a law requires a longer period. A data-rights request is kept until it is answered, and then for up to 24 months as a record of that answer. Analytics retention is set inside Google and Microsoft accounts and is not fixed by this website.</p>'
+        . '<p>Proposed retention, still to be confirmed by the school and a lawyer: enquiry and consent records are kept while the enquiry is open, and not longer than 24 months after the last contact, unless a law requires a longer period. A data-rights request is kept until it is answered, and then for up to 24 months as a record of that answer. Analytics retention is set inside Google, Microsoft and Meta accounts and is not fixed by this website.</p>'
         . '<h2>Who else receives it</h2><ul>'
         . '<li>Cocohouse staff who answer enquiries, at ' . $email . ', cocohousepreschool@gmail.com, pratheeksha.msw@gmail.com, and yunickmedia@gmail.com.</li>'
         . '<li>The hosting company stores the website files, including enquiry records, on the server.</li>'
@@ -213,6 +213,7 @@ function dpdp_notice_body(): string
         . '<li>Google Fonts loads the typeface. Google Analytics and Tag Manager load only after you accept analytics.</li>'
         . '<li>Videos and YouTube thumbnails on this site are published with the parent\'s consent. The thumbnail image is fetched by the Cocohouse server, then shown here, so your browser does not call YouTube for that picture. Pressing play loads the video from YouTube.</li>'
         . '<li>Microsoft Clarity loads only after you allow analytics. It can record how a page is used. It is not given the name, phone, or email typed into an enquiry.</li>'
+        . '<li>The Meta Pixel loads only after you allow analytics. It records the page you view, and an enquiry, call, email, WhatsApp, map, or admission link if you use them. It is not given the name, phone, or email typed into an enquiry.</li>'
         . '</ul><h2>Your rights</h2>'
         . '<p>You may ask to access, correct, or erase personal data, and you may withdraw consent. Withdrawal does not undo a reply already sent. Use <a href="/data-rights">Your data rights</a> or write to <a href="mailto:' . $email . '">' . $email . '</a>.</p>'
         . '<h2>Grievance contact</h2>'
@@ -240,12 +241,12 @@ function dpdp_policy_body(): string
         . '<ul>'
         . '<li>Admin login uses a first-party session cookie. It is only set after a staff login.</li>'
         . '<li>A first-party cookie named coco_blog_seen remembers that this browser opened a blog article, for 24 hours, so the view count does not rise on every refresh. It does not store a name.</li>'
-        . '<li>Google Analytics, Google Tag Manager, and Microsoft Clarity are stored only after you press Accept, or turn them on under Customize. The choice is kept in this browser as coco_consent.</li>'
+        . '<li>Google Analytics, Google Tag Manager, Microsoft Clarity, and the Meta Pixel load only after you press Accept, or turn them on under Customize. The choice is kept in this browser as coco_consent.</li>'
         . '</ul>'
         . '<h2>Security</h2>'
         . '<p>Enquiry, consent, and data-rights files are encrypted on the server before they are written. If encryption is not available, the form is not saved. Staff passwords are stored as hashes. A picture code on each form has to be typed before the form is accepted. Mail sent to the school inbox is ordinary email.</p>'
         . '<h2>Transfers</h2>'
-        . '<p>Google, Microsoft, Meta (WhatsApp), and the host may process technical data outside India. The school has not completed a transfer assessment. That is an open item for the lawyer.</p>'
+        . '<p>Google, Microsoft, Meta (Pixel and WhatsApp), and the host may process technical data outside India. The school has not completed a transfer assessment. That is an open item for the lawyer.</p>'
         . '<h2>Rights and grievance</h2>'
         . '<p>Ask for access, correction, erasure, or withdrawal at <a href="/data-rights">Your data rights</a>. Grievance Officer: ' . e($g['officer']) . ', <a href="mailto:' . $email . '">' . $email . '</a>, <a href="' . $href . '">' . $phone . '</a>.</p>';
 }

@@ -43,15 +43,24 @@ admin_header('Password', 'password');
   <?= csrf_field() ?>
   <div class="field">
     <label for="current">Current password</label>
-    <input id="current" name="current" type="password" autocomplete="current-password" required>
+    <div class="password-wrap">
+      <input id="current" name="current" type="password" autocomplete="current-password" required>
+      <button class="password-show" type="button" aria-controls="current">Show</button>
+    </div>
   </div>
   <div class="field">
     <label for="next">New password</label>
-    <input id="next" name="next" type="password" autocomplete="new-password" minlength="8" required>
+    <div class="password-wrap">
+      <input id="next" name="next" type="password" autocomplete="new-password" minlength="8" required>
+      <button class="password-show" type="button" aria-controls="next">Show</button>
+    </div>
   </div>
   <div class="field">
     <label for="confirm">Confirm new password</label>
-    <input id="confirm" name="confirm" type="password" autocomplete="new-password" minlength="8" required>
+    <div class="password-wrap">
+      <input id="confirm" name="confirm" type="password" autocomplete="new-password" minlength="8" required>
+      <button class="password-show" type="button" aria-controls="confirm">Show</button>
+    </div>
   </div>
   <button class="btn btn-primary" type="submit">Update password</button>
 </form>

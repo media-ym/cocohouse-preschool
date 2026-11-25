@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <title>Admin Login | Cocohouse</title>
   <link rel="icon" href="/assets/images/logo.webp">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/admin/admin.css?v=20261016">
+  <link rel="stylesheet" href="/admin/admin.css?v=20261125b">
 </head>
 <body class="login-page">
   <div class="login-card">
@@ -61,10 +61,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
       <div class="field">
         <label for="password">Password</label>
-        <input id="password" name="password" type="password" autocomplete="current-password" required>
+        <div class="password-wrap">
+          <input id="password" name="password" type="password" autocomplete="current-password" required>
+          <button class="password-show" type="button" aria-controls="password">Show</button>
+        </div>
       </div>
       <button class="btn btn-primary" type="submit">Log in</button>
     </form>
+    <script>
+    document.querySelectorAll('.password-show').forEach(function (button) {
+      button.addEventListener('click', function () {
+        var input = document.getElementById(button.getAttribute('aria-controls'));
+        if (!input) return;
+        var show = input.type === 'password';
+        input.type = show ? 'text' : 'password';
+        button.textContent = show ? 'Hide' : 'Show';
+      });
+    });
+    </script>
     <p style="margin-top:16px;font-size:0.75rem;line-height:1.6;color:#6b7280;">
       Grievance Officer: Mrs. Pratheeksha Darak<br>
       <a href="mailto:info@cocohouse.in">info@cocohouse.in</a> · <a href="tel:+917039152173">+91-7039152173</a><br>

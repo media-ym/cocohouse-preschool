@@ -18,6 +18,7 @@ function seo_settings(): array
         'analytics_id' => '',
         'gtm_id' => '',
         'clarity_id' => '',
+        'meta_pixel_id' => '',
         'twitter' => '',
         'facebook' => '',
         'instagram' => '',
@@ -44,16 +45,7 @@ function seo_settings(): array
         $merged['gtm_id'] = $merged['analytics_id'];
         $merged['analytics_id'] = '';
     }
-    if (!preg_match('#^G-[A-Z0-9]{4,20}$#', $merged['analytics_id'])) {
-        $merged['analytics_id'] = '';
-    }
-    if (!preg_match('#^GTM-[A-Z0-9]{4,20}$#', $merged['gtm_id'])) {
-        $merged['gtm_id'] = '';
-    }
-    $merged['clarity_id'] = strtolower($merged['clarity_id']);
-    if (!preg_match('#^[a-z0-9]{6,20}$#', $merged['clarity_id'])) {
-        $merged['clarity_id'] = '';
-    }
+    $merged = seo_clean_tracking($merged) + $merged;
     $merged['phone'] = (string) ($site['phone'] ?? '');
     $merged['email'] = (string) ($site['email'] ?? '');
     $merged['address'] = (string) ($site['address'] ?? '');
@@ -160,13 +152,12 @@ function seo_absolute(string $url, string $base): string
     return $base . '/' . ltrim($url, '/');
 }
 
-function sanitize_site_seo(array $posted): array
+function seo_clean_tracking(array $posted): array
 {
-    $url = trim((string) ($posted['public_url'] ?? ''));
-    $url = rtrim($url, '/');
-    if (!preg_match('#^https://[a-z0-9.-]+(?::\d+)?$#i', $url)) {
-        $url = 'https://cocohouse.in';
-    }
+    $code = static function (string $value): string {
+        $value = trim($value);
+        return preg_match('#^[A-Za-z0-9_-]{0,80}$#', $value) ? $value : '';
+    };
     $analytics = strtoupper(trim((string) ($posted['analytics_id'] ?? '')));
     if (!preg_match('#^G-[A-Z0-9]{4,20}$#', $analytics)) {
         $analytics = '';
@@ -179,10 +170,28 @@ function sanitize_site_seo(array $posted): array
     if (!preg_match('#^[a-z0-9]{6,20}$#', $clarity)) {
         $clarity = '';
     }
-    $code = static function (string $value): string {
-        $value = trim($value);
-        return preg_match('#^[A-Za-z0-9_-]{0,80}$#', $value) ? $value : '';
-    };
+    $meta = preg_replace('/\D/', '', (string) ($posted['meta_pixel_id'] ?? '')) ?? '';
+    if (!preg_match('#^[0-9]{8,20}$#', $meta)) {
+        $meta = '';
+    }
+    return [
+        'google_verification' => $code((string) ($posted['google_verification'] ?? '')),
+        'bing_verification' => $code((string) ($posted['bing_verification'] ?? '')),
+        'analytics_id' => $analytics,
+        'gtm_id' => $gtm,
+        'clarity_id' => $clarity,
+        'meta_pixel_id' => $meta,
+    ];
+}
+
+function sanitize_site_seo(array $posted): array
+{
+    $url = trim((string) ($posted['public_url'] ?? ''));
+    $url = rtrim($url, '/');
+    if (!preg_match('#^https://[a-z0-9.-]+(?::\d+)?$#i', $url)) {
+        $url = 'https://cocohouse.in';
+    }
+    $tracking = seo_clean_tracking($posted);
     $social = static function (string $value): string {
         $value = trim($value);
         return preg_match('#^https://[^\s]{0,180}$#', $value) ? $value : '';
@@ -201,11 +210,12 @@ function sanitize_site_seo(array $posted): array
         'public_url' => $url,
         'description' => seo_clip((string) ($posted['description'] ?? ''), 320),
         'image' => seo_clip($image, 240),
-        'google_verification' => $code((string) ($posted['google_verification'] ?? '')),
-        'bing_verification' => $code((string) ($posted['bing_verification'] ?? '')),
-        'analytics_id' => $analytics,
-        'gtm_id' => $gtm,
-        'clarity_id' => $clarity,
+        'google_verification' => $tracking['google_verification'],
+        'bing_verification' => $tracking['bing_verification'],
+        'analytics_id' => $tracking['analytics_id'],
+        'gtm_id' => $tracking['gtm_id'],
+        'clarity_id' => $tracking['clarity_id'],
+        'meta_pixel_id' => $tracking['meta_pixel_id'],
         'twitter' => $twitter,
         'facebook' => $social((string) ($posted['facebook'] ?? '')),
         'instagram' => $social((string) ($posted['instagram'] ?? '')),
@@ -438,9 +448,10 @@ function seo_meta_html(array $opts, array $settings): string
     $analytics = str_starts_with($settings['analytics_id'], 'G-') ? $settings['analytics_id'] : '';
     $gtm = str_starts_with($settings['gtm_id'], 'GTM-') ? $settings['gtm_id'] : '';
     $clarity = preg_match('#^[a-z0-9]{6,20}$#', $settings['clarity_id']) ? $settings['clarity_id'] : '';
-    if ($analytics !== '' || $gtm !== '' || $clarity !== '') {
+    $meta = preg_match('#^[0-9]{8,20}$#', $settings['meta_pixel_id']) ? $settings['meta_pixel_id'] : '';
+    if ($analytics !== '' || $gtm !== '' || $clarity !== '' || $meta !== '') {
         $config = json_encode(
-            ['analytics' => $analytics, 'gtm' => $gtm, 'clarity' => $clarity],
+            ['analytics' => $analytics, 'gtm' => $gtm, 'clarity' => $clarity, 'meta' => $meta],
             JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS
         );
         $html .= '<script>window.cocoTrackers=' . $config . ';</script>' . "\n  ";

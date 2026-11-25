@@ -168,7 +168,10 @@ admin_header('Users', 'users');
     <div class="split">
       <div class="field">
         <label for="new-password">Password</label>
-        <input id="new-password" name="password" type="password" minlength="8" required autocomplete="new-password">
+        <div class="password-wrap">
+          <input id="new-password" name="password" type="password" minlength="8" required autocomplete="new-password">
+          <button class="password-show" type="button" aria-controls="new-password">Show</button>
+        </div>
       </div>
       <div class="field">
         <label for="new-role">Role</label>
@@ -211,7 +214,10 @@ admin_header('Users', 'users');
       </div>
       <div class="field">
         <label for="pass-<?= e($user['id']) ?>">New password</label>
-        <input id="pass-<?= e($user['id']) ?>" name="password" type="password" minlength="8" autocomplete="new-password" placeholder="Leave blank to keep the current password">
+        <div class="password-wrap">
+          <input id="pass-<?= e($user['id']) ?>" name="password" type="password" minlength="8" autocomplete="new-password" placeholder="Leave blank to keep the current password">
+          <button class="password-show" type="button" aria-controls="pass-<?= e($user['id']) ?>">Show</button>
+        </div>
       </div>
       <div class="actions">
         <button class="btn btn-primary" type="submit">Save</button>

@@ -46,7 +46,8 @@ foreach ($posts as $post) {
 }
 $tiles = array_values(array_filter([
     user_can($role, 'pages') ? ['Pages', '/admin/pages.php', count(page_catalog()) . ' public pages'] : null,
-    user_can($role, 'seo') ? ['SEO', '/admin/seo.php', 'Titles, Analytics, Clarity'] : null,
+    user_can($role, 'seo') ? ['SEO', '/admin/seo.php', 'Titles, social, pages'] : null,
+    user_can($role, 'tracking') ? ['Tracking', '/admin/tracking.php', 'Analytics, Clarity, Meta Pixel'] : null,
     user_can($role, 'media') ? ['Images', '/admin/media.php', 'Logo and page photos'] : null,
     $canGallery ? ['Gallery', '/admin/gallery.php', $mediaCount . ' photos and videos'] : null,
     $canEnquiries ? ['Enquiries', '/admin/enquiries.php', $newCount . ' new · ' . count($enquiries) . ' total'] : null,

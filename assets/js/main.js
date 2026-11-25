@@ -123,6 +123,40 @@ function cocoEvent(name, params) {
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push(payload);
   if (typeof gtag === 'function') gtag('event', name, params);
+  cocoMetaEvent(name, params);
+}
+
+function cocoMetaEvent(name, params) {
+  if (typeof window.fbq !== 'function') return;
+  var standard = {
+    phone_click: 'Contact',
+    email_click: 'Contact',
+    whatsapp_click: 'Contact',
+    directions_click: 'FindLocation',
+    admission_click: 'ViewContent',
+    hero_form_submit: 'Lead',
+    footer_form_submit: 'Lead',
+    popup_form_submit: 'Lead',
+    admission_form_submit: 'Lead',
+    daycare_form_submit: 'Lead',
+    contact_form_submit: 'Lead',
+    special_ed_form_submit: 'Lead',
+    form_submit: 'Lead'
+  }[name];
+  if (!standard) return;
+  var labels = {
+    phone_click: 'Phone',
+    email_click: 'Email',
+    whatsapp_click: 'WhatsApp',
+    directions_click: 'Directions',
+    admission_click: 'Admissions'
+  };
+  var detail = {
+    content_name: params.form_name || labels[name] || 'Website'
+  };
+  if (params.program) detail.content_category = String(params.program).slice(0, 80);
+  else if (params.link_place) detail.content_category = String(params.link_place).slice(0, 40);
+  window.fbq('track', standard, detail);
 }
 
 function cocoLinkPlace(link) {
@@ -765,7 +799,7 @@ function cocoStoreConsent(analytics) {
 function cocoLoadTrackers() {
   var ids = window.cocoTrackers || {};
   if (window.cocoTrackersLoaded) return;
-  if (!ids.analytics && !ids.gtm && !ids.clarity) return;
+  if (!ids.analytics && !ids.gtm && !ids.clarity && !ids.meta) return;
   window.cocoTrackersLoaded = true;
   window.dataLayer = window.dataLayer || [];
   if (ids.analytics) {
@@ -793,6 +827,26 @@ function cocoLoadTrackers() {
       var y = l.getElementsByTagName(r)[0];
       y.parentNode.insertBefore(t, y);
     })(window, document, 'clarity', 'script', ids.clarity);
+  }
+  if (ids.meta) {
+    !function (f, b, e, v, n, t, s) {
+      if (f.fbq) return;
+      n = f.fbq = function () {
+        n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+      };
+      if (!f._fbq) f._fbq = n;
+      n.push = n;
+      n.loaded = !0;
+      n.version = '2.0';
+      n.queue = [];
+      t = b.createElement(e);
+      t.async = !0;
+      t.src = v;
+      s = b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t, s);
+    }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+    window.fbq('init', ids.meta);
+    window.fbq('track', 'PageView');
   }
 }
 

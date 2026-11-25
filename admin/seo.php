@@ -9,7 +9,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_check();
     $data = cms_data();
     $posted = is_array($_POST['seo'] ?? null) ? $_POST['seo'] : [];
+    $previousSeo = is_array($data['site']['seo'] ?? null) ? $data['site']['seo'] : [];
     $data['site']['seo'] = sanitize_site_seo($posted);
+    foreach (array_keys(seo_clean_tracking([])) as $key) {
+        if (isset($previousSeo[$key]) && is_string($previousSeo[$key])) {
+            $data['site']['seo'][$key] = $previousSeo[$key];
+        }
+    }
     $bannerPosted = is_array($_POST['banner'] ?? null) ? $_POST['banner'] : [];
     $data['site']['banner'] = sanitize_banner($bannerPosted);
     $pagePosted = is_array($_POST['pages'] ?? null) ? $_POST['pages'] : [];
@@ -83,33 +89,6 @@ admin_header('SEO', 'seo');
       <label for="default-image">Default share image</label>
       <input id="default-image" name="seo[image]" value="<?= e($seo['image']) ?>">
     </div>
-  </section>
-
-  <section class="editor-block">
-    <h2>Search engines</h2>
-    <div class="field">
-      <label for="google-verification">Google Search Console code</label>
-      <input id="google-verification" name="seo[google_verification]" value="<?= e($seo['google_verification']) ?>" placeholder="verification code only">
-    </div>
-    <div class="field">
-      <label for="bing-verification">Bing Webmaster code</label>
-      <input id="bing-verification" name="seo[bing_verification]" value="<?= e($seo['bing_verification']) ?>">
-    </div>
-    <div class="split">
-      <div class="field">
-        <label for="analytics-id">Google Analytics ID</label>
-        <input id="analytics-id" name="seo[analytics_id]" value="<?= e($seo['analytics_id']) ?>" placeholder="G-XXXXXXXX">
-      </div>
-      <div class="field">
-        <label for="gtm-id">Google Tag Manager ID</label>
-        <input id="gtm-id" name="seo[gtm_id]" value="<?= e($seo['gtm_id']) ?>" placeholder="GTM-XXXXXXX">
-      </div>
-    </div>
-    <div class="field">
-      <label for="clarity-id">Microsoft Clarity ID</label>
-      <input id="clarity-id" name="seo[clarity_id]" value="<?= e($seo['clarity_id']) ?>" placeholder="yy6paa12av" autocapitalize="off" spellcheck="false">
-    </div>
-    <p class="help">Analytics starts with G-. Tag Manager starts with GTM-. Clarity is the project ID from the Clarity snippet.<br>Sitemap: <a href="/sitemap.xml" target="_blank" rel="noopener"><?= e($host) ?>/sitemap.xml</a> · Robots: <a href="/robots.txt" target="_blank" rel="noopener"><?= e($host) ?>/robots.txt</a></p>
   </section>
 
   <section class="editor-block">

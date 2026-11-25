@@ -13,6 +13,7 @@ function admin_header(string $title, string $active): void
         'dashboard' => ['Dashboard', '/admin/dashboard.php'],
         'pages' => ['Pages', '/admin/pages.php'],
         'seo' => ['SEO', '/admin/seo.php'],
+        'tracking' => ['Tracking', '/admin/tracking.php'],
         'media' => ['Images', '/admin/media.php'],
         'gallery' => ['Gallery', '/admin/gallery.php'],
         'enquiries' => ['Enquiries', '/admin/enquiries.php'],
@@ -30,7 +31,7 @@ function admin_header(string $title, string $active): void
   <title><?= e($title) ?> | Cocohouse Admin</title>
   <link rel="icon" href="/assets/images/logo.webp">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/admin/admin.css?v=20261021e">
+  <link rel="stylesheet" href="/admin/admin.css?v=20261125b">
 </head>
 <body>
   <div class="shell">
@@ -90,6 +91,15 @@ function admin_footer(): void
       var open = side.classList.toggle('menu-open');
       button.setAttribute('aria-label', open ? 'Close admin menu' : 'Open admin menu');
       button.textContent = open ? 'Close' : 'Menu';
+    });
+    document.querySelectorAll('.password-show').forEach(function (button) {
+      button.addEventListener('click', function () {
+        var input = document.getElementById(button.getAttribute('aria-controls'));
+        if (!input) return;
+        var show = input.type === 'password';
+        input.type = show ? 'text' : 'password';
+        button.textContent = show ? 'Hide' : 'Show';
+      });
     });
     side.querySelectorAll('nav a').forEach(function (link) {
       link.addEventListener('click', function () {
