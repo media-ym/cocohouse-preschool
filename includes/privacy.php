@@ -137,7 +137,7 @@ function render_legal_page(string $title, string $description, string $path, str
         . legal_nav()
         . '<main class="legal-page"><div class="container">' . $body . '</div></main>'
         . legal_footer()
-        . '<script src="/assets/js/main.js?v=20261021f"></script></body></html>';
+        . '<script src="/assets/js/main.js?v=20261021g"></script></body></html>';
     echo public_finish($html);
 }
 
@@ -176,8 +176,9 @@ HTML;
 function legal_footer(): string
 {
     return '<footer class="footer"><div class="container"><div class="footer-bottom">'
-        . '<p>&copy; 2026 Cocohouse Preschool &amp; Daycare | All Rights Reserved</p>'
-        . '<p>Designed By <a href="https://yunickmedia.com" target="_blank" rel="noopener">Yunick Media</a></p>'
+        . '<p>&copy; 2026 Cocohouse Preschool &amp; Daycare. All rights reserved.</p>'
+        . '<p class="footer-tagline">Nurturing young minds.</p>'
+        . '<p>Designed by <a href="https://yunickmedia.com" target="_blank" rel="noopener">Yunick Media</a></p>'
         . '</div></div></footer>';
 }
 

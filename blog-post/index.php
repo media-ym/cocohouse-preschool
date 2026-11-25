@@ -70,7 +70,7 @@ $views = record_blog_view((string) ($post['slug'] ?? ''));
   ?>
   <link rel="icon" href="/assets/images/logo.webp">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/style.css?v=20261021i">
+  <link rel="stylesheet" href="/assets/css/style.css?v=20261125a">
   <link rel="stylesheet" href="/assets/css/blog.css?v=20261016">
 </head>
 <body>
@@ -197,54 +197,63 @@ $related = array_slice($related, 0, 3);
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
-      <div>
+      <div class="footer-brand">
         <img src="/assets/images/school-emblem.png" alt="Cocohouse Preschool" class="footer-logo">
-        <h3>Cocohouse Preschool & Daycare</h3>
-        <p>Nurturing Little Minds through Thematic Learning, Coding Phonics, CPA Maths & Holistic Development.</p>
-        <p>Preschool and daycare in Hari Om Nagar, Thane East, for families in Mulund, Thane, Thane East and Kopri.</p>
+        <h3>Cocohouse Preschool &amp; Daycare</h3>
+        <p>Nurturing little minds through thematic learning, coding phonics, CPA maths and holistic development.</p>
+      </div>
+      <div>
+        <h4>Visit</h4>
+        <p>Row House No 3, Millenium Park, Hari Om Nagar, Thane East, Mumbai-400081</p>
       </div>
       <div>
         <h4>Quick Links</h4>
         <ul>
           <li><a href="/">Home</a></li>
-          <li><a href="/about">About School</a></li>
+          <li><a href="/about">About Us</a></li>
           <li><a href="/programs">Programs</a></li>
           <li><a href="/daycare">Daycare</a></li>
+          <li><a href="/inclusive-special-education">Inclusive</a></li>
           <li><a href="/gallery">Gallery</a></li>
           <li><a href="/blog">Blogs</a></li>
           <li><a href="/contact">Contact</a></li>
-          <li><a href="/adminssion-open-2026">Admissions Open</a></li>
+          <li><a href="/adminssion-open-2026">Admissions</a></li>
         </ul>
       </div>
-      <div>
-        <h4>Our Programs</h4>
+      <div class="footer-policies">
+        <h4>Policies</h4>
         <ul>
-          <li><a href="/programs">Playgroup</a></li>
-          <li><a href="/programs">Nursery</a></li>
-          <li><a href="/programs">Junior KG</a></li>
-          <li><a href="/programs">Senior KG</a></li>
-          <li><a href="/daycare">Daycare</a></li>
-          <li><a href="/inclusive-special-education">Inclusive Special Education</a></li>
+          <li><a href="/privacy-notice">Privacy notice</a></li>
+          <li><a href="/privacy-policy">Privacy policy</a></li>
+          <li><a href="/terms-and-conditions">Terms &amp; Conditions</a></li>
+          <li><a href="/data-rights">Your data rights</a></li>
         </ul>
       </div>
       <div>
-        <h4>Contact Us</h4>
-        <p>Row House No 3, Millenium Park, Hari Om Nagar, Thane East, Mumbai-400081</p>
+        <h4>Reach Us</h4>
         <p><a href="tel:+917039152173">+91-7039152173</a></p>
         <p><a href="mailto:info@cocohouse.in">info@cocohouse.in</a></p>
+        <p class="footer-grievance"><strong>Grievance contact</strong><br>Mrs. Pratheeksha Darak<br><a href="tel:+917039152173">+91-7039152173</a></p>
+        <p class="footer-follow">Follow us on</p>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/cocohousepreschool" target="_blank" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="https://www.instagram.com/cocohouse_preschool" target="_blank" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="https://www.youtube.com/@CocohousePreschoolHariOmNagar" target="_blank" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+        </div>
         <a class="footer-admin" href="/login">Admin Login</a>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2026 Cocohouse Preschool & Daycare | All Rights Reserved</p>
-      <p>Designed By <a href="https://yunickmedia.com" target="_blank" rel="noopener">Yunick Media</a></p>
+      <p>&copy; 2026 Cocohouse Preschool &amp; Daycare. All rights reserved.</p>
+      <p class="footer-tagline">Nurturing young minds.</p>
+      <p>Designed by <a href="https://yunickmedia.com" target="_blank" rel="noopener">Yunick Media</a></p>
     </div>
   </div>
 </footer>
 <a href="https://wa.me/917039152173" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
   <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.003 3.2c-7.06 0-12.8 5.74-12.8 12.8 0 2.26.6 4.46 1.73 6.4l-1.83 6.67 6.83-1.79a12.74 12.74 0 0 0 6.07 1.55c7.06 0 12.8-5.74 12.8-12.8s-5.74-12.83-12.8-12.83zm0 23.04c-1.93 0-3.82-.52-5.47-1.5l-.39-.23-4.05 1.06 1.08-3.95-.25-.4a10.55 10.55 0 0 1-1.62-5.62c0-5.86 4.77-10.63 10.63-10.63s10.63 4.77 10.63 10.63-4.77 10.64-10.63 10.64z"/></svg>
 </a>
-<script src="/assets/js/main.js?v=20261021f"></script>
+<script src="/assets/js/main.js?v=20261125a"></script>
 </body>
 </html>
 <?php

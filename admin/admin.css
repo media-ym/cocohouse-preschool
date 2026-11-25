@@ -206,7 +206,7 @@ h1 { margin: 0 0 6px; color: var(--blue); font-size: 1.7rem; }
 }
 .enquiry header { display: flex; justify-content: space-between; gap: 8px; align-items: flex-start; margin-bottom: 10px; }
 .enquiry header time { color: var(--muted); font-size: .75rem; white-space: nowrap; }
-.enquiry .meta { grid-template-columns: 68px minmax(0, 1fr); gap: 4px 8px; font-size: .82rem; }
+.enquiry .meta { grid-template-columns: 84px minmax(0, 1fr); gap: 4px 8px; font-size: .82rem; }
 .enquiry .actions {
   display: grid;
   grid-template-columns: 1fr 1fr;

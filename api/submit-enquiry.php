@@ -77,7 +77,7 @@ $item = [
 $ads = [];
 foreach (['gclid', 'gbraid', 'wbraid', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'landing'] as $key) {
     $value = trim(str_replace(["\r", "\n"], ' ', (string) ($payload[$key] ?? '')));
-    $value = preg_replace('/[^A-Za-z0-9._:\/ -]/', '', $value) ?? '';
+    $value = preg_replace('/[^\p{L}\p{N}._:\/ +\-]/u', '', $value) ?? '';
     if ($value !== '') {
         $ads[$key] = mb_substr($value, 0, 180);
     }

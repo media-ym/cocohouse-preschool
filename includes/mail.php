@@ -94,6 +94,8 @@ function enquiry_message(array $item): array
     $source = enquiry_ad($item, 'utm_source');
     $medium = enquiry_ad($item, 'utm_medium');
     $campaign = enquiry_ad($item, 'utm_campaign');
+    $term = enquiry_ad($item, 'utm_term');
+    $content = enquiry_ad($item, 'utm_content');
     $gclid = enquiry_ad($item, 'gclid');
     $who = $parent !== '—' ? $parent : ($child !== '—' ? $child : '—');
     $subjectProgram = $program;
@@ -119,6 +121,8 @@ function enquiry_message(array $item): array
         'Source: ' . $source,
         'Medium: ' . $medium,
         'Campaign: ' . $campaign,
+        'Keyword: ' . $term,
+        'Sitelink: ' . $content,
         'Google click: ' . $gclid,
         'Received: ' . $received,
         '',
@@ -144,6 +148,8 @@ function enquiry_message(array $item): array
         . ($source === '—' ? '' : enquiry_mail_row('Source', enquiry_mail_text($source)))
         . ($medium === '—' ? '' : enquiry_mail_row('Medium', enquiry_mail_text($medium)))
         . ($campaign === '—' ? '' : enquiry_mail_row('Campaign', enquiry_mail_text($campaign)))
+        . ($term === '—' ? '' : enquiry_mail_row('Keyword', enquiry_mail_text($term)))
+        . ($content === '—' ? '' : enquiry_mail_row('Sitelink', enquiry_mail_text($content)))
         . ($gclid === '—' ? '' : enquiry_mail_row('Google click', enquiry_mail_text($gclid)));
 
     $html = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>'

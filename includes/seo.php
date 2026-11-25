@@ -79,9 +79,9 @@ function seo_page_defaults(string $pageId): array
             'keywords' => 'best preschool in thane east, best preschool in kopri, playgroup Mulund, nursery Thane East, junior KG, senior KG',
         ],
         'daycare' => [
-            'title' => 'Best Daycare in Mulund & Thane | Cocohouse',
-            'description' => 'Best daycare in Mulund, Thane, Thane East, Kopri and Hari Om Nagar. Open till 8 PM for children up to 10, with meals, rest and homework help. Call 7039152173.',
-            'keywords' => 'best daycare in mulund, best daycare in thane, best daycare in thane east, best daycare in kopri, best daycare in hari om nagar, best daycare near me, daycare Thane East',
+            'title' => 'My 2nd Home | Daycare by Cocohouse Preschool, Thane',
+            'description' => 'My 2nd Home is Cocohouse daycare in Hari Om Nagar, Thane East. Open 8 AM to 8 PM for families in Mulund, Thane, Kopri and Hari Om Nagar. Call 7039152173.',
+            'keywords' => 'My 2nd Home, My 2nd Home daycare, best daycare in mulund, best daycare in thane, best daycare in thane east, best daycare in kopri, best daycare in hari om nagar, best daycare near me, daycare Thane East',
         ],
         'gallery' => [
             'title' => 'Preschool & Daycare Photos, Thane East | Cocohouse',

@@ -44,7 +44,7 @@
 (function () {
   document.querySelectorAll('.footer h4').forEach(function (heading) {
     var label = heading.textContent.trim();
-    if (label !== 'Quick Links' && label !== 'Our Programs' && label !== 'Policies') return;
+    if (label !== 'Visit' && label !== 'Quick Links' && label !== 'Policies' && label !== 'Reach Us') return;
     var box = heading.parentElement;
     box.classList.add('footer-fold');
     heading.setAttribute('role', 'button');
@@ -187,12 +187,12 @@ function setupForm(formId, apiEndpoint, options) {
     });
     // Add type if specified
     if (options.type) data.type = options.type;
-    var adParams = new URLSearchParams(window.location.search);
-    ['gclid', 'gbraid', 'wbraid', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach(function (key) {
-      var value = adParams.get(key);
-      if (value) data[key] = value.slice(0, 180);
+    var ads = cocoStoreAds();
+    ['gclid', 'gbraid', 'wbraid', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'landing'].forEach(function (key) {
+      var value = ads[key];
+      if (typeof value === 'string' && value) data[key] = value.slice(0, 180);
     });
-    data.landing = window.location.pathname;
+    if (!data.landing) data.landing = window.location.pathname;
 
     var typeLabels = {
       home_hero: 'Home Hero Section Form',
@@ -426,6 +426,29 @@ var COCO_WA_ICON = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="tr
 function cocoIncoming() {
   return new URLSearchParams(window.location.search);
 }
+
+function cocoStoreAds() {
+  var keys = ['gclid', 'gbraid', 'wbraid', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+  var stored = {};
+  try {
+    var parsed = JSON.parse(sessionStorage.getItem('coco_ads') || '{}');
+    if (parsed && typeof parsed === 'object') stored = parsed;
+  } catch (e) {}
+  var current = cocoIncoming();
+  var found = false;
+  keys.forEach(function (key) {
+    var value = current.get(key);
+    if (!value) return;
+    stored[key] = value.slice(0, 180);
+    found = true;
+  });
+  if (found) {
+    stored.landing = window.location.pathname.slice(0, 180);
+    try { sessionStorage.setItem('coco_ads', JSON.stringify(stored)); } catch (e) {}
+  }
+  return stored;
+}
+cocoStoreAds();
 
 function cocoUtm(content) {
   var incoming = cocoIncoming();

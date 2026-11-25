@@ -250,11 +250,11 @@
                 },
                 {
                     "emoji": "🧸",
-                    "name": "Daycare",
+                    "name": "My 2nd Home",
                     "age": "1.5 – 10 Years",
                     "duration": "Flexible (1 hr – 1 year)",
                     "color": "#ff6600",
-                    "description": "A loving second home for your little one – combining structured learning, nourishing meals, comfortable rest and endless fun. With packages from just 1 hour up to a full year, Cocohouse Daycare offers unmatched flexibility for modern working parents.",
+                    "description": "My 2nd Home is Cocohouse daycare for little ones. A safe, loving place with meals, rest and play, open 8 AM to 8 PM. Packages run from 1 hour to a full year.",
                     "outcomes": [
                         "Safe & secure environment with 24/7 CCTV surveillance",
                         "Homework assistance for school-going children",
@@ -292,7 +292,7 @@
                             "label": "Wind Down & Pickup"
                         }
                     ],
-                    "button": "View Daycare Page →",
+                    "button": "See My 2nd Home →",
                     "link": "/daycare"
                 },
                 {
@@ -334,9 +334,9 @@
             "slug": "our-programs"
         },
         "daycare": {
-            "hero_title": "DAYCARE",
-            "tagline": "\"A Home Away From Home\"",
-            "hero_text": "Cocohouse Daycare in Hari Om Nagar, Thane East – warmth of a home and the structure of a Gurukulam. Parents searching for the best daycare in Mulund, the best daycare in Thane, the best daycare in Kopri or the best daycare in Hari Om Nagar use this campus till 8 PM. Flexible packages from 1 hour to 1 year.",
+            "hero_title": "My 2nd Home",
+            "tagline": "A Daycare for Little Ones",
+            "hero_text": "My 2nd Home by Cocohouse is in Hari Om Nagar, Thane East, open from 8 AM to 8 PM. Little ones feel safe, loved, cared for and happy, just like home. Families looking for daycare in Mulund, Thane, Kopri and Hari Om Nagar can choose a package from 1 hour to 1 year.",
             "packages_title": "Flexible Packages for Every Family",
             "packages_text": "Seven flexible packages – from 1 hour to 1 year. No minimum commitment, no hidden charges. Contact us for pricing.",
             "slug": "cocohouse-daycare"

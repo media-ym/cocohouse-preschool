@@ -133,9 +133,24 @@ admin_header('Enquiries', 'enquiries');
       <?php if (!empty($item['message'])): ?>
         <dt>Message</dt><dd><?= e($item['message']) ?></dd>
       <?php endif; ?>
-      <?php if (!empty($item['ads']) && is_array($item['ads'])): ?>
-        <dt>Ad</dt><dd><?= e(trim(($item['ads']['utm_source'] ?? '') . ' ' . ($item['ads']['utm_campaign'] ?? '')) ?: ($item['ads']['landing'] ?? 'Landing page')) ?></dd>
-      <?php endif; ?>
+      <?php
+        $adLabels = [
+            'utm_source' => 'Source',
+            'utm_medium' => 'Medium',
+            'utm_campaign' => 'Campaign',
+            'utm_term' => 'Keyword',
+            'utm_content' => 'Sitelink',
+            'landing' => 'Page',
+            'gclid' => 'Google click',
+        ];
+        $ads = is_array($item['ads'] ?? null) ? $item['ads'] : [];
+        foreach ($adLabels as $adKey => $adLabel):
+            if (empty($ads[$adKey])) {
+                continue;
+            }
+      ?>
+        <dt><?= e($adLabel) ?></dt><dd><?= e($ads[$adKey]) ?></dd>
+      <?php endforeach; ?>
     </dl>
     <?php if (!empty($item['mail_error'])): ?><p class="help"><?= e((string) $item['mail_error']) ?></p><?php endif; ?>
     <div class="actions">

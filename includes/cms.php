@@ -78,8 +78,7 @@ function page_fields(string $id): array
             'heading' => $text + ['label' => 'Section heading'],
         ],
         'daycare' => [
-            'hero_title' => $text + ['label' => 'Main title'],
-            'tagline' => $text + ['label' => 'Tagline'],
+            'tagline' => $text + ['label' => 'Tagline under the name'],
             'hero_text' => $area + ['label' => 'Intro'],
             'packages_title' => $text + ['label' => 'Packages heading'],
             'packages_text' => $area + ['label' => 'Packages intro'],
